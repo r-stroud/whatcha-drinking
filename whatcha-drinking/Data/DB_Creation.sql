@@ -23,9 +23,8 @@ DROP TABLE IF EXISTS [alcoholType]
 
 
 CREATE TABLE [user] (
-  [id] int PRIMARY KEY IDENTITY NOT NULL,
-  [password] nvarchar(255) NOT NULL,
-  [username] nvarchar(255) NOT NULL,
+  [firebaseId] int PRIMARY KEY NOT NULL,
+  [username] nvarchar(255),
   [firstName] nvarchar(255),
   [lastName] nvarchar(255),
   [address] nvarchar(255),
@@ -167,11 +166,11 @@ GO
 ALTER TABLE [review] ADD FOREIGN KEY ([alcoholId]) REFERENCES [alcohol] ([id])
 GO
 
-SET IDENTITY_INSERT [user] ON
-INSERT INTO [user]
-([id], [password],[username],[firstName],[LastName],[address],[profilePic])
-VALUES
-(1,'123456','rstroud','Robert','Stroud','123 Example Street, TN 37075', ''),
-(2,'123456','cstroud','Chie','Stroud','123 Example Street, TN 37075', '')
-SET IDENTITY_INSERT [user] OFF
+--SET IDENTITY_INSERT [user] ON
+--INSERT INTO [user]
+--([id], [password],[username],[firstName],[LastName],[address],[profilePic])
+--VALUES
+--(1,'123456','rstroud','Robert','Stroud','123 Example Street, TN 37075', ''),
+--(2,'123456','cstroud','Chie','Stroud','123 Example Street, TN 37075', '')
+--SET IDENTITY_INSERT [user] OFF
 
