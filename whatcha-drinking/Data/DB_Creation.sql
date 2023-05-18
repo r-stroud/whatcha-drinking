@@ -23,9 +23,9 @@ DROP TABLE IF EXISTS [alcoholType]
 
 
 CREATE TABLE [user] (
-  [id] int PRIMARY KEY,
-  [password] nvarchar(255),
-  [username] nvarchar(255),
+  [id] int PRIMARY KEY IDENTITY NOT NULL,
+  [password] nvarchar(255) NOT NULL,
+  [username] nvarchar(255) NOT NULL,
   [firstName] nvarchar(255),
   [lastName] nvarchar(255),
   [address] nvarchar(255),
@@ -34,82 +34,82 @@ CREATE TABLE [user] (
 GO
 
 CREATE TABLE [friendJoin] (
-  [id] int PRIMARY KEY,
-  [userId] int,
-  [friendId] int,
+  [id] int PRIMARY KEY IDENTITY NOT NULL,
+  [userId] int NOT NULL,
+  [friendId] int NOT NULL,
   [isApproved] bit
 )
 GO
 
 CREATE TABLE [alcohol] (
-  [id] int PRIMARY KEY,
-  [name] nvarchar(255),
-  [alcoholTypeId] int,
+  [id] int PRIMARY KEY IDENTITY NOT NULL,
+  [name] nvarchar(255) NOT NULL,
+  [alcoholTypeId] int NOT NULL,
   [picture] nvarchar (255)
 )
 GO
 
 CREATE TABLE [alcoholType] (
-  [id] int PRIMARY KEY,
-  [type] nvarchar(255),
+  [id] int PRIMARY KEY IDENTITY NOT NULL,
+  [type] nvarchar(255) NOT NULL,
   [picture] nvarchar(255)
 )
 GO
 
 CREATE TABLE [preferredDrink] (
-  [id] int,
-  [userId] int,
-  [alcoholTypeId] int
+  [id] int IDENTITY NOT NULL,
+  [userId] int NOT NULL,
+  [alcoholTypeId] int NOT NULL
 )
 GO
 
 CREATE TABLE [userDrinks] (
-  [id] int,
-  [userId] int,
-  [alcoholId] int,
-  [dateTime] dateTime
+  [id] int IDENTITY NOT NULL,
+  [userId] int NOT NULL,
+  [alcoholId] int NOT NULL,
+  [dateTime] dateTime NOT NULL
 )
 GO
 
 CREATE TABLE [drinkQueue] (
-  [id] int,
-  [userId] int,
-  [alcoholId] int,
+  [id] int IDENTITY NOT NULL,
+  [userId] int NOT NULL,
+  [alcoholId] int NOT NULL,
   [displayWeight] double precision
   )
 GO
 
 CREATE TABLE [recommendedDrink] (
-  [id] int,
-  [userId] int,
-  [friendId] int,
-  [alcoholId] int
+  [id] int IDENTITY NOT NULL,
+  [userId] int NOT NULL,
+  [friendId] int NOT NULL,
+  [alcoholId] int NOT NULL
 )
 GO
 
 CREATE TABLE [post] (
-  [id] int,
-  [userId] int,
-  [alcoholId] int,
-  [dateTime] dateTime,
+  [id] int IDENTITY NOT NULL,
+  [userId] int NOT NULL,
+  [alcoholId] int NOT NULL,
+  [dateTime] dateTime NOT NULL,
   [picture] nvarchar(255),
-  [message] nvarchar(255)
+  [message] nvarchar(255) NOT NULL
 )
 GO
 
 CREATE TABLE [message] (
-  [id] int,
-  [userId] int,
-  [friendId] int,
-  [message] nvarchar(255)
+  [id] int IDENTITY NOT NULL,
+  [userId] int NOT NULL,
+  [friendId] int NOT NULL,
+  [message] nvarchar(255) NOT NULL
 )
 GO
 
 CREATE TABLE [review] (
-  [id] int,
-  [userId] int,
-  [alcoholId] int,
-  [score] int
+  [id] int IDENTITY NOT NULL,
+  [userId] int NOT NULL,
+  [alcoholId] int NOT NULL,
+  [score] int NOT NULL
 )
 GO
 
@@ -166,4 +166,12 @@ GO
 
 ALTER TABLE [review] ADD FOREIGN KEY ([alcoholId]) REFERENCES [alcohol] ([id])
 GO
+
+SET IDENTITY_INSERT [user] ON
+INSERT INTO [user]
+([id], [password],[username],[firstName],[LastName],[address],[profilePic])
+VALUES
+(1,'123456','rstroud','Robert','Stroud','123 Example Street, TN 37075', ''),
+(2,'123456','cstroud','Chie','Stroud','123 Example Street, TN 37075', '')
+SET IDENTITY_INSERT [user] OFF
 
