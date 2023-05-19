@@ -1,3 +1,5 @@
+using whatcha_drinking.Repositories;
+
 namespace whatcha_drinking
 {
     public class Program
@@ -12,6 +14,7 @@ namespace whatcha_drinking
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddTransient<IUserRepository, UserRepository>();
 
             var app = builder.Build();
 
@@ -20,6 +23,13 @@ namespace whatcha_drinking
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+
+                app.UseCors(options =>
+                {
+                    options.AllowAnyOrigin();
+                    options.AllowAnyMethod();
+                    options.AllowAnyHeader();
+                });
             }
 
             app.UseHttpsRedirection();
