@@ -8,6 +8,8 @@ import {
 // SignIn brings up the google sign in pop up AND works
 // for both signing in AND registering a user
 
+const url = "https://localhost:7189/api/User/new-user?firebaseId=";
+
 export const googleAuth = {
     // Works to sign in AND register a user
     signInRegister: function (navigate) {
@@ -23,9 +25,18 @@ export const googleAuth = {
                         type: "google",
                     };
                     // Add user object to localStorage
-                    localStorage.setItem("capstone_user", JSON.stringify(userAuth));
+                    localStorage.setItem("wd_user", JSON.stringify(userAuth));
+
+                    (fetch(`${url}${userCredential.user.uid}`, {
+                        method: "POST",
+                        body: JSON.stringify(userCredential.user.uid),
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    }))
                     // Navigate us back home
                     navigate("/");
+
                     console.log("you did it");
                 })
                 .catch((error) => {
@@ -42,7 +53,7 @@ export const googleAuth = {
         signOut(auth)
             .then(() => {
                 // Remove user from localStorage
-                localStorage.removeItem("capstone_user");
+                localStorage.removeItem("wd_user");
                 // Navigate us back home
                 navigate("/");
                 console.log("Sign Out Success!");

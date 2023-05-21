@@ -13,6 +13,8 @@ import {
 //   fullName: "",
 // }
 
+const url = "https://localhost:7189/api/User/new-user?firebaseId=";
+
 export const emailAuth = {
     // Register New User
     register: function (userObj, navigate) {
@@ -31,7 +33,10 @@ export const emailAuth = {
                             type: "email",
                         };
                         // Saves the user to localstorage
-                        localStorage.setItem("capstone_user", JSON.stringify(userAuth));
+                        localStorage.setItem("wd_user", JSON.stringify(userAuth));
+
+
+
                         // Navigate us back to home
                         navigate("/");
                     },
@@ -40,7 +45,19 @@ export const emailAuth = {
                         console.log("error code", error.code);
                         console.log("error message", error.message);
                     }
-                );
+                )
+                    .then(fetch(`${url}`, {
+                        method: "POST",
+                        body: JSON.stringify({
+                            firebaseId: userCredential.user.uid,
+                            firstName: userObj.firstName,
+                            lastName: userObj.lastName,
+                            username: userObj.username
+                        }),
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    }));
             })
             .catch((error) => {
                 console.log("Email Register Error");
@@ -61,7 +78,7 @@ export const emailAuth = {
                         type: "email",
                     };
                     // Saves the user to localstorage
-                    localStorage.setItem("capstone_user", JSON.stringify(userAuth));
+                    localStorage.setItem("wd_user", JSON.stringify(userAuth));
                     // Navigate us back to home
                     navigate("/");
                 })
@@ -78,7 +95,7 @@ export const emailAuth = {
         signOut(auth)
             .then(() => {
                 // Remove the user from localstorage
-                localStorage.removeItem("capstone_user");
+                localStorage.removeItem("wd_user");
                 // Navigate us back to home
                 navigate("/");
                 console.log("Sign Out Success!");

@@ -23,7 +23,8 @@ DROP TABLE IF EXISTS [alcoholType]
 
 
 CREATE TABLE [user] (
-  [firebaseId] int PRIMARY KEY NOT NULL,
+  [id] int PRIMARY KEY IDENTITY NOT NULL,
+  [firebaseId] nvarchar(255) NOT NULL,
   [username] nvarchar(255),
   [firstName] nvarchar(255),
   [lastName] nvarchar(255),

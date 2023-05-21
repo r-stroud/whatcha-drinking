@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { googleAuth } from "../utils/googleAuth";
 import { emailAuth } from "../utils/emailAuth";
@@ -7,9 +7,23 @@ import "./Login.css";
 export const Register = () => {
     const [user, setUser] = useState({
         email: "",
+        firstName: "",
+        lastName: "",
+        username: "",
         fullName: "",
         password: "",
     });
+
+    useEffect(
+        () => {
+            const copy = { ...user };
+            copy.fullName = `${copy.firstName} ${copy.lastName}`
+            setUser(copy)
+        }, [user.firstName, user.lastName]
+    )
+
+    const [registerButtonDisplay, setRegisterButtonDisplay] = useState(true)
+
     let navigate = useNavigate();
 
     // Register with email and password
@@ -31,21 +45,61 @@ export const Register = () => {
 
     return (
         <main style={{ textAlign: "center" }}>
+
             <form className="form--login" onSubmit={handleRegister}>
                 <h1 className="h3 mb-3 font-weight-normal">Please Register</h1>
+                <section
+                    className="flex">
+                    <div
+                        onClick={
+                            () => {
+                                setRegisterButtonDisplay(true)
+                            }
+                        }>Register with Email</div>
+                    <div
+                        onClick={
+                            () => {
+                                setRegisterButtonDisplay(false)
+                            }
+                        }>Register with Gmail</div>
+                </section>
                 <fieldset>
-                    <label htmlFor="fullName"> Full Name </label>
+                    <label htmlFor="firstName"> First Name </label>
                     <input
                         onChange={updateUser}
                         type="text"
-                        id="fullName"
+                        id="firstName"
                         className="form-control"
-                        placeholder="Enter your name"
+                        placeholder="Enter your first name"
                         required
                         autoFocus
                     />
                 </fieldset>
                 <fieldset>
+                    <label htmlFor="lastName"> Last Name </label>
+                    <input
+                        onChange={updateUser}
+                        type="text"
+                        id="lastName"
+                        className="form-control"
+                        placeholder="Enter your last name"
+                        required
+                        autoFocus
+                    />
+                </fieldset>
+                <fieldset>
+                    <label htmlFor="username"> Username </label>
+                    <input
+                        onChange={updateUser}
+                        type="text"
+                        id="username"
+                        className="form-control"
+                        placeholder="Enter your username"
+                        required
+                        autoFocus
+                    />
+                </fieldset>
+                {registerButtonDisplay ? <fieldset>
                     <label htmlFor="email"> Email address </label>
                     <input
                         onChange={updateUser}
@@ -55,8 +109,8 @@ export const Register = () => {
                         placeholder="Email address"
                         required
                     />
-                </fieldset>
-                <fieldset>
+                </fieldset> : <></>}
+                {registerButtonDisplay ? <fieldset>
                     <label htmlFor="password"> Password </label>
                     <input
                         onChange={updateUser}
@@ -67,15 +121,16 @@ export const Register = () => {
                         required
                         autoFocus
                     />
-                </fieldset>
+                </fieldset> : <></>}
                 <fieldset>
-                    <button type="submit"> Register </button>
+                    {registerButtonDisplay ? <button type="submit"> Register </button> :
+                        <div onClick={onSubmitLogin}> Register </div>}
                 </fieldset>
             </form>
-            <h2>Register With Google?</h2>
+            {/* <h2>Register With Google?</h2>
             <button type="submit" onClick={onSubmitLogin}>
                 Let's Do It!
-            </button>
+            </button> */}
         </main>
     );
 };

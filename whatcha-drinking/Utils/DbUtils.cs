@@ -24,8 +24,13 @@ namespace whatcha_drinking.Utils
             }
             return reader.GetDateTime(ordinal);
         }
+        public static int GetInt(SqlDataReader reader, string column)
+        {
+            var ordinal = reader.GetOrdinal(column);
+            return reader.GetInt32(ordinal);
+        }
 
-        public static int? GetInt(SqlDataReader reader, string column)
+        public static int? GetNullableInt(SqlDataReader reader, string column)
         {
             var ordinal = reader.GetOrdinal(column);
             if (reader.IsDBNull(ordinal))
