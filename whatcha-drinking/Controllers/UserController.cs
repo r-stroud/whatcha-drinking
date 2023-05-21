@@ -15,6 +15,17 @@ namespace whatcha_drinking.Controllers
             _userRepository = userRepository;
         }
 
+        [HttpGet("GetByUsername")]
+        public IActionResult GetByUsername(string username)
+        {
+            if(username == null)
+            {
+                return BadRequest();
+            }
+            return Ok(_userRepository.GetByUsername(username));
+        }
+
+
         [HttpGet("GetByFirebaseId")]
         public IActionResult GetByFirebaseId(string firebaseId)
         {

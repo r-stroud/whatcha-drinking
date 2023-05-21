@@ -66,5 +66,32 @@ namespace whatcha_drinking.Repositories
                 }
             }
         }
+
+        public UserUsername GetByUsername(string username)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd =conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                        SELECT [username]
+                                        FROM [WhatchaDrinking].[dbo].[user]
+                                        WHERE [username] = @username";
+                    DbUtils.AddParameter(cmd, "@username", username);
+                    var reader = cmd.ExecuteReader();
+                    UserUsername user = null;
+                    if(reader.Read())
+                    {
+                        user = new UserUsername()
+                        {
+                            Username = DbUtils.GetString(reader, "username")
+                        };
+                    }
+                    reader.Close();
+                    return user;
+                }
+            }
+        }
     }
 }
