@@ -12,39 +12,51 @@ const url = "https://localhost:7189/api/User/new-user?firebaseId=";
 
 export const googleAuth = {
     // Works to sign in AND register a user
-    signInRegister: function (navigate) {
+    signInRegister: function (navigate, userObj = null) {
+        // userObj === null ? navigate("/register") : <>
+        // </>
         return new Promise((res) => {
             const provider = new GoogleAuthProvider();
             const auth = getAuth();
-            signInWithPopup(auth, provider)
-                .then((userCredential) => {
-                    const userAuth = {
-                        email: userCredential.user.email,
-                        displayName: userCredential.user.displayName,
-                        uid: userCredential.user.uid,
-                        type: "google",
-                    };
-                    // Add user object to localStorage
-                    localStorage.setItem("wd_user", JSON.stringify(userAuth));
 
-                    (fetch(`${url}${userCredential.user.uid}`, {
-                        method: "POST",
-                        body: JSON.stringify(userCredential.user.uid),
-                        headers: {
-                            "Content-Type": "application/json"
-                        }
-                    }))
-                    // Navigate us back home
-                    navigate("/");
+            if (userObj == null) {
+                navigate("/register")
+            } else {
+                signInWithPopup(auth, provider)
+                    .then((userCredential) => {
+                        const userAuth = {
+                            email: userCredential.user.email,
+                            displayName: userCredential.user.displayName,
+                            uid: userCredential.user.uid,
+                            type: "google",
+                        };
+                        // Add user object to localStorage
+                        localStorage.setItem("wd_user", JSON.stringify(userAuth));
 
-                    console.log("you did it");
-                })
-                .catch((error) => {
-                    console.log("Google Sign In Error");
-                    console.log("error code", error.code);
-                    console.log("error message", error.message);
-                    console.log("error email", error.email);
-                });
+                        (fetch(`${url}`, {
+                            method: "POST",
+                            body: JSON.stringify({
+                                firebaseId: userCredential.user.uid,
+                                firstName: userObj.firstName,
+                                lastName: userObj.lastName,
+                                username: userObj.username
+                            }),
+                            headers: {
+                                "Content-Type": "application/json"
+                            }
+                        }))
+                        // Navigate us back home
+                        navigate("/");
+
+                        console.log("you did it");
+                    })
+                    .catch((error) => {
+                        console.log("Google Sign In Error");
+                        console.log("error code", error.code);
+                        console.log("error message", error.message);
+                        console.log("error email", error.email);
+                    });
+            }
         });
     },
     // Sign out a user

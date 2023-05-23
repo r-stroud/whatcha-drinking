@@ -21,7 +21,11 @@ namespace whatcha_drinking.Controllers
             if(username == null)
             {
                 return BadRequest();
+            }else if (_userRepository.GetByUsername(username) == null)
+            {
+                return Ok("{}");
             }
+ 
             return Ok(_userRepository.GetByUsername(username));
         }
 

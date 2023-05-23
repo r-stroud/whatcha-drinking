@@ -22,6 +22,25 @@ export const Register = () => {
         }, [user.firstName, user.lastName]
     )
 
+    const url = 'https://localhost:7189/api/User/GetByUsername?username=';
+
+    const checkUsername = (evt) => {
+        const fetchUsername = async () => {
+            const fetchData = await fetch(`${url}${evt.target.value}`)
+            const fetchJson = await fetchData.json()
+            setUsernameAVailability(fetchJson)
+        }
+        fetchUsername()
+    }
+
+    const checkUsernameAndHandleRegister = (evt) => {
+        updateUser(evt)
+        checkUsername(evt)
+    }
+
+    const [submitable, setSubmitable] = useState(true)
+    const [usernameAvailability, setUsernameAVailability] = useState({ username: "." })
+
     const [registerButtonDisplay, setRegisterButtonDisplay] = useState(true)
 
     let navigate = useNavigate();
@@ -40,7 +59,7 @@ export const Register = () => {
 
     // Register with google (same as sign in)
     const onSubmitLogin = async () => {
-        googleAuth.signInRegister(navigate);
+        googleAuth.signInRegister(navigate, user);
     };
 
     return (
@@ -90,14 +109,16 @@ export const Register = () => {
                 <fieldset>
                     <label htmlFor="username"> Username </label>
                     <input
-                        onChange={updateUser}
+                        onChange={checkUsernameAndHandleRegister}
                         type="text"
                         id="username"
                         className="form-control"
                         placeholder="Enter your username"
+                        minLength={5}
                         required
                         autoFocus
                     />
+                    <div>{usernameAvailability.username === user.username ? `This username is not available` : <></>}</div>
                 </fieldset>
                 {registerButtonDisplay ? <fieldset>
                     <label htmlFor="email"> Email address </label>
@@ -110,6 +131,9 @@ export const Register = () => {
                         required
                     />
                 </fieldset> : <></>}
+
+                {/* REGISTER BUTTON */}
+
                 {registerButtonDisplay ? <fieldset>
                     <label htmlFor="password"> Password </label>
                     <input
@@ -123,8 +147,22 @@ export const Register = () => {
                     />
                 </fieldset> : <></>}
                 <fieldset>
-                    {registerButtonDisplay ? <button type="submit"> Register </button> :
-                        <div onClick={onSubmitLogin}> Register </div>}
+
+                    {/* ABLE TO REGISTER USING GOOGLE OR EMAIL  */}
+
+                    {registerButtonDisplay
+                        ? <button type={usernameAvailability.username === user.username
+                            ? "button"
+                            : "submit"}> Register</button>
+                        : <div onClick={
+                            user.firstName === "" ||
+                                user.lastName === "" ||
+                                user.username === "" ||
+                                user.username.length < 5 ||
+                                usernameAvailability.username === user.username
+                                ? () => { }
+                                : onSubmitLogin}>
+                            Register </div>}
                 </fieldset>
             </form>
             {/* <h2>Register With Google?</h2>
