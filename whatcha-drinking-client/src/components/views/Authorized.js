@@ -7,7 +7,7 @@ export const Authorized = ({ children }) => {
         return children;
     } else {
         return (
-            <Navigate to={`/login/${location.search}`} replace state={{ location }} />
+            <Navigate to={`/welcome/${location.search}`} replace state={{ location }} />
         );
     }
 };

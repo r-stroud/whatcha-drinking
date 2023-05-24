@@ -120,32 +120,36 @@ export const Register = () => {
                     />
                     <div>{usernameAvailability.username === user.username ? `This username is not available` : <></>}</div>
                 </fieldset>
-                {registerButtonDisplay ? <fieldset>
-                    <label htmlFor="email"> Email address </label>
-                    <input
-                        onChange={updateUser}
-                        type="email"
-                        id="email"
-                        className="form-control"
-                        placeholder="Email address"
-                        required
-                    />
-                </fieldset> : <></>}
+                {registerButtonDisplay
+                    ? <fieldset>
+                        <label htmlFor="email"> Email address </label>
+                        <input
+                            onChange={updateUser}
+                            type="email"
+                            id="email"
+                            className="form-control"
+                            placeholder="Email address"
+                            required
+                        />
+                    </fieldset>
+                    : <></>}
 
                 {/* REGISTER BUTTON */}
 
-                {registerButtonDisplay ? <fieldset>
-                    <label htmlFor="password"> Password </label>
-                    <input
-                        onChange={updateUser}
-                        type="text"
-                        id="password"
-                        className="form-control"
-                        placeholder="Must Be 6 Characters"
-                        required
-                        autoFocus
-                    />
-                </fieldset> : <></>}
+                {registerButtonDisplay
+                    ? <fieldset>
+                        <label htmlFor="password"> Password </label>
+                        <input
+                            onChange={updateUser}
+                            type="text"
+                            id="password"
+                            className="form-control"
+                            placeholder="Must Be 6 Characters"
+                            required
+                            autoFocus
+                        />
+                    </fieldset>
+                    : <></>}
                 <fieldset>
 
                     {/* ABLE TO REGISTER USING GOOGLE OR EMAIL  */}

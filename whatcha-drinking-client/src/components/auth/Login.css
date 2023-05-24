@@ -1,6 +1,6 @@
-body {
+/* body {
     background-color: black;
-}
+} */
 
 .h1,
 h1 {
@@ -68,4 +68,87 @@ fieldset {
 
 .flex {
     display: flex;
+    justify-content: space-around;
+}
+
+
+.title {
+    text-align: center;
+}
+
+.title h1 {
+    font-size: 9vw;
+    margin: 0;
+}
+
+.title section {
+    justify-content: center;
+}
+
+.title section button {
+    margin: 10px;
+}
+
+.container-img {
+    position: relative;
+    top: 100vh;
+    background-image: url("../../images/liquor_collection.png");
+    background-position: left;
+    background-size: cover;
+    width: 80vw;
+    height: 100vh;
+    transition: 0.3s;
+    z-index: 100;
+}
+
+#whatcha {
+    position: relative;
+    display: inline-block;
+    transition: 0.3s;
+    right: 100vw;
+}
+
+#drinking {
+    position: relative;
+    display: inline-block;
+    transition: 0.3s;
+    left: 100vw;
+}
+
+#loginBttn {
+    position: relative;
+    display: inline-block;
+    transition: 0.3s;
+    top: 100vw;
+}
+
+#registerBttn {
+    position: relative;
+    display: inline-block;
+    transition: 0.3s;
+    top: 100vw;
+}
+
+#loginContainer {
+    position: absolute;
+    display: inline-block;
+    transition: 0.3s;
+    top: 200vh;
+    left: 54vw;
+    display: none;
+}
+
+#registerContainer {
+    position: absolute;
+    display: inline-block;
+    transition: 0.3s;
+    top: 400vh;
+    left: 54vw;
+    display: none;
+}
+
+.welcome {
+    overflow: hidden;
+    height: 100vh;
+    position: relative;
 }
