@@ -19,8 +19,30 @@ export const googleAuth = {
             const provider = new GoogleAuthProvider();
             const auth = getAuth();
 
-            if (userObj == null) {
-                navigate("/register")
+            if (userObj === null) {
+
+                window.scrollTo(0, 0)
+
+                setTimeout(() => {
+                    document.getElementById("containerImg").style.right = "50vw"
+                    document.getElementById("registerContainer").style.display = "block"
+                }, 100)
+
+                if (document.getElementById("loginContainer") !== null) {
+                    setTimeout(() => {
+                        document.getElementById("loginContainer").style.top = "100vh"
+                        document.getElementById("loginContainer").style.display = "none"
+                    }, 200)
+                }
+
+                if (document.getElementById("registerContainer") !== null) {
+                    setTimeout(() => {
+                        document.getElementById("registerContainer").style.top = "0vh"
+                    }, 200)
+                }
+
+
+                // navigate("/register")
             } else {
                 signInWithPopup(auth, provider)
                     .then((userCredential) => {
@@ -39,7 +61,9 @@ export const googleAuth = {
                                 firebaseId: userCredential.user.uid,
                                 firstName: userObj.firstName,
                                 lastName: userObj.lastName,
-                                username: userObj.username
+                                username: userObj.username,
+                                email: userCredential.user.email,
+                                profilePic: userObj.profilePic
                             }),
                             headers: {
                                 "Content-Type": "application/json"

@@ -29,6 +29,19 @@ namespace whatcha_drinking.Controllers
             return Ok(_userRepository.GetByUsername(username));
         }
 
+        [HttpGet("GetByEmail")]
+        public IActionResult GetByEmail(string email)
+        {
+            if(email == null)
+            {
+                return BadRequest();
+            }else if (_userRepository.GetByEmail(email)== null)
+            {
+                return Ok("{email: none}");
+            }
+            return Ok(_userRepository.GetByEmail(email));
+        }
+
 
         [HttpGet("GetByFirebaseId")]
         public IActionResult GetByFirebaseId(string firebaseId)

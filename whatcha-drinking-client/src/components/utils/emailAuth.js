@@ -52,7 +52,9 @@ export const emailAuth = {
                             firebaseId: userCredential.user.uid,
                             firstName: userObj.firstName,
                             lastName: userObj.lastName,
-                            username: userObj.username
+                            username: userObj.username,
+                            email: userCredential.user.email,
+                            profilePic: userObj.profilePic
                         }),
                         headers: {
                             "Content-Type": "application/json"
@@ -86,6 +88,7 @@ export const emailAuth = {
                     console.log("Email SignIn Error");
                     console.log("error code", error.code);
                     console.log("error message", error.message);
+                    document.getElementById("linkRegister").style.visibility = "visible"
                 });
         });
     },

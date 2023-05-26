@@ -9,8 +9,8 @@ export const WhatchaDrinking = () => {
     return (
         <Routes>
             <Route path="/welcome" element={<Welcome />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            {/* <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} /> */}
 
             <Route
                 path="*"

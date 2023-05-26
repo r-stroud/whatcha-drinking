@@ -3,6 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { googleAuth } from "../utils/googleAuth";
 import { emailAuth } from "../utils/emailAuth";
 import "./Login.css";
+import "../../images/whiskey_dog1.png"
+
+// user object
+const Dog1 = require("../../images/whiskey_dog1.png")
+const Dog2 = require("../../images/whiskey_dog2.png")
 
 export const Register = () => {
     const [user, setUser] = useState({
@@ -12,7 +17,21 @@ export const Register = () => {
         username: "",
         fullName: "",
         password: "",
+        profilePic: Dog1,
     });
+
+
+    // handles selection of user icon
+
+    const updateSelectedIcon = (evt) => {
+        const copy = { ...user };
+        copy.profilePic = evt.target.value;
+        setUser(copy);
+    };
+
+
+
+    // updates fullname
 
     useEffect(
         () => {
@@ -21,6 +40,8 @@ export const Register = () => {
             setUser(copy)
         }, [user.firstName, user.lastName]
     )
+
+    // checks if username exists
 
     const url = 'https://localhost:7189/api/User/GetByUsername?username=';
 
@@ -41,7 +62,22 @@ export const Register = () => {
     const [submitable, setSubmitable] = useState(true)
     const [usernameAvailability, setUsernameAVailability] = useState({ username: "." })
 
+    // changes based on selection for regsitering with email or google
+
     const [registerButtonDisplay, setRegisterButtonDisplay] = useState(true)
+
+    useEffect(
+        () => {
+            if (registerButtonDisplay) {
+                document.getElementById("registerEmail").classList.add("welcomeGold")
+                document.getElementById("registerGmail").classList.remove("welcomeGold")
+            }
+
+            if (!registerButtonDisplay) {
+                document.getElementById("registerGmail").classList.add("welcomeGold")
+                document.getElementById("registerEmail").classList.remove("welcomeGold")
+            }
+        }, [registerButtonDisplay])
 
     let navigate = useNavigate();
 
@@ -63,25 +99,74 @@ export const Register = () => {
     };
 
     return (
-        <main style={{ textAlign: "center" }}>
+        <main>
 
-            <form className="form--login" onSubmit={handleRegister}>
-                <h1 className="h3 mb-3 font-weight-normal">Please Register</h1>
-                <section
-                    className="flex">
-                    <div
-                        onClick={
-                            () => {
-                                setRegisterButtonDisplay(true)
-                            }
-                        }>Register with Email</div>
-                    <div
-                        onClick={
-                            () => {
-                                setRegisterButtonDisplay(false)
-                            }
-                        }>Register with Gmail</div>
+
+
+            <form className="form--register" onSubmit={handleRegister}>
+                <section id="registerUserPreview" className="fixed">
+                    <h2>Register to access the best drink recommendation application around!</h2>
+                    <section
+                        className="flex-start">
+                        <div
+                            id="registerEmail"
+                            className="welcomeBttn"
+                            onClick={
+                                () => {
+                                    setRegisterButtonDisplay(true)
+                                }
+                            }>Register with Email</div>
+                        <div
+                            id="registerGmail"
+                            className="welcomeBttn"
+                            onClick={
+                                () => {
+                                    setRegisterButtonDisplay(false)
+                                }
+                            }>Register with Google</div>
+                    </section>
+                    <section className="user-creation-preview">
+                        <h3>Preview</h3>
+                        <div className="flex-start">
+                            <img src={user.profilePic} className="user-icon" />
+                            <div>
+                                <p>{`${user.firstName} ${user.lastName}`}</p>
+                                <p>{user.username}</p>
+                            </div>
+                        </div>
+                    </section>
                 </section>
+                <h4>Profile Picture</h4>
+                <fieldset className="flex-start">
+
+                    <input
+                        type="radio"
+                        id="whiskeyDog1"
+                        className="icon-selection"
+                        name="profile-pic"
+                        value={Dog1}
+                        onClick={updateSelectedIcon}
+                    />
+                    <label htmlFor="whiskeyDog1">
+                        <img
+                            className="user-icon"
+                            src={require("../../images/whiskey_dog1.png")} />
+                    </label>
+
+                    <input
+                        type="radio"
+                        id="whiskeyDog2"
+                        className="icon-selection"
+                        name="profile-pic"
+                        value={Dog2}
+                        onClick={updateSelectedIcon}
+                    />
+                    <label htmlFor="whiskeyDog2">
+                        <img
+                            className="user-icon"
+                            src={require("../../images/whiskey_dog2.png")} />
+                    </label>
+                </fieldset>
                 <fieldset>
                     <label htmlFor="firstName"> First Name </label>
                     <input
@@ -120,6 +205,7 @@ export const Register = () => {
                     />
                     <div>{usernameAvailability.username === user.username ? `This username is not available` : <></>}</div>
                 </fieldset>
+
                 {registerButtonDisplay
                     ? <fieldset>
                         <label htmlFor="email"> Email address </label>
@@ -155,18 +241,23 @@ export const Register = () => {
                     {/* ABLE TO REGISTER USING GOOGLE OR EMAIL  */}
 
                     {registerButtonDisplay
-                        ? <button type={usernameAvailability.username === user.username
-                            ? "button"
-                            : "submit"}> Register</button>
-                        : <div onClick={
-                            user.firstName === "" ||
-                                user.lastName === "" ||
-                                user.username === "" ||
-                                user.username.length < 5 ||
-                                usernameAvailability.username === user.username
-                                ? () => { }
-                                : onSubmitLogin}>
-                            Register </div>}
+                        ? <button
+                            className="welcomeBttn registerBttn"
+                            type={usernameAvailability.username === user.username
+                                ? "button"
+                                : "submit"}> Register</button>
+                        : <button
+                            className="welcomeBttn registerBttn"
+                            type="button"
+                            onClick={
+                                user.firstName === "" ||
+                                    user.lastName === "" ||
+                                    user.username === "" ||
+                                    user.username.length < 5 ||
+                                    usernameAvailability.username === user.username
+                                    ? () => { }
+                                    : onSubmitLogin}>
+                            Register </button>}
                 </fieldset>
             </form>
             {/* <h2>Register With Google?</h2>

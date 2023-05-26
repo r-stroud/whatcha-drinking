@@ -1,4 +1,5 @@
-﻿using whatcha_drinking.Model;
+﻿using System.Security.Cryptography;
+using whatcha_drinking.Model;
 using whatcha_drinking.Utils;
 
 namespace whatcha_drinking.Repositories
@@ -17,19 +18,33 @@ namespace whatcha_drinking.Repositories
                     NewUserDetails user= new NewUserDetails();
                     cmd.CommandText = @"
                                         INSERT INTO [WhatchaDrinking].[dbo].[user]
-                                        (firebaseId,firstName,lastName, username)
+                                        (firebaseId,
+                                        firstName,
+                                        lastName, 
+                                        username, 
+                                        email, 
+                                        profilePic)
                                         OUTPUT inserted.id
-                                        VALUES (@firebaseId,@firstName,@lastName, @username)";
+                                        VALUES (@firebaseId,
+                                        @firstName,
+                                        @lastName, 
+                                        @username, 
+                                        @email, 
+                                        @profilePic)";
 
                     DbUtils.AddParameter(cmd, "@firebaseId", nud.FirebaseId);
                     DbUtils.AddParameter(cmd, "@firstName", nud.FirstName);
                     DbUtils.AddParameter(cmd,"@lastName",nud.LastName);
                     DbUtils.AddParameter(cmd, "@username", nud.Username);
+                    DbUtils.AddParameter(cmd, "@email", nud.Email);
+                    DbUtils.AddParameter(cmd, "@profilePic", nud.ProfilePic);
                     
                     user.FirebaseId= nud.FirebaseId;
                     user.FirstName = nud.FirstName;
                     user.LastName = nud.LastName;
                     user.Username= nud.Username;
+                    user.Email= nud.Email;
+                    user.ProfilePic= nud.ProfilePic;
                     user.Id = (int)cmd.ExecuteScalar();
 
                     return user;
@@ -87,6 +102,34 @@ namespace whatcha_drinking.Repositories
                         {
                             Username = DbUtils.GetString(reader, "username")
                         };
+                    }
+                    reader.Close();
+                    return user;
+                }
+            }
+        }
+
+        public UserEmail GetByEmail(string email)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd =conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                        SELECT [email]
+                                        FROM [WhatchaDrinking].[dbo].[user]
+                                        WHERE [email] = @email";
+                    DbUtils.AddParameter(cmd, "@email", email);
+                    var reader = cmd.ExecuteReader();
+                    UserEmail user = null;
+                    if(reader.Read())
+                    {
+                        user = new UserEmail() 
+                        { 
+                            Email = DbUtils.GetString(reader, "email")
+                        };
+
                     }
                     reader.Close();
                     return user;
