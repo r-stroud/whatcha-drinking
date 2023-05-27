@@ -48,8 +48,8 @@ export const Login = ({ setDisplayRegister, displayRegister }) => {
 
     // Login with Google
     const onSubmitLoginGoogle = async () => {
-        setDisplayRegister(true)
-        googleAuth.signInRegister(navigate);
+        // setDisplayRegister(true)
+        googleAuth.signInRegister(navigate, null, "login");
     };
 
 

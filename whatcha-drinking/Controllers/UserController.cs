@@ -55,6 +55,12 @@ namespace whatcha_drinking.Controllers
             }
         }
 
+        [HttpGet("GetExistingFirebaseId")]
+        public IActionResult GetExistingFirebaseId()
+        {
+            return Ok(_userRepository.GetExistingFirebaseId());
+        }
+
         [HttpPost("new-user")]
         public IActionResult AddUser(NewUserDetails nud)
         {

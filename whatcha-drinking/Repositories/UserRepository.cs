@@ -82,6 +82,36 @@ namespace whatcha_drinking.Repositories
             }
         }
 
+        public List<string> GetExistingFirebaseId() 
+        { 
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd =conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                        SELECT [id],[firebaseId] 
+                                        FROM [WhatchaDrinking].[dbo].[user]";
+                    var reader = cmd.ExecuteReader();
+                    List<string> firebaseIds= new List<string>();
+                    NewUser user = null;
+                    while (reader.Read())
+                    {
+                        user = new NewUser()
+                        {
+                            Id = DbUtils.GetInt(reader, "id"),
+                            FirebaseId = DbUtils.GetString(reader, "firebaseId")
+                        };
+
+                        firebaseIds.Add(user.FirebaseId);
+                        
+                    }
+                    reader.Close();
+                    return firebaseIds;
+                }
+            }
+        }
+
         public UserUsername GetByUsername(string username)
         {
             using (var conn = Connection)

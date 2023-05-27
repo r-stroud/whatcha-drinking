@@ -95,7 +95,7 @@ export const Register = () => {
 
     // Register with google (same as sign in)
     const onSubmitLogin = async () => {
-        googleAuth.signInRegister(navigate, user);
+        googleAuth.signInRegister(navigate, user, "register");
     };
 
     return (
