@@ -23,7 +23,9 @@ DROP TABLE IF EXISTS [alcoholType]
 
 
 CREATE TABLE [user] (
-  [firebaseId] int PRIMARY KEY NOT NULL,
+  [id] int PRIMARY KEY IDENTITY NOT NULL,
+  [firebaseId] nvarchar(255) NOT NULL,
+  [email] nvarchar(255) NOT NULL,
   [username] nvarchar(255),
   [firstName] nvarchar(255),
   [lastName] nvarchar(255),
@@ -112,55 +114,55 @@ CREATE TABLE [review] (
 )
 GO
 
-ALTER TABLE [friendJoin] ADD FOREIGN KEY ([userId]) REFERENCES [user] ([firebaseId])
+ALTER TABLE [friendJoin] ADD FOREIGN KEY ([userId]) REFERENCES [user] ([id])
 GO
 
-ALTER TABLE [friendJoin] ADD FOREIGN KEY ([friendId]) REFERENCES [user] ([firebaseId])
+ALTER TABLE [friendJoin] ADD FOREIGN KEY ([friendId]) REFERENCES [user] ([id])
 GO
 
 ALTER TABLE [alcohol] ADD FOREIGN KEY ([alcoholTypeId]) REFERENCES [alcoholType] ([id])
 GO
 
-ALTER TABLE [preferredDrink] ADD FOREIGN KEY ([userId]) REFERENCES [user] ([firebaseId])
+ALTER TABLE [preferredDrink] ADD FOREIGN KEY ([userId]) REFERENCES [user] ([id])
 GO
 
 ALTER TABLE [preferredDrink] ADD FOREIGN KEY ([alcoholTypeId]) REFERENCES [alcoholType] ([id])
 GO
 
-ALTER TABLE [userDrinks] ADD FOREIGN KEY ([userId]) REFERENCES [user] ([firebaseId])
+ALTER TABLE [userDrinks] ADD FOREIGN KEY ([userId]) REFERENCES [user] ([id])
 GO
 
 ALTER TABLE [userDrinks] ADD FOREIGN KEY ([alcoholId]) REFERENCES [alcohol] ([id])
 GO
 
-ALTER TABLE [drinkQueue] ADD FOREIGN KEY ([userId]) REFERENCES [user] ([firebaseId])
+ALTER TABLE [drinkQueue] ADD FOREIGN KEY ([userId]) REFERENCES [user] ([id])
 GO
 
 ALTER TABLE [drinkQueue] ADD FOREIGN KEY ([alcoholId]) REFERENCES [alcohol] ([id])
 GO
 
-ALTER TABLE [recommendedDrink] ADD FOREIGN KEY ([userId]) REFERENCES [user] ([firebaseId])
+ALTER TABLE [recommendedDrink] ADD FOREIGN KEY ([userId]) REFERENCES [user] ([id])
 GO
 
 ALTER TABLE [recommendedDrink] ADD FOREIGN KEY ([alcoholId]) REFERENCES [alcohol] ([id])
 GO
 
-ALTER TABLE [recommendedDrink] ADD FOREIGN KEY ([friendId]) REFERENCES [user] ([firebaseId])
+ALTER TABLE [recommendedDrink] ADD FOREIGN KEY ([friendId]) REFERENCES [user] ([id])
 GO
 
-ALTER TABLE [post] ADD FOREIGN KEY ([userId]) REFERENCES [user] ([firebaseId])
+ALTER TABLE [post] ADD FOREIGN KEY ([userId]) REFERENCES [user] ([id])
 GO
 
 ALTER TABLE [post] ADD FOREIGN KEY ([alcoholId]) REFERENCES [alcohol] ([id])
 GO
 
-ALTER TABLE [message] ADD FOREIGN KEY ([userId]) REFERENCES [user] ([firebaseId])
+ALTER TABLE [message] ADD FOREIGN KEY ([userId]) REFERENCES [user] ([id])
 GO
 
-ALTER TABLE [message] ADD FOREIGN KEY ([friendId]) REFERENCES [user] ([firebaseId])
+ALTER TABLE [message] ADD FOREIGN KEY ([friendId]) REFERENCES [user] ([id])
 GO
 
-ALTER TABLE [review] ADD FOREIGN KEY ([userId]) REFERENCES [user] ([firebaseId])
+ALTER TABLE [review] ADD FOREIGN KEY ([userId]) REFERENCES [user] ([id])
 GO
 
 ALTER TABLE [review] ADD FOREIGN KEY ([alcoholId]) REFERENCES [alcohol] ([id])

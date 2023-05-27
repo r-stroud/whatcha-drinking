@@ -4,6 +4,10 @@ namespace whatcha_drinking.Repositories
 {
     public interface IUserRepository
     {
-        NewUser Add(NewUser user);
+        NewUserDetails AddUser(NewUserDetails nud);
+        NewUser GetByFirebaseId(string firebaseId);
+        List<string> GetExistingFirebaseId();
+        UserUsername GetByUsername(string username);
+        UserEmail GetByEmail(string email);
     }
 }
