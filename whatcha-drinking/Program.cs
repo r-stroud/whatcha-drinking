@@ -15,6 +15,7 @@ namespace whatcha_drinking
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddTransient<IUserRepository, UserRepository>();
+            builder.Services.AddTransient<IDrinkRepository, DrinkRepository>();
 
             var app = builder.Build();
 
