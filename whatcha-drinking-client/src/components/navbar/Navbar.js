@@ -59,12 +59,15 @@ export const Navbar = () => {
                     }
                 />
                 <section className="nav-user-details">
-                    <div className="nav-user-fullname">
-                        {`${displayUserInfo.firstName} ${displayUserInfo.lastName}`}
-                    </div>
+
                     <div className="nav-username">
                         {displayUserInfo.username}
                     </div>
+
+                    <div className="nav-user-fullname">
+                        {`${displayUserInfo.firstName} ${displayUserInfo.lastName}`}
+                    </div>
+
                 </section>
             </section>
 
