@@ -168,11 +168,41 @@ GO
 ALTER TABLE [review] ADD FOREIGN KEY ([alcoholId]) REFERENCES [alcohol] ([id])
 GO
 
---SET IDENTITY_INSERT [user] ON
---INSERT INTO [user]
---([id], [password],[username],[firstName],[LastName],[address],[profilePic])
---VALUES
---(1,'123456','rstroud','Robert','Stroud','123 Example Street, TN 37075', ''),
---(2,'123456','cstroud','Chie','Stroud','123 Example Street, TN 37075', '')
---SET IDENTITY_INSERT [user] OFF
+SET IDENTITY_INSERT [alcoholType] ON
+INSERT INTO [alcoholType]
+([id],[type],[picture])
+VALUES
+(1, 'Vodka', ''),
+(2, 'Tequila', ''),
+(3, 'Bourbon', ''),
+(4, 'Scotch', ''),
+(5, 'Rum', ''),
+(6, 'Cognac', ''),
+(7, 'Other', '')
+SET IDENTITY_INSERT [alcoholType] OFF
+
+SET IDENTITY_INSERT [alcohol] ON
+INSERT INTO [alcohol]
+([id],[name],[alcoholTypeId],[picture])
+VALUES
+(1, 'Absolut Elyx', 1, ''),
+(2, 'Belvedere', 1, ''),
+(3, 'Grey Goose',1, ''),
+(4, 'Hangar 1',1, ''),
+(5, 'Chopin',1, ''),
+(6, 'Siete Leguas Reposado',2, ''),
+(7, 'Cimarron Blanco Tequila',2, ''),
+(8, 'La Gritona Reposado Tequila',2, ''),
+(9, 'Volcan De Mi Tierra Cristalino Tequila',2, ''),
+(10, 'Casa Dragones Blanco',2, ''),
+(11, 'Partida Reposado',2, ''),
+(12, 'Elijah Craig Barrel Proof',3, ''),
+(13, 'Old Ezra 7-Year-Old',3, ''),
+(14, 'Widow Jane 10-Year-Old',3, ''),
+(15, 'Four Roses Single Barrel',3, ''),
+(16, 'W.L. Weller 12-Year-Old',3, '')
+SET IDENTITY_INSERT [alcohol] OFF
+
+
+
 

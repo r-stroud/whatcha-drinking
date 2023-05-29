@@ -1,0 +1,82 @@
+.navbar {
+    background-color: rgb(10, 10, 10);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 7vh;
+    color: rgb(253, 253, 253);
+    display: flex;
+    justify-content: space-between;
+    padding: 1vh 0vw;
+}
+
+.user-icon-small {
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    z-index: 1;
+    cursor: pointer;
+    border: solid 5px rgb(210, 178, 98);
+    margin-left: 20px;
+    background-color: rgb(10, 10, 10);
+}
+
+.user-icon-small:hover {
+    transform: scale(1.02);
+}
+
+.nav-user-profile {
+    display: flex;
+    width: 33%;
+    color: rgb(252, 252, 252);
+    font-size: 18px;
+    font-family: 'Cardo', serif;
+}
+
+.nav-user-details>div:first-child {}
+
+.nav-options {
+    width: 33%;
+}
+
+.nav-options button,
+.nav-logout button {
+    color: rgb(252, 252, 252);
+    font-family: 'Cardo', serif;
+    font-size: 18px;
+    background-color: rgb(54, 54, 54);
+    border-radius: 20px;
+    padding: 6px 20px;
+    cursor: pointer;
+    height: fit-content;
+    border: outset 4px rgb(210, 178, 98);
+    margin-right: 15px;
+}
+
+.nav-options button:hover {
+    background-color: rgb(20, 20, 20)
+}
+
+.nav-logout button:hover {
+    background-color: rgb(210, 178, 98);
+}
+
+
+.nav-username {
+    color: rgb(210, 178, 98);
+    font-weight: bold;
+    margin-left: 4px;
+    letter-spacing: 0.5px;
+}
+
+.nav-user-fullname {
+    position: relative;
+    right: 8px;
+}
+
+.nav-logout {
+    width: 33%;
+    text-align: end;
+    padding-right: 15px;
+}
