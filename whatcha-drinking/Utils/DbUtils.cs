@@ -15,13 +15,10 @@ namespace whatcha_drinking.Utils
             return reader.GetString(ordinal);   
         }
 
-        public static DateTime? GetDateTime(SqlDataReader reader, string column)
+        public static DateTime GetDateTime(SqlDataReader reader, string column)
         {
             var ordinal = reader.GetOrdinal(column);
-            if(reader.IsDBNull(ordinal))
-            {
-                return null;
-            }
+       
             return reader.GetDateTime(ordinal);
         }
         public static int GetInt(SqlDataReader reader, string column)
