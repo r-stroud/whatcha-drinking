@@ -20,8 +20,6 @@ export const googleAuth = {
 
     // Works to sign in AND register a user
     signInRegister: function (navigate, userObj = null, loginOrRegister) {
-        // userObj === null ? navigate("/register") : <>
-        // </>
 
         // fetch all created firebaseID
 
@@ -41,31 +39,6 @@ export const googleAuth = {
             const provider = new GoogleAuthProvider();
             const auth = getAuth();
 
-            // if (userObj === null) {
-
-            //     window.scrollTo(0, 0)
-
-            //     setTimeout(() => {
-            //         document.getElementById("containerImg").style.right = "50vw"
-            //         document.getElementById("registerContainer").style.display = "block"
-            //     }, 100)
-
-            //     if (document.getElementById("loginContainer") !== null) {
-            //         setTimeout(() => {
-            //             document.getElementById("loginContainer").style.top = "100vh"
-            //             document.getElementById("loginContainer").style.display = "none"
-            //         }, 200)
-            //     }
-
-            //     if (document.getElementById("registerContainer") !== null) {
-            //         setTimeout(() => {
-            //             document.getElementById("registerContainer").style.top = "0vh"
-            //         }, 200)
-            //     }
-
-
-            // navigate("/register")
-            // } else {
             signInWithPopup(auth, provider)
                 .then((userCredential) => {
                     const userAuth = {
@@ -121,23 +94,6 @@ export const googleAuth = {
 
                         // Add user object to localStorage
                         localStorage.setItem("wd_user", JSON.stringify(userAuth));
-
-                        // (fetch(`${url}`, {
-                        //     method: "POST",
-                        //     body: JSON.stringify({
-                        //         firebaseId: userCredential.user.uid,
-                        //         firstName: userObj.firstName,
-                        //         lastName: userObj.lastName,
-                        //         username: userObj.username,
-                        //         email: userCredential.user.email,
-                        //         profilePic: userObj.profilePic
-                        //     }),
-                        //     headers: {
-                        //         "Content-Type": "application/json"
-                        //     }
-                        // }))
-
-                        // Navigate us back home
                         navigate("/");
 
                         console.log("you did it")
@@ -149,9 +105,7 @@ export const googleAuth = {
                     console.log("error message", error.message);
                     console.log("error email", error.email);
                 });
-        }
-            // }
-        );
+        });
     },
     // Sign out a user
     signOut: function (navigate) {

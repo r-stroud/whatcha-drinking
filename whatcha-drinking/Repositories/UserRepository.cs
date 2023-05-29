@@ -52,7 +52,7 @@ namespace whatcha_drinking.Repositories
             }
         }
 
-        public NewUser GetByFirebaseId(string firebaseId)
+        public User GetByFirebaseId(string firebaseId)
         {
             using (var conn = Connection)
             {
@@ -61,19 +61,24 @@ namespace whatcha_drinking.Repositories
                 {
                     
                     cmd.CommandText = @"
-                                        SELECT [id],[firebaseId] 
+                                        SELECT [id],[firebaseId], [email], [username],[firstName],[lastName],[address],[profilePic]
                                         FROM [WhatchaDrinking].[dbo].[user]
                                         WHERE [firebaseId] = @firebaseId";
                     DbUtils.AddParameter(cmd, "@firebaseId", firebaseId);
                     var reader = cmd.ExecuteReader();
-                    NewUser user = null;
+                    User user = null;
                     if (reader.Read())
                     {
-                        user = new NewUser()
+                        user = new User()
                         {
                             Id = DbUtils.GetInt(reader, "id"),
-                            FirebaseId = DbUtils.GetString(reader, "firebaseId")
-
+                            FirebaseId = DbUtils.GetString(reader, "firebaseId"),
+                            Email = DbUtils.GetString(reader,"email"),
+                            Username= DbUtils.GetString(reader,"username"),
+                            FirstName = DbUtils.GetString(reader,"firstName"),
+                            LastName = DbUtils.GetString(reader,"lastName"),
+                            Address = DbUtils.GetString(reader,"address"),
+                            ProfilePic = DbUtils.GetString(reader,"profilePic")
                         };
                     }
                     reader.Close();
@@ -94,10 +99,10 @@ namespace whatcha_drinking.Repositories
                                         FROM [WhatchaDrinking].[dbo].[user]";
                     var reader = cmd.ExecuteReader();
                     List<string> firebaseIds= new List<string>();
-                    NewUser user = null;
+                    UserFirebaseId user = null;
                     while (reader.Read())
                     {
-                        user = new NewUser()
+                        user = new UserFirebaseId()
                         {
                             Id = DbUtils.GetInt(reader, "id"),
                             FirebaseId = DbUtils.GetString(reader, "firebaseId")
