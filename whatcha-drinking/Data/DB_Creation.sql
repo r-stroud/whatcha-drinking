@@ -18,8 +18,8 @@ DROP TABLE IF EXISTS [review]
 DROP TABLE IF EXISTS [userDrinks]
 DROP TABLE IF EXISTS [post]
 DROP TABLE IF EXISTS [user]
-DROP TABLE IF EXISTS [alcohol]
-DROP TABLE IF EXISTS [alcoholType]
+DROP TABLE IF EXISTS [drink]
+DROP TABLE IF EXISTS [drinkType]
 
 
 CREATE TABLE [user] (
@@ -42,15 +42,15 @@ CREATE TABLE [friendJoin] (
 )
 GO
 
-CREATE TABLE [alcohol] (
+CREATE TABLE [drink] (
   [id] int PRIMARY KEY IDENTITY NOT NULL,
   [name] nvarchar(255) NOT NULL,
-  [alcoholTypeId] int NOT NULL,
+  [drinkTypeId] int NOT NULL,
   [picture] nvarchar (255)
 )
 GO
 
-CREATE TABLE [alcoholType] (
+CREATE TABLE [drinkType] (
   [id] int PRIMARY KEY IDENTITY NOT NULL,
   [type] nvarchar(255) NOT NULL,
   [picture] nvarchar(255)
@@ -60,14 +60,14 @@ GO
 CREATE TABLE [preferredDrink] (
   [id] int IDENTITY NOT NULL,
   [userId] int NOT NULL,
-  [alcoholTypeId] int NOT NULL
+  [drinkTypeId] int NOT NULL
 )
 GO
 
 CREATE TABLE [userDrinks] (
   [id] int IDENTITY NOT NULL,
   [userId] int NOT NULL,
-  [alcoholId] int NOT NULL,
+  [drinkId] int NOT NULL,
   [dateTime] dateTime NOT NULL
 )
 GO
@@ -75,7 +75,7 @@ GO
 CREATE TABLE [drinkQueue] (
   [id] int IDENTITY NOT NULL,
   [userId] int NOT NULL,
-  [alcoholId] int NOT NULL,
+  [drinkId] int NOT NULL,
   [displayWeight] double precision
   )
 GO
@@ -84,14 +84,14 @@ CREATE TABLE [recommendedDrink] (
   [id] int IDENTITY NOT NULL,
   [userId] int NOT NULL,
   [friendId] int NOT NULL,
-  [alcoholId] int NOT NULL
+  [drinkId] int NOT NULL
 )
 GO
 
 CREATE TABLE [post] (
   [id] int IDENTITY NOT NULL,
   [userId] int NOT NULL,
-  [alcoholId] int NOT NULL,
+  [drinkId] int NOT NULL,
   [dateTime] dateTime NOT NULL,
   [picture] nvarchar(255),
   [message] nvarchar(255) NOT NULL
@@ -109,7 +109,7 @@ GO
 CREATE TABLE [review] (
   [id] int IDENTITY NOT NULL,
   [userId] int NOT NULL,
-  [alcoholId] int NOT NULL,
+  [drinkId] int NOT NULL,
   [score] int NOT NULL
 )
 GO
@@ -120,31 +120,31 @@ GO
 ALTER TABLE [friendJoin] ADD FOREIGN KEY ([friendId]) REFERENCES [user] ([id])
 GO
 
-ALTER TABLE [alcohol] ADD FOREIGN KEY ([alcoholTypeId]) REFERENCES [alcoholType] ([id])
+ALTER TABLE [drink] ADD FOREIGN KEY ([drinkTypeId]) REFERENCES [drinkType] ([id])
 GO
 
 ALTER TABLE [preferredDrink] ADD FOREIGN KEY ([userId]) REFERENCES [user] ([id])
 GO
 
-ALTER TABLE [preferredDrink] ADD FOREIGN KEY ([alcoholTypeId]) REFERENCES [alcoholType] ([id])
+ALTER TABLE [preferredDrink] ADD FOREIGN KEY ([drinkTypeId]) REFERENCES [drinkType] ([id])
 GO
 
 ALTER TABLE [userDrinks] ADD FOREIGN KEY ([userId]) REFERENCES [user] ([id])
 GO
 
-ALTER TABLE [userDrinks] ADD FOREIGN KEY ([alcoholId]) REFERENCES [alcohol] ([id])
+ALTER TABLE [userDrinks] ADD FOREIGN KEY ([drinkId]) REFERENCES [drink] ([id])
 GO
 
 ALTER TABLE [drinkQueue] ADD FOREIGN KEY ([userId]) REFERENCES [user] ([id])
 GO
 
-ALTER TABLE [drinkQueue] ADD FOREIGN KEY ([alcoholId]) REFERENCES [alcohol] ([id])
+ALTER TABLE [drinkQueue] ADD FOREIGN KEY ([drinkId]) REFERENCES [drink] ([id])
 GO
 
 ALTER TABLE [recommendedDrink] ADD FOREIGN KEY ([userId]) REFERENCES [user] ([id])
 GO
 
-ALTER TABLE [recommendedDrink] ADD FOREIGN KEY ([alcoholId]) REFERENCES [alcohol] ([id])
+ALTER TABLE [recommendedDrink] ADD FOREIGN KEY ([drinkId]) REFERENCES [drink] ([id])
 GO
 
 ALTER TABLE [recommendedDrink] ADD FOREIGN KEY ([friendId]) REFERENCES [user] ([id])
@@ -153,7 +153,7 @@ GO
 ALTER TABLE [post] ADD FOREIGN KEY ([userId]) REFERENCES [user] ([id])
 GO
 
-ALTER TABLE [post] ADD FOREIGN KEY ([alcoholId]) REFERENCES [alcohol] ([id])
+ALTER TABLE [post] ADD FOREIGN KEY ([drinkId]) REFERENCES [drink] ([id])
 GO
 
 ALTER TABLE [message] ADD FOREIGN KEY ([userId]) REFERENCES [user] ([id])
@@ -165,11 +165,11 @@ GO
 ALTER TABLE [review] ADD FOREIGN KEY ([userId]) REFERENCES [user] ([id])
 GO
 
-ALTER TABLE [review] ADD FOREIGN KEY ([alcoholId]) REFERENCES [alcohol] ([id])
+ALTER TABLE [review] ADD FOREIGN KEY ([drinkId]) REFERENCES [drink] ([id])
 GO
 
-SET IDENTITY_INSERT [alcoholType] ON
-INSERT INTO [alcoholType]
+SET IDENTITY_INSERT [drinkType] ON
+INSERT INTO [drinkType]
 ([id],[type],[picture])
 VALUES
 (1, 'Vodka', ''),
@@ -179,11 +179,11 @@ VALUES
 (5, 'Rum', ''),
 (6, 'Cognac', ''),
 (7, 'Other', '')
-SET IDENTITY_INSERT [alcoholType] OFF
+SET IDENTITY_INSERT [drinkType] OFF
 
-SET IDENTITY_INSERT [alcohol] ON
-INSERT INTO [alcohol]
-([id],[name],[alcoholTypeId],[picture])
+SET IDENTITY_INSERT [drink] ON
+INSERT INTO [drink]
+([id],[name],[drinkTypeId],[picture])
 VALUES
 (1, 'Absolut Elyx', 1, ''),
 (2, 'Belvedere', 1, ''),
@@ -201,7 +201,7 @@ VALUES
 (14, 'Widow Jane 10-Year-Old',3, ''),
 (15, 'Four Roses Single Barrel',3, ''),
 (16, 'W.L. Weller 12-Year-Old',3, '')
-SET IDENTITY_INSERT [alcohol] OFF
+SET IDENTITY_INSERT [drink] OFF
 
 
 
