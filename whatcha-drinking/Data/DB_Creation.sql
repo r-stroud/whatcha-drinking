@@ -68,6 +68,7 @@ CREATE TABLE [userDrinks] (
   [id] int IDENTITY NOT NULL,
   [userId] int NOT NULL,
   [drinkId] int NOT NULL,
+  [timesTried] int,
   [dateTime] dateTime NOT NULL
 )
 GO

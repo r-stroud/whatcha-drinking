@@ -171,5 +171,38 @@ namespace whatcha_drinking.Repositories
                 }
             }
         }
+
+        public User GetById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd =conn.CreateCommand())
+                {
+                    cmd.CommandText = @" SELECT [id],[firebaseId], [email], [username],[firstName],[lastName],[address],[profilePic]
+                                        FROM [WhatchaDrinking].[dbo].[user]
+                                        WHERE [id] = @id";
+                    DbUtils.AddParameter(cmd, "@id", id);
+                    var reader = cmd.ExecuteReader();
+                    User user = null;
+                    if (reader.Read())
+                    {
+                        user = new User()
+                        {
+                            Id = DbUtils.GetInt(reader, "id"),
+                            FirebaseId = DbUtils.GetString(reader, "firebaseId"),
+                            Email = DbUtils.GetString(reader, "email"),
+                            Username = DbUtils.GetString(reader, "username"),
+                            FirstName = DbUtils.GetString(reader, "firstName"),
+                            LastName = DbUtils.GetString(reader, "lastName"),
+                            Address = DbUtils.GetString(reader, "address"),
+                            ProfilePic = DbUtils.GetString(reader, "profilePic")
+                        };
+                    }
+                    reader.Close() ;
+                    return user;
+                }
+            }
+        }
     }
 }
