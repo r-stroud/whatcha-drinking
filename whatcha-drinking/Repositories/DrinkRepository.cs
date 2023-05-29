@@ -17,10 +17,13 @@ namespace whatcha_drinking.Repositories
                     cmd.CommandText = @"SELECT 
                                         D.[id] AS drinkId, 
                                         D.[name],
-                                        DT.[type]
+                                        DT.[type],
+                                        UD.[timesTried]
                                         FROM [drink] D
                                         LEFT JOIN [drinkType] DT
-                                        ON DT.[id] = D.[drinkTypeId]";
+                                        ON DT.[id] = D.[drinkTypeId]
+                                        LEFT JOIN [userDrinks] UD
+                                        ON UD.[drinkId] = D.[id]";
                     var reader = cmd.ExecuteReader();
                     List<Drink> drinks = new List<Drink>();
                     Drink drink = null;
@@ -31,6 +34,7 @@ namespace whatcha_drinking.Repositories
                             Id = DbUtils.GetInt(reader, "drinkId"),
                             Name = DbUtils.GetString(reader, "name"),
                             Type = DbUtils.GetString(reader, "type"),
+                            TimesTried = DbUtils.GetNullableInt(reader,"timesTried")
                         };
                         drinks.Add(drink);
                     }
