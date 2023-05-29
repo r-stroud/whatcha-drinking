@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { Drink } from "./Drink"
+import { DrinkRecentActivities } from "./DrinkRecentActivities"
 
 export const DrinkView = () => {
 
@@ -12,23 +13,32 @@ export const DrinkView = () => {
     }
 
     const [drinks, setDrinks] = useState([])
+    const [updateDom, setUpdateDom] = useState(false)
 
     useEffect(
         () => {
             displayDrinks()
-        }, []
+        }, [, updateDom]
     )
 
 
     return (
-        <section className="drink-view">
-            {drinks.map((drink) => (
-                <Drink
-                    id={drink.id}
-                    name={drink.name}
-                    type={drink.type}
-                />
-            ))}
+        <section>
+            <DrinkRecentActivities />
+            <section className="drink-view">
+
+                {drinks.map((drink) => (
+                    <Drink
+                        key={drink.id}
+                        id={drink.id}
+                        name={drink.name}
+                        type={drink.type}
+                        timesTried={drink.timesTried}
+                        setUpdateDom={setUpdateDom}
+                        updateDom={updateDom}
+                    />
+                ))}
+            </section>
         </section>
     )
 }

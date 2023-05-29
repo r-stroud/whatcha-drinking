@@ -23,23 +23,18 @@ namespace whatcha_drinking.Controllers
             return Ok(_drinkRepository.GetAllDrinks());
         }
 
-        [HttpPost("add-drink/{drinkId}")]
-        public IActionResult AddUserDrink(int userId, int drinkId)
+        [HttpPost("add-drink")]
+        public IActionResult AddUserDrink(UserDrink userdrink)
         {
-            if (_userRepository.GetById(userId) == null || _drinkRepository.GetById(drinkId) == null)
+            if (_userRepository.GetById(userdrink.UserId) == null || _drinkRepository.GetById(userdrink.DrinkId) == null)
             {
                 return BadRequest();
             }
 
-            if (_drinkRepository.GetByDrinkId(drinkId) == null)
+            if (_drinkRepository.GetByDrinkId(userdrink.DrinkId) == null)
             {
-                    UserDrink userdrink = new UserDrink()
-                    {
-                    UserId = userId,
-                    DrinkId = drinkId,
-                    DateTime = DateTime.Now,
-                    TimesTried = 1
-                    };
+                userdrink.DateTime = DateTime.Now;
+                userdrink.TimesTried = 1;
                  _drinkRepository.AddUserDrink(userdrink);
                 return Ok(new
                 {
@@ -48,7 +43,7 @@ namespace whatcha_drinking.Controllers
                 });
             }
 
-           var exisistinguserdrinks = _drinkRepository.GetByDrinkId(drinkId);
+           var exisistinguserdrinks = _drinkRepository.GetByDrinkId(userdrink.DrinkId);
             exisistinguserdrinks.TimesTried = exisistinguserdrinks.TimesTried + 1;
             exisistinguserdrinks.DateTime = DateTime.Now;
             _drinkRepository.UpdateUserDrinks(exisistinguserdrinks);

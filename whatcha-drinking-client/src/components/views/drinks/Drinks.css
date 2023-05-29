@@ -48,3 +48,41 @@
     margin-bottom: 5px;
     color: rgb(210, 178, 98)
 }
+
+.drink-bttn {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: rgb(252, 252, 252);
+    font-family: 'Cardo', serif;
+    font-size: 14px;
+    background-color: rgb(54, 54, 54);
+    border-radius: 20px;
+    padding: 6px 15px;
+    cursor: pointer;
+    height: fit-content;
+    border: outset 4px rgb(210, 178, 98);
+    width: 25%;
+    text-align: center;
+    z-index: 5;
+}
+
+.drink-bttn:hover {
+    background-color: rgb(210, 178, 98);
+}
+
+.drinkcount-user {
+    font-size: 14px;
+    margin-top: 12px;
+    margin-left: 0px;
+    width: 50%;
+}
+
+.drinkcount-user span {
+    font-size: 18px;
+    color: rgb(210, 178, 98);
+}
+
+.drink-recent-activities {
+    padding-top: 15vh;
+}
