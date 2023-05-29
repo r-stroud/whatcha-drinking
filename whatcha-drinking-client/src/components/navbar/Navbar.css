@@ -9,6 +9,7 @@
     display: flex;
     justify-content: space-between;
     padding: 1vh 0vw;
+    z-index: 10;
 }
 
 .user-icon-small {
@@ -30,11 +31,9 @@
     display: flex;
     width: 33%;
     color: rgb(252, 252, 252);
-    font-size: 18px;
+    font-size: 22px;
     font-family: 'Cardo', serif;
 }
-
-.nav-user-details>div:first-child {}
 
 .nav-options {
     width: 33%;
@@ -65,14 +64,14 @@
 
 .nav-username {
     color: rgb(210, 178, 98);
-    font-weight: bold;
-    margin-left: 4px;
-    letter-spacing: 0.5px;
+    font-size: 28px;
+    margin-right: 6px;
+    margin-top: -4px;
 }
 
 .nav-user-fullname {
-    position: relative;
-    right: 8px;
+    margin-left: 6px;
+    margin-top: -4px;
 }
 
 .nav-logout {
