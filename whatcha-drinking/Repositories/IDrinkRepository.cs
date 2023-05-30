@@ -9,5 +9,6 @@ namespace whatcha_drinking.Repositories
         Drink GetById(int id);
         UserDrink GetByDrinkId(int drinkId); 
         void UpdateUserDrinks(UserDrink userdrink);
+        public Drink MostRecent(string drinkId);
     }
 }

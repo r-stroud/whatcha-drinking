@@ -6,7 +6,7 @@ namespace whatcha_drinking.Repositories
     {
         NewUserDetails AddUser(NewUserDetails nud);
         User GetByFirebaseId(string firebaseId);
-        User GetById(int userId);
+        User GetById(string userId);
         List<string> GetExistingFirebaseId();
         UserUsername GetByUsername(string username);
         UserEmail GetByEmail(string email);

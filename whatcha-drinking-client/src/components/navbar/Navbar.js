@@ -47,58 +47,60 @@ export const Navbar = () => {
 
 
     return (
-        <section className="navbar">
-            <section className="nav-user-profile">
-                <img
-                    src={displayUserInfo.profilePic}
-                    className="user-icon-small"
-                    onClick={
-                        () => {
-                            navigate("/profile")
+        <section className="navbar-background">
+            <section className="navbar">
+                <section className="nav-user-profile">
+                    <img
+                        src={displayUserInfo.profilePic}
+                        className="user-icon-small"
+                        onClick={
+                            () => {
+                                navigate("/profile")
+                            }
                         }
-                    }
-                />
-                <section className="nav-user-details">
+                    />
+                    <section className="nav-user-details">
 
-                    <div className="nav-username">
-                        {displayUserInfo.username}
-                    </div>
+                        <div className="nav-username">
+                            {displayUserInfo.username}
+                        </div>
 
-                    <div className="nav-user-fullname">
-                        {`${displayUserInfo.firstName} ${displayUserInfo.lastName}`}
-                    </div>
+                        <div className="nav-user-fullname">
+                            {`${displayUserInfo.firstName} ${displayUserInfo.lastName}`}
+                        </div>
 
+                    </section>
                 </section>
-            </section>
 
-            <section className="nav-options">
-                <button
-                    className=""
-                    type="submit"
-                    onClick={
-                        () => {
-                            navigate("/")
-                        }
-                    }>
-                    Posts
-                </button>
-                <button
-                    type="submit"
-                    onClick={
-                        () => {
-                            navigate("/drinks")
-                        }
-                    }>
-                    Drink Selection
-                </button>
-            </section>
+                <section className="nav-options">
+                    <button
+                        className=""
+                        type="submit"
+                        onClick={
+                            () => {
+                                navigate("/")
+                            }
+                        }>
+                        Posts
+                    </button>
+                    <button
+                        type="submit"
+                        onClick={
+                            () => {
+                                navigate("/drinks")
+                            }
+                        }>
+                        Drink Selection
+                    </button>
+                </section>
 
-            <section className="nav-logout">
-                <button
-                    type="submit"
-                    onClick={onLogout}>
-                    Logout
-                </button>
+                <section className="nav-logout">
+                    <button
+                        type="submit"
+                        onClick={onLogout}>
+                        Logout
+                    </button>
+                </section>
             </section>
         </section>
     )

@@ -1,15 +1,24 @@
-.navbar {
+.navbar-background {
     background-color: rgb(10, 10, 10);
+    width: 100vw;
+    height: 9.5vh;
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
+    z-index: 10;
+}
+
+.navbar {
+    background-color: rgb(10, 10, 10);
+    width: 97vw;
     height: 7vh;
     color: rgb(253, 253, 253);
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     padding: 1vh 0vw;
-    z-index: 10;
+    border-bottom: 2px solid rgb(210, 178, 98);
+    margin: auto;
+
 }
 
 .user-icon-small {

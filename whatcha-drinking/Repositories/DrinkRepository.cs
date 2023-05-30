@@ -125,7 +125,7 @@ namespace whatcha_drinking.Repositories
                         drink = new UserDrink()
                         {
                             Id = DbUtils.GetInt(reader, "id"),
-                            UserId = DbUtils.GetInt(reader,"userId"),
+                            UserId = DbUtils.GetString(reader,"userId"),
                             DrinkId = DbUtils.GetInt(reader,"drinkId"),
                             TimesTried = DbUtils.GetInt(reader,"timesTried"),
                             DateTime =DbUtils.GetDateTime(reader,"dateTime")
@@ -156,6 +156,48 @@ namespace whatcha_drinking.Repositories
 
                     cmd.ExecuteNonQuery();
 
+                }
+            }
+        }
+
+        public Drink MostRecent(string userId) 
+        { 
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+SELECT TOP (1) 
+D.[id],
+D.[name],
+DT.[type],
+UD.[timesTried],
+UD.[dateTime]
+FROM [drink] D
+LEFT JOIN [drinkType] DT
+ON DT.[id] = D.[drinkTypeId]
+LEFT JOIN [userDrinks] UD
+ON UD.[drinkId] = D.[id]
+WHERE UD.[userId] = @userId
+ORDER BY UD.[dateTime] DESC";
+
+                    DbUtils.AddParameter(cmd, "@userId", userId);
+                    var reader = cmd.ExecuteReader();
+                    Drink drink = null;
+                    if(reader.Read())
+                    {
+                        drink = new Drink()
+                        {
+                            Id = DbUtils.GetInt(reader,"id"),
+                            Name= DbUtils.GetString(reader,"name"),
+                            Type = DbUtils.GetString(reader,"type"),
+                            TimesTried = DbUtils.GetInt(reader,"timesTried"),
+                            DateTime = DbUtils.GetDateTime(reader,"dateTime")
+                        };
+                    }
+                    reader.Close();
+                    return drink;
                 }
             }
         }

@@ -23,7 +23,7 @@ namespace whatcha_drinking.Controllers
             return Ok(_drinkRepository.GetAllDrinks());
         }
 
-        [HttpPost("add-drink")]
+        [HttpPost("add_drink")]
         public IActionResult AddUserDrink(UserDrink userdrink)
         {
             if (_userRepository.GetById(userdrink.UserId) == null || _drinkRepository.GetById(userdrink.DrinkId) == null)
@@ -49,6 +49,17 @@ namespace whatcha_drinking.Controllers
             _drinkRepository.UpdateUserDrinks(exisistinguserdrinks);
             return Ok();
          
+        }
+
+        [HttpGet("most_recent")]
+        public IActionResult MostRecent(string userId)
+        {
+            if (_userRepository.GetById(userId) == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(_drinkRepository.MostRecent(userId));
         }
     }
 }

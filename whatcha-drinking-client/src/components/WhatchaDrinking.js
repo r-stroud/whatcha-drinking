@@ -3,6 +3,7 @@ import { Authorized } from "./views/Authorized";
 import { ApplicationViews } from "./views/ApplicationViews";
 import { Welcome } from "./auth/Welcome";
 import { Navbar } from "./navbar/Navbar";
+import { RecentActivitiesView } from "./views/recentActivities/RecentActivitiesView";
 
 export const WhatchaDrinking = () => {
     return (
@@ -14,6 +15,7 @@ export const WhatchaDrinking = () => {
                     <Authorized>
                         <>
                             <Navbar />
+                            <RecentActivitiesView />
                             <ApplicationViews />
                         </>
                     </Authorized>

@@ -3,21 +3,10 @@ import "./Drinks.css"
 
 export const Drink = ({ id, name, type, timesTried, setUpdateDom, updateDom }) => {
 
-    const userId = getCurrentUser().uid
-    console.log(userId)
+    const firebaseId = getCurrentUser().uid
 
-    const url = `https://localhost:7189/api/Drink/add-drink`
 
-    // (fetch(`${url}`, {
-    //     method: "POST",
-    //     body: JSON.stringify({
-    //         userId: "",
-    //         drinkId: ""
-    //     }),
-    //     headers: {
-    //         "Content-Type": "application/json"
-    //     }
-    // }))
+    const url = `https://localhost:7189/api/Drink/add_drink`
 
     return (
         <section
@@ -52,7 +41,7 @@ export const Drink = ({ id, name, type, timesTried, setUpdateDom, updateDom }) =
                         fetch(`${url}`, {
                             method: "POST",
                             body: JSON.stringify({
-                                userId: 1,
+                                userId: firebaseId,
                                 drinkId: id
                             }),
                             headers: {

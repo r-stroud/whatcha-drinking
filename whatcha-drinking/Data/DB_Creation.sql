@@ -66,7 +66,7 @@ GO
 
 CREATE TABLE [userDrinks] (
   [id] int IDENTITY NOT NULL,
-  [userId] int NOT NULL,
+  [firebaseId] nvarchar(255) NOT NULL,
   [drinkId] int NOT NULL,
   [timesTried] int,
   [dateTime] dateTime NOT NULL
@@ -130,7 +130,7 @@ GO
 ALTER TABLE [preferredDrink] ADD FOREIGN KEY ([drinkTypeId]) REFERENCES [drinkType] ([id])
 GO
 
-ALTER TABLE [userDrinks] ADD FOREIGN KEY ([userId]) REFERENCES [user] ([id])
+ALTER TABLE [userDrinks] ADD FOREIGN KEY ([firebaseId]) REFERENCES [user] ([firebaseId])
 GO
 
 ALTER TABLE [userDrinks] ADD FOREIGN KEY ([drinkId]) REFERENCES [drink] ([id])
