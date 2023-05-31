@@ -2,7 +2,6 @@
 {
     public class User
     {
-        public int Id { get; set; }
         public string FirebaseId { get; set; }
         public string Email { get; set; }
         public string Username { get; set; }
@@ -14,13 +13,12 @@
 
     public class UserFirebaseId
     {
-        public int Id { get; set; }
+
         public string FirebaseId { get; set; }
     }
 
     public class NewUserDetails
     {
-        public int Id { get; set; }
         public string FirebaseId { get; set; }
         public string ProfilePic { get; set; }
         public string Email { get; set; }

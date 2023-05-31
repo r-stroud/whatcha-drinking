@@ -24,7 +24,6 @@ namespace whatcha_drinking.Repositories
                                         username, 
                                         email, 
                                         profilePic)
-                                        OUTPUT inserted.id
                                         VALUES (@firebaseId,
                                         @firstName,
                                         @lastName, 
@@ -45,7 +44,7 @@ namespace whatcha_drinking.Repositories
                     user.Username= nud.Username;
                     user.Email= nud.Email;
                     user.ProfilePic= nud.ProfilePic;
-                    user.Id = (int)cmd.ExecuteScalar();
+                    cmd.ExecuteNonQuery();
 
                     return user;
                 }
@@ -61,7 +60,7 @@ namespace whatcha_drinking.Repositories
                 {
                     
                     cmd.CommandText = @"
-                                        SELECT [id],[firebaseId], [email], [username],[firstName],[lastName],[address],[profilePic]
+                                        SELECT [firebaseId], [email], [username],[firstName],[lastName],[address],[profilePic]
                                         FROM [WhatchaDrinking].[dbo].[user]
                                         WHERE [firebaseId] = @firebaseId";
                     DbUtils.AddParameter(cmd, "@firebaseId", firebaseId);
@@ -71,7 +70,6 @@ namespace whatcha_drinking.Repositories
                     {
                         user = new User()
                         {
-                            Id = DbUtils.GetInt(reader, "id"),
                             FirebaseId = DbUtils.GetString(reader, "firebaseId"),
                             Email = DbUtils.GetString(reader,"email"),
                             Username= DbUtils.GetString(reader,"username"),
@@ -95,7 +93,7 @@ namespace whatcha_drinking.Repositories
                 using(var cmd =conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                                        SELECT [id],[firebaseId] 
+                                        SELECT [firebaseId] 
                                         FROM [WhatchaDrinking].[dbo].[user]";
                     var reader = cmd.ExecuteReader();
                     List<string> firebaseIds= new List<string>();
@@ -104,7 +102,6 @@ namespace whatcha_drinking.Repositories
                     {
                         user = new UserFirebaseId()
                         {
-                            Id = DbUtils.GetInt(reader, "id"),
                             FirebaseId = DbUtils.GetString(reader, "firebaseId")
                         };
 
@@ -172,24 +169,23 @@ namespace whatcha_drinking.Repositories
             }
         }
 
-        public User GetById(int id)
+        public User GetById(string id)
         {
             using (var conn = Connection)
             {
                 conn.Open();
                 using(var cmd =conn.CreateCommand())
                 {
-                    cmd.CommandText = @" SELECT [id],[firebaseId], [email], [username],[firstName],[lastName],[address],[profilePic]
+                    cmd.CommandText = @" SELECT [firebaseId], [email], [username],[firstName],[lastName],[address],[profilePic]
                                         FROM [WhatchaDrinking].[dbo].[user]
-                                        WHERE [id] = @id";
-                    DbUtils.AddParameter(cmd, "@id", id);
+                                        WHERE [firebaseId] = @firebaseId";
+                    DbUtils.AddParameter(cmd, "@firebaseId", id);
                     var reader = cmd.ExecuteReader();
                     User user = null;
                     if (reader.Read())
                     {
                         user = new User()
                         {
-                            Id = DbUtils.GetInt(reader, "id"),
                             FirebaseId = DbUtils.GetString(reader, "firebaseId"),
                             Email = DbUtils.GetString(reader, "email"),
                             Username = DbUtils.GetString(reader, "username"),
