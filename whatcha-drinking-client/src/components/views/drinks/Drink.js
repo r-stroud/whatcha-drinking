@@ -1,12 +1,55 @@
+import { useEffect, useState } from "react"
 import { getCurrentUser } from "../../utils/Constants"
 import "./Drinks.css"
 
-export const Drink = ({ id, name, type, timesTried, setUpdateDom, updateDom }) => {
+export const Drink = ({ id, name, type, setDrinkingNow, drinkingNow }) => {
 
     const firebaseId = getCurrentUser().uid
 
-
     const url = `https://localhost:7189/api/Drink/add_drink`
+
+    // const resetDrinkPosition = () => {
+    //     document.getElementById(`drinkImg${id}`).style.bottom = "-150px";
+    // }
+
+    const updateDrink = async () => {
+        await fetch(`${url}`, {
+            method: "POST",
+            body: JSON.stringify({
+                userId: firebaseId,
+                drinkId: id
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        await setUpdateTimesTried(!updateTimesTried)
+        await setDrinkingNow(!drinkingNow)
+        // await resetDrinkPosition()
+    }
+
+    // get times tried
+
+    const url2 = `https://localhost:7189/api/Drink/times_tried?userId=${firebaseId}&drinkId=${id}`
+
+    const displayTimesTried = async () => {
+        const fetchData = await fetch(`${url2}`)
+        const fetchJson = await fetchData.json()
+        setTimesTried(fetchJson)
+    }
+
+    const [timesTried, setTimesTried] = useState({
+        timesTried: 0
+    })
+
+    const [updateTimesTried, setUpdateTimesTried] = useState(false)
+
+    useEffect(
+        () => {
+
+            displayTimesTried()
+        }, [, updateTimesTried]
+    )
 
     return (
         <section
@@ -27,9 +70,9 @@ export const Drink = ({ id, name, type, timesTried, setUpdateDom, updateDom }) =
 
             <div className="drink-name">{name}</div>
 
-            {timesTried !== 1
-                ? <div className="drinkcount-user">You've tried this drink <span>{timesTried}</span> times</div>
-                : <div className="drinkcount-user">You've tried this drink <span>{timesTried}</span> time</div>}
+            {timesTried.timesTried !== 1
+                ? <div className="drinkcount-user">You've tried this drink <span>{timesTried.timesTried}</span> times</div>
+                : <div className="drinkcount-user">You've tried this drink <span>{timesTried.timesTried}</span> time</div>}
 
             <div className="drinkcount-total"></div>
 
@@ -37,17 +80,7 @@ export const Drink = ({ id, name, type, timesTried, setUpdateDom, updateDom }) =
                 className="drink-bttn"
                 onClick={(
                     () => {
-
-                        fetch(`${url}`, {
-                            method: "POST",
-                            body: JSON.stringify({
-                                userId: firebaseId,
-                                drinkId: id
-                            }),
-                            headers: {
-                                "Content-Type": "application/json"
-                            }
-                        }).then(setUpdateDom(!updateDom))
+                        updateDrink()
 
                     }
 

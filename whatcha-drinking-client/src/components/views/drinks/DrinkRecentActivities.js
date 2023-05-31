@@ -2,8 +2,28 @@ import { useEffect, useState } from "react"
 import { getCurrentUser } from "../../utils/Constants"
 import "./Drinks.css"
 import { RecentDrink } from "./RecentDrink"
+import { DrinkFilter } from "./DrinkFilter"
 
-export const DrinkRecentActivities = () => {
+export const DrinkRecentActivities = ({ drinkingNow, filter, setFilter, setFilterVariable, filterVariable }) => {
+
+    //display drink types
+
+    const url2 = "https://localhost:7189/api/DrinkType/drink_types"
+
+    const displayDrinkTypes = async () => {
+        const fetchData = await fetch(`${url2}`)
+        const fetchJson = await fetchData.json()
+        setDrinkTypes(fetchJson)
+    }
+    const [drinkTypes, setDrinkTypes] = useState([])
+
+    useEffect(
+        () => {
+            displayDrinkTypes()
+        }, []
+    )
+
+    //get most recent drink
 
     const firebaseId = getCurrentUser().uid
 
@@ -20,9 +40,9 @@ export const DrinkRecentActivities = () => {
     useEffect(
         () => {
             displayRecentDrink()
-        }, []
+        }, [, drinkingNow]
     )
-    console.log(recentDrink)
+
 
     return (
         <section className="drink-recent-activities">
@@ -31,7 +51,22 @@ export const DrinkRecentActivities = () => {
                 name={recentDrink.name}
                 type={recentDrink.type}
                 timesTried={recentDrink.timesTried}
-                dateTime={recentDrink.dateTime} />
+                dateTime={recentDrink.dateTime}
+            />
+            <section className="drink-filter-by-type">
+                {drinkTypes.map((drinkType) => (
+                    <DrinkFilter
+                        key={drinkType.id}
+                        id={drinkType.id}
+                        type={drinkType.type}
+                        setFilter={setFilter}
+                        filter={filter}
+                        setFilterVariable={setFilterVariable}
+                        filterVariable={filterVariable}
+
+                    />)
+                )}
+            </section>
 
         </section>
     )

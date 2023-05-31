@@ -16,6 +16,7 @@ namespace whatcha_drinking
             builder.Services.AddSwaggerGen();
             builder.Services.AddTransient<IUserRepository, UserRepository>();
             builder.Services.AddTransient<IDrinkRepository, DrinkRepository>();
+            builder.Services.AddTransient<IDrinkTypeRepository, DrinkTypeRepository>();
 
             var app = builder.Build();
 

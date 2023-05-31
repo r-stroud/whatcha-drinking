@@ -1,4 +1,5 @@
-﻿using whatcha_drinking.Model;
+﻿using Microsoft.Identity.Client;
+using whatcha_drinking.Model;
 using whatcha_drinking.Utils;
 
 namespace whatcha_drinking.Repositories
@@ -17,13 +18,10 @@ namespace whatcha_drinking.Repositories
                     cmd.CommandText = @"SELECT 
                                         D.[id] AS drinkId, 
                                         D.[name],
-                                        DT.[type],
-                                        UD.[timesTried]
+                                        DT.[type]
                                         FROM [drink] D
                                         LEFT JOIN [drinkType] DT
-                                        ON DT.[id] = D.[drinkTypeId]
-                                        LEFT JOIN [userDrinks] UD
-                                        ON UD.[drinkId] = D.[id]";
+                                        ON DT.[id] = D.[drinkTypeId]";
                     var reader = cmd.ExecuteReader();
                     List<Drink> drinks = new List<Drink>();
                     Drink drink = null;
@@ -34,7 +32,6 @@ namespace whatcha_drinking.Repositories
                             Id = DbUtils.GetInt(reader, "drinkId"),
                             Name = DbUtils.GetString(reader, "name"),
                             Type = DbUtils.GetString(reader, "type"),
-                            TimesTried = DbUtils.GetNullableInt(reader,"timesTried")
                         };
                         drinks.Add(drink);
                     }
@@ -102,7 +99,7 @@ namespace whatcha_drinking.Repositories
             }
         }
 
-        public UserDrink GetByDrinkId(int drinkId)
+        public UserDrink GetUserDrinkById(int drinkId, string userId)
         {
             using (var conn = Connection)
             {
@@ -116,8 +113,10 @@ namespace whatcha_drinking.Repositories
                                         [timesTried],
                                         [dateTime]
                                         FROM [userDrinks]
-                                        WHERE [drinkId] = @drinkId";
+                                        WHERE [drinkId] = @drinkId
+                                        AND [userId] = @userId";
                     DbUtils.AddParameter(cmd, "@drinkId", drinkId);
+                    DbUtils.AddParameter(cmd, "@userId", userId);
                     var reader = cmd.ExecuteReader();
                     UserDrink drink = null;
                     if (reader.Read())
@@ -199,6 +198,46 @@ ORDER BY UD.[dateTime] DESC";
                     reader.Close();
                     return drink;
                 }
+            }
+        }
+
+        public TimesDrank GetTimesTried(string userId, int drinkId) 
+        
+        {
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                        SELECT 
+                                        UD.[timesTried]
+                                        FROM [drink] D
+                                        LEFT JOIN [drinkType] DT
+                                        ON DT.[id] = D.[drinkTypeId]
+                                        LEFT JOIN [userDrinks] UD
+                                        ON UD.[drinkId] = D.[id]
+                                        LEFT JOIN [user] U
+                                        ON U.[firebaseId] = UD.[userId]
+                                        WHERE U.[firebaseId] = @firebaseId
+                                        AND D.[id] = @drinkId";
+
+                    DbUtils.AddParameter(cmd, "@firebaseId", userId);
+                    DbUtils.AddParameter(cmd, "@drinkId", drinkId);
+                    var reader = cmd.ExecuteReader();
+                    TimesDrank times = null;
+                    if (reader.Read())
+                    {
+                        times = new TimesDrank()
+                        {
+                            TimesTried = DbUtils.GetInt(reader,"timesTried")
+                        };
+                    }
+
+                    reader.Close();
+                    return times;
+                }
+                
             }
         }
 

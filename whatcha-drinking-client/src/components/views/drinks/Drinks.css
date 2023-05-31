@@ -87,9 +87,11 @@
     width: 100vw;
     background-color: rgb(10, 10, 10);
     position: fixed;
-    top: 7vh;
+    top: 9.5vh;
     z-index: 8;
-
+    display: flex;
+    justify-content: center;
+    height: 120px;
 }
 
 .recent-drink {
@@ -101,13 +103,11 @@
     font-size: 18px;
     font-weight: 100;
     padding: 10px;
-    height: 130px;
     position: relative;
     overflow: hidden;
 }
 
 .drink-img-small-frame {
-    margin-top: 20px;
     width: 100px;
     height: 100px;
     border: outset 4px rgb(210, 178, 98);
@@ -124,4 +124,18 @@
     top: 5px;
     right: -13px;
 
+}
+
+.drink-filter-by-type {
+    /* margin-top: 10px; */
+    display: flex;
+    flex-wrap: wrap;
+    width: 200px;
+    color: rgb(252, 252, 252);
+    font-size: 18px;
+}
+
+.drink-filter-option {
+    cursor: pointer;
+    padding: 5px;
 }

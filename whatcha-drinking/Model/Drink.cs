@@ -19,4 +19,15 @@
         public DateTime DateTime { get; set; }
     }
 
+    public class TimesDrank
+    {
+        public int TimesTried { get; set; }
+    }
+
+    public class UserIdDrinkId
+    {
+        public string UserId { get; set; }
+        public int DrinkId { get; set; }
+    }
+
 }
