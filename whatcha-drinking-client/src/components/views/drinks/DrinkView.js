@@ -31,6 +31,10 @@ export const DrinkView = () => {
 
     const [drinkingNow, setDrinkingNow] = useState(false)
 
+    // display all drinks by default / filter selection
+
+    const [showAll, setShowAll] = useState(true)
+
     //filtered drinks
 
     const [filter, setFilter] = useState(false)
@@ -55,28 +59,36 @@ export const DrinkView = () => {
             } else {
                 copyArray.push(filterVariable)
             }
-            setFilterArray(copyArray)
+            showAll ? setFilterArray([]) : setFilterArray(copyArray)
             setFilteredDrinksOn(!filterDrinksOn)
-        }, [filter]
+        }, [filter, showAll]
     )
 
     useEffect(
         () => {
+
+
             const copy = drinks.map(x => ({ ...x }))
 
-            const newArray = []
+            if (showAll === true) {
 
-            filterArray.map(fa => {
-                copy.filter(c => c.type.toUpperCase() === fa.toUpperCase()).forEach(e => newArray.push(e))
+                setFilteredDrinks(copy)
 
-            })
+            } else {
 
-            setFilteredDrinks(newArray)
+                const newArray = []
 
-        }, [filterDrinksOn]
+                filterArray.map(fa => {
+                    copy.filter(c => c.type.toUpperCase() === fa.toUpperCase()).forEach(e => newArray.push(e))
+
+                })
+
+                setFilteredDrinks(newArray)
+
+            }
+
+        }, [filterDrinksOn, showAll, drinks]
     )
-
-    console.log(filteredDrinks)
 
     useEffect(
         () => {
@@ -93,10 +105,12 @@ export const DrinkView = () => {
                 filter={filter}
                 setFilterVariable={setFilterVariable}
                 filterVariable={filterVariable}
+                setShowAll={setShowAll}
+                showAll={showAll}
             />
             <section className="drink-view">
 
-                {drinks.map((drink) => (
+                {filteredDrinks.map((drink) => (
                     <Drink
                         key={drink.id}
                         id={drink.id}

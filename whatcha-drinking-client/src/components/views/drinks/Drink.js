@@ -2,7 +2,12 @@ import { useEffect, useState } from "react"
 import { getCurrentUser } from "../../utils/Constants"
 import "./Drinks.css"
 
-export const Drink = ({ id, name, type, setDrinkingNow, drinkingNow }) => {
+export const Drink = ({
+    id,
+    name,
+    type,
+    setDrinkingNow,
+    drinkingNow }) => {
 
     const firebaseId = getCurrentUser().uid
 
