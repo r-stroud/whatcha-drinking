@@ -4,7 +4,14 @@ import "./Drinks.css"
 import { RecentDrink } from "./RecentDrink"
 import { DrinkFilter } from "./DrinkFilter"
 
-export const DrinkRecentActivities = ({ drinkingNow, filter, setFilter, setFilterVariable, filterVariable }) => {
+export const DrinkRecentActivities = ({
+    drinkingNow,
+    filter,
+    setFilter,
+    setFilterVariable,
+    filterVariable,
+    setShowAll,
+    showAll }) => {
 
     //display drink types
 
@@ -43,6 +50,18 @@ export const DrinkRecentActivities = ({ drinkingNow, filter, setFilter, setFilte
         }, [, drinkingNow]
     )
 
+    // all button color
+
+    useEffect(
+        () => {
+            showAll
+                ? document.getElementById(`optionAll`).classList.add("drink-filter-option-all-selected")
+                : document.getElementById(`optionAll`).classList.remove("drink-filter-option-all-selected")
+
+        }, [showAll]
+    )
+
+
 
     return (
         <section className="drink-recent-activities">
@@ -53,19 +72,35 @@ export const DrinkRecentActivities = ({ drinkingNow, filter, setFilter, setFilte
                 timesTried={recentDrink.timesTried}
                 dateTime={recentDrink.dateTime}
             />
-            <section className="drink-filter-by-type">
-                {drinkTypes.map((drinkType) => (
-                    <DrinkFilter
-                        key={drinkType.id}
-                        id={drinkType.id}
-                        type={drinkType.type}
-                        setFilter={setFilter}
-                        filter={filter}
-                        setFilterVariable={setFilterVariable}
-                        filterVariable={filterVariable}
 
-                    />)
-                )}
+            <section className="test" >
+
+                <div className="drink-filter-header">Filter Drinks By Type</div>
+                <div className="drink-filter-by-type">
+
+                    <div
+                        id="optionAll"
+                        className="drink-filter-option"
+                        onClick={
+                            () => {
+                                setShowAll(true)
+                            }
+                        }>All</div>
+
+                    {drinkTypes.map((drinkType) => (
+                        <DrinkFilter
+                            key={drinkType.id}
+                            id={drinkType.id}
+                            type={drinkType.type}
+                            setFilter={setFilter}
+                            filter={filter}
+                            setFilterVariable={setFilterVariable}
+                            filterVariable={filterVariable}
+                            setShowAll={setShowAll}
+                            showAll={showAll}
+
+                        />)
+                    )}</div>
             </section>
 
         </section>

@@ -14,8 +14,8 @@ export const RecentDrink = ({ id, name, type, timesTried, dateTime }) => {
                 }
             </div>
             <div className="recent-drink-details">
-                <div>Drinking Now</div>
-                <div>{`${name} `}\<span>{` ${type}`}</span></div>
+                <div className="recent-drink-header">Drinking Now</div>
+                <div>{`${name}`}<span>{`${type}`}</span></div>
 
             </div>
             <div className="recent-drink-filter">
