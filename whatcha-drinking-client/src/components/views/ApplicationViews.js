@@ -1,6 +1,6 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { PostsView } from "./PostsView";
-import { UserProfileView } from "./UserProfileView";
+import { UserProfileView } from "./userProfile/UserProfileView";
 import { DrinkView } from "./drinks/DrinkView";
 
 export const ApplicationViews = () => {

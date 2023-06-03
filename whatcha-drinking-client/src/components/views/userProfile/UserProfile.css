@@ -1,0 +1,239 @@
+.userprofile-view {
+    /* padding: 20px; */
+    position: relative;
+}
+
+#userprofilePreview {
+    position: fixed;
+    top: 0;
+    z-index: 5;
+    transition: 0.3s;
+    border-bottom: solid 2px rgb(160, 135, 74);
+    width: 100%;
+    padding: 15px 20px 15px 10vw;
+    background-color: rgb(252, 252, 252);
+}
+
+.userprofile-preview img {
+    border-color: rgb(160, 135, 74);
+}
+
+.userprofile-header {
+    font-size: 22px;
+    font-family: 'Cardo', serif;
+    margin-bottom: 10px;
+    width: 20vw;
+    text-align: left;
+}
+
+.userprofile-header-container {
+    border-bottom: 2px solid rgb(20, 20, 20);
+    margin-bottom: 10px;
+    position: relative;
+    right: 40px;
+}
+
+.userprofile-header span {
+    font-size: 16px;
+    font-family: 'Cardo', serif;
+    color: rgb(160, 135, 74);
+    display: block;
+}
+
+.userprofile-names {
+    padding: 5px 15px;
+    cursor: pointer;
+    font-size: 22px;
+    position: relative;
+}
+
+.userprofile-names:hover,
+.userprofile-username:hover {
+    transform: scale(1.05);
+}
+
+.userprofile-username {
+    position: relative;
+    right: 12px;
+    padding: 5px 15px;
+    cursor: pointer;
+    font-size: 26px;
+    position: relative;
+    color: rgb(160, 135, 74);
+}
+
+.userprofile-edit-field {
+    font-size: 16px;
+    font-family: 'Cardo', serif;
+    padding: 5px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.userprofile-edit-label {
+    font-size: 16px;
+    display: block;
+    color: rgb(160, 135, 74);
+    margin-left: 10px;
+}
+
+.userprofile-edit-names-ok-bttn {
+    position: relative;
+    top: 10px;
+    left: 8px;
+    border: outset rgb(160, 135, 74) 3px;
+    padding: 10px;
+    border-radius: 100%;
+    background-color: rgb(20, 20, 20);
+    color: rgb(252, 252, 252);
+    cursor: pointer;
+    height: fit-content;
+    width: fit-content;
+    font-size: 12px;
+}
+
+.userprofile-edit-names-cancel-bttn {
+    position: relative;
+    top: 10px;
+    left: 15px;
+    border: outset rgb(160, 135, 74) 3px;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: rgb(20, 20, 20);
+    color: rgb(252, 252, 252);
+    cursor: pointer;
+    height: fit-content;
+    width: fit-content;
+    font-size: 12px;
+}
+
+.userprofile-edit-names-cancel-bttn:hover {
+    background-color: rgb(107, 14, 14);
+}
+
+.userprofile-edit-icon {
+    width: 180px;
+    height: 180px;
+    border-radius: 100%;
+    position: relative;
+    z-index: 1;
+    margin-left: -10px;
+    cursor: pointer;
+    border: solid 5px rgb(252, 252, 252);
+}
+
+.userprofile-edit-icon:hover {
+    transform: scale(1.02);
+}
+
+.userprofile-flex {
+    display: flex;
+    align-items: center;
+}
+
+.userprofile-flex fieldset {
+    padding: 5px 0;
+}
+
+.userprofile-edit-names-ok-bttn:hover {
+    background-color: rgb(210, 178, 98);
+}
+
+.userprofile-edit-form {
+    margin-top: 32vh;
+    position: relative;
+
+
+}
+
+.userprofile-edit-form form {
+    position: absolute;
+    left: 100vw;
+    transition: 0.3s;
+    padding-left: 50px;
+}
+
+.userprofile-unavailble {
+    margin-left: 20px;
+    font-size: 16px;
+    color: rgb(176, 22, 22);
+}
+
+.userprofile-edit-pic-header {
+    font-size: 18px;
+}
+
+.userprofile-edit-bttn-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.userprofile-edit-bttn-container .userprofile-edit-names-ok-bttn,
+.userprofile-edit-bttn-container .userprofile-edit-names-cancel-bttn {
+    border-radius: 20px;
+    width: 50px;
+    text-align: center;
+    position: static;
+    margin: 10px;
+}
+
+.userprofile-update-bttn {
+    border: outset rgb(160, 135, 74) 3px;
+    padding: 5px 15px;
+    border-radius: 20px;
+    background-color: rgb(20, 20, 20);
+    color: rgb(252, 252, 252);
+    cursor: pointer;
+    height: fit-content;
+    width: fit-content;
+    font-size: 18px;
+    margin: 5px;
+}
+
+.cancel:hover {
+    background-color: rgb(107, 14, 14);
+}
+
+.ok:hover {
+    background-color: rgb(210, 178, 98);
+}
+
+.userprofile-update-container {
+    display: flex;
+}
+
+.drink-preference {
+    font-size: 18px;
+}
+
+.drink-preference-header {
+    font-size: 22px;
+    border-bottom: 2px solid rgb(160, 135, 74);
+    color: rgb(160, 135, 74);
+    margin-bottom: 5px;
+}
+
+.drink-preference-dropbox {
+    width: 150px;
+    height: 200px;
+    border: outset 4px rgb(160, 135, 74);
+    border-radius: 10px;
+    background-color: rgb(20, 20, 20);
+    /* color: rgb(210, 178, 98); */
+    padding: 10px;
+    margin: 0 5px;
+}
+
+.drink-preference-item {
+    padding: 2px 0;
+    border: 2px outset rgb(210, 178, 98);
+    border-radius: 20px;
+    text-align: center;
+    background-color: rgb(160, 135, 74);
+    color: rgb(20, 20, 20);
+    margin: 2px;
+    width: 80px;
+}

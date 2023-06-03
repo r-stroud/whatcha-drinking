@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { Drink } from "./Drink"
 import { DrinkRecentActivities } from "./DrinkRecentActivities"
+import { SubMenuView } from "../subMenu/SubMenuView"
 
 export const DrinkView = () => {
 
@@ -37,11 +38,11 @@ export const DrinkView = () => {
 
     //filtered drinks
 
-    const [filter, setFilter] = useState(false)
-    const [filterVariable, setFilterVariable] = useState("empty")
-    const [filterArray, setFilterArray] = useState([])
-    const [filterDrinksOn, setFilteredDrinksOn] = useState(false)
-    const [filteredDrinks, setFilteredDrinks] = useState([])
+    const [filter, setFilter] = useState(false) // checks if filter bttn is clicked
+    const [filterVariable, setFilterVariable] = useState("empty") // name of filter bttn clicked
+    const [filterArray, setFilterArray] = useState([]) // array of selected filter bttns
+    const [filterDrinksOn, setFilteredDrinksOn] = useState(false) // filters drinks
+    const [filteredDrinks, setFilteredDrinks] = useState([]) // array of filtered drinks
 
     useEffect(
         () => {
@@ -90,16 +91,23 @@ export const DrinkView = () => {
         }, [filterDrinksOn, showAll, drinks]
     )
 
+    // searched drinks
+
+    const [searchValue, setSearchValue] = useState("")
+    const [searchReults, setSearchResults] = useState([])
+
     useEffect(
         () => {
-            const copy = drinks.map(x => ({ ...x }))
+            const copy = filteredDrinks.map(x => ({ ...x }))
+            const searchResults = copy.filter(x => x.name.toUpperCase().includes(searchValue.toUpperCase()))
 
-        }, [filter]
+            setSearchResults(searchResults)
+        }, [searchValue, filteredDrinks]
     )
 
     return (
         <section>
-            <DrinkRecentActivities
+            <SubMenuView
                 drinkingNow={drinkingNow}
                 setFilter={setFilter}
                 filter={filter}
@@ -107,19 +115,24 @@ export const DrinkView = () => {
                 filterVariable={filterVariable}
                 setShowAll={setShowAll}
                 showAll={showAll}
+                setSearchValue={setSearchValue}
             />
             <section className="drink-view">
 
-                {filteredDrinks.map((drink) => (
-                    <Drink
-                        key={drink.id}
-                        id={drink.id}
-                        name={drink.name}
-                        type={drink.type}
-                        setDrinkingNow={setDrinkingNow}
-                        drinkingNow={drinkingNow}
-                    />
-                ))}
+                {searchReults.length < 1
+                    ? <Drink
+                        notFound={true} />
+                    : searchReults.map((drink) => (
+                        <Drink
+                            key={drink.id}
+                            id={drink.id}
+                            name={drink.name}
+                            type={drink.type}
+                            setDrinkingNow={setDrinkingNow}
+                            drinkingNow={drinkingNow}
+                            notFound={false}
+                        />
+                    ))}
             </section>
         </section>
     )

@@ -1,0 +1,21 @@
+.sub-menu-view {
+    padding-top: 25vh;
+}
+
+.userprofile-bttn {
+    color: rgb(252, 252, 252);
+    font-family: 'Cardo', serif;
+    font-size: 16px;
+    background-color: rgb(54, 54, 54);
+    border-radius: 20px;
+    padding: 6px 20px;
+    cursor: pointer;
+    height: fit-content;
+    border: outset 4px rgb(210, 178, 98);
+    margin-right: 15px;
+    width: fit-content;
+}
+
+.userprofile-bttn:hover {
+    background-color: rgb(20, 20, 20);
+}

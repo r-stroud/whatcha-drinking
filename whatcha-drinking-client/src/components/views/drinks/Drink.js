@@ -7,7 +7,8 @@ export const Drink = ({
     name,
     type,
     setDrinkingNow,
-    drinkingNow }) => {
+    drinkingNow,
+    notFound }) => {
 
     const firebaseId = getCurrentUser().uid
 
@@ -52,7 +53,7 @@ export const Drink = ({
     useEffect(
         () => {
 
-            displayTimesTried()
+            notFound ? <></> : displayTimesTried()
         }, [, updateTimesTried]
     )
 
@@ -73,28 +74,41 @@ export const Drink = ({
         >
             <div className="drink-type">{type}</div>
 
-            <div className="drink-name">{name}</div>
+            {notFound
+                ? <div className="drink-name">No Results Found</div>
+                : <div className="drink-name">{name}</div>}
 
-            {timesTried.timesTried !== 1
-                ? <div className="drinkcount-user">You've tried this drink <span>{timesTried.timesTried}</span> times</div>
-                : <div className="drinkcount-user">You've tried this drink <span>{timesTried.timesTried}</span> time</div>}
+            {notFound
+                ? <div className="drinkcount-user">
+                    Sorry, unfortunately we were unable to find any matching results.
+                    <span className="no-results-span">Please try a different search.</span>
+                </div> :
+                <>
+                    {timesTried.timesTried !== 1
+                        ? <div className="drinkcount-user">You've tried this drink <span>{timesTried.timesTried}</span> times</div>
+                        : <div className="drinkcount-user">You've tried this drink <span>{timesTried.timesTried}</span> time</div>}
+                </>}
 
             <div className="drinkcount-total"></div>
 
-            <div
-                className="drink-bttn"
-                onClick={(
-                    () => {
-                        updateDrink()
+            {notFound
+                ? <></> :
+                <div
+                    className="drink-bttn"
+                    onClick={(
+                        () => {
+                            updateDrink()
 
-                    }
+                        }
 
-                )}
-            >Drinking Now</div>
+                    )}
+                >Drinking Now</div>}
+
             <img
                 id={`drinkImg${id}`}
                 className="drink-img"
                 src={require("../../../images/four-roses.png")} />
+
         </section>
     )
 }
