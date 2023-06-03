@@ -10,5 +10,6 @@ namespace whatcha_drinking.Repositories
         List<string> GetExistingFirebaseId();
         UserUsername GetByUsername(string username);
         UserEmail GetByEmail(string email);
+        void UpdateUser(User user);
     }
 }

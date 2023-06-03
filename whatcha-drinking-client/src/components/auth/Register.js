@@ -3,11 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { googleAuth } from "../utils/googleAuth";
 import { emailAuth } from "../utils/emailAuth";
 import "./Login.css";
-import "../../images/whiskey_dog1.png"
+import { Dog1, Dog2, Liz1, Liz2, Cat1, Cat2, Bird1, Bird2 } from "../utils/Constants";
 
-// user object
-const Dog1 = require("../../images/whiskey_dog1.png")
-const Dog2 = require("../../images/whiskey_dog2.png")
 
 export const Register = () => {
     const [user, setUser] = useState({
@@ -137,35 +134,128 @@ export const Register = () => {
                     </section>
                 </section>
                 <h4>Profile Picture</h4>
-                <fieldset className="flex-start">
+                <fieldset className="flex-start-wrap">
+                    <section className="flex-start">
+                        <input
+                            type="radio"
+                            id="whiskeyDog1"
+                            className="icon-selection"
+                            name="profile-pic"
+                            value={Dog1}
+                            onClick={updateSelectedIcon}
+                        />
+                        <label htmlFor="whiskeyDog1">
+                            <img
+                                className="user-icon"
+                                src={Dog1} />
+                        </label>
+                    </section>
+                    <section className="flex-start">
+                        <input
+                            type="radio"
+                            id="whiskeyDog2"
+                            className="icon-selection"
+                            name="profile-pic"
+                            value={Dog2}
+                            onClick={updateSelectedIcon}
+                        />
+                        <label htmlFor="whiskeyDog2">
+                            <img
+                                className="user-icon"
+                                src={Dog2} />
+                        </label>
+                    </section>
+                    <section className="flex-start">
+                        <input
+                            type="radio"
+                            id="whiskeyLiz1"
+                            className="icon-selection"
+                            name="profile-pic"
+                            value={Liz1}
+                            onClick={updateSelectedIcon}
+                        />
+                        <label htmlFor="whiskeyLiz1">
+                            <img
+                                className="user-icon"
+                                src={Liz1} />
+                        </label>
+                    </section>
+                    <section className="flex-start">
+                        <input
+                            type="radio"
+                            id="whiskeyLiz2"
+                            className="icon-selection"
+                            name="profile-pic"
+                            value={Liz2}
+                            onClick={updateSelectedIcon}
+                        />
+                        <label htmlFor="whiskeyLiz2">
+                            <img
+                                className="user-icon"
+                                src={Liz2} />
+                        </label>
+                    </section>
+                    <section className="flex-start">
+                        <input
+                            type="radio"
+                            id="whiskeyCat1"
+                            className="icon-selection"
+                            name="profile-pic"
+                            value={Cat1}
+                            onClick={updateSelectedIcon}
+                        />
+                        <label htmlFor="whiskeyCat1">
+                            <img
+                                className="user-icon"
+                                src={Cat1} />
+                        </label>
+                    </section>
+                    <section className="flex-start">
+                        <input
+                            type="radio"
+                            id="whiskeyCat2"
+                            className="icon-selection"
+                            name="profile-pic"
+                            value={Cat2}
+                            onClick={updateSelectedIcon}
+                        />
+                        <label htmlFor="whiskeyCat2">
+                            <img
+                                className="user-icon"
+                                src={Cat2} />
+                        </label>
+                    </section>
+                    <section className="flex-start">
+                        <input
+                            type="radio"
+                            id="whiskeyBird1"
+                            className="icon-selection"
+                            name="profile-pic"
+                            value={Bird1}
+                            onClick={updateSelectedIcon}
+                        />
+                        <label htmlFor="whiskeyBird1">
+                            <img
+                                className="user-icon"
+                                src={Bird1} />
+                        </label>
+                    </section>
+                    <section className="flex-start">
+                        <input
+                            type="radio"
+                            id="whiskeyBird2"
+                            className="icon-selection"
+                            name="profile-pic"
+                            value={Bird2}
+                            onClick={updateSelectedIcon}
+                        />
+                        <label htmlFor="whiskeyBird2">
+                            <img
+                                className="user-icon"
+                                src={Bird2} />
+                        </label>
+                    </section>
 
-                    <input
-                        type="radio"
-                        id="whiskeyDog1"
-                        className="icon-selection"
-                        name="profile-pic"
-                        value={Dog1}
-                        onClick={updateSelectedIcon}
-                    />
-                    <label htmlFor="whiskeyDog1">
-                        <img
-                            className="user-icon"
-                            src={require("../../images/whiskey_dog1.png")} />
-                    </label>
-
-                    <input
-                        type="radio"
-                        id="whiskeyDog2"
-                        className="icon-selection"
-                        name="profile-pic"
-                        value={Dog2}
-                        onClick={updateSelectedIcon}
-                    />
-                    <label htmlFor="whiskeyDog2">
-                        <img
-                            className="user-icon"
-                            src={require("../../images/whiskey_dog2.png")} />
-                    </label>
                 </fieldset>
                 <fieldset>
                     <label htmlFor="firstName"> First Name </label>
@@ -176,7 +266,6 @@ export const Register = () => {
                         className="form-control"
                         placeholder="Enter your first name"
                         required
-                        autoFocus
                     />
                 </fieldset>
                 <fieldset>
@@ -188,7 +277,6 @@ export const Register = () => {
                         className="form-control"
                         placeholder="Enter your last name"
                         required
-                        autoFocus
                     />
                 </fieldset>
                 <fieldset>
@@ -201,7 +289,6 @@ export const Register = () => {
                         placeholder="Enter your username"
                         minLength={5}
                         required
-                        autoFocus
                     />
                     <div>{usernameAvailability.username === user.username ? `This username is not available` : <></>}</div>
                 </fieldset>
@@ -232,7 +319,6 @@ export const Register = () => {
                             className="form-control"
                             placeholder="Must Be 6 Characters"
                             required
-                            autoFocus
                         />
                     </fieldset>
                     : <></>}
@@ -260,10 +346,6 @@ export const Register = () => {
                             Register </button>}
                 </fieldset>
             </form>
-            {/* <h2>Register With Google?</h2>
-            <button type="submit" onClick={onSubmitLogin}>
-                Let's Do It!
-            </button> */}
         </main>
     );
 };

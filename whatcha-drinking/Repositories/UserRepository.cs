@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System.Collections.Generic;
+using System.Security.Cryptography;
 using whatcha_drinking.Model;
 using whatcha_drinking.Utils;
 
@@ -200,5 +201,35 @@ namespace whatcha_drinking.Repositories
                 }
             }
         }
+
+        public void UpdateUser(User user)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd =conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                        UPDATE [user]
+                                        SET 
+                                        [firstName] = @firstName,
+                                        [lastName] = @lastName,
+                                        [username] = @username,
+                                        [profilePic] = @profilePic
+                                        WHERE [firebaseId] = @firebaseId";
+                    DbUtils.AddParameter(cmd, "@firstName", user.FirstName);
+                    DbUtils.AddParameter(cmd, "@lastName", user.LastName);
+                    DbUtils.AddParameter(cmd, "@username", user.Username);
+                    DbUtils.AddParameter(cmd, "@profilePic", user.ProfilePic);
+                    DbUtils.AddParameter(cmd, "@firebaseId", user.FirebaseId);
+
+                    cmd.ExecuteNonQuery();
+                }
+
+
+
+            }
+        }
+
     }
 }

@@ -109,6 +109,12 @@ fieldset {
     justify-content: start;
 }
 
+.flex-start-wrap {
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+}
+
 
 .title {
     text-align: center;

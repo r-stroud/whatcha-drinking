@@ -80,5 +80,25 @@ namespace whatcha_drinking.Controllers
                 }); 
             }
         }
+        [HttpPut("update_user")]
+        public IActionResult UpdateUser(User user)
+        {
+            if(user.Username== null)
+            {
+                return BadRequest();
+            }
+
+            if (_userRepository.GetByFirebaseId(user.FirebaseId) == null)
+            {
+                return BadRequest();
+            }
+
+            _userRepository.UpdateUser(user);
+            return Ok(new
+            {
+                Message = "Updated",
+                User = user
+            });
+        }
     }
 }
