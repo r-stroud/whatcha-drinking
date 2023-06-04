@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getCurrentUser } from "../../utils/Constants"
+import { DrinkImg, getCurrentUser } from "../../utils/Constants"
 import "./Drinks.css"
 
 export const Drink = ({
@@ -107,7 +107,7 @@ export const Drink = ({
             <img
                 id={`drinkImg${id}`}
                 className="drink-img"
-                src={require("../../../images/four-roses.png")} />
+                src={DrinkImg} />
 
         </section>
     )

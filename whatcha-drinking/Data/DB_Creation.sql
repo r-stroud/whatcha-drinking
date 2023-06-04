@@ -14,6 +14,7 @@ DROP TABLE IF EXISTS [friendJoin]
 DROP TABLE IF EXISTS [message]
 DROP TABLE IF EXISTS [drinkQueue]
 DROP TABLE IF EXISTS [preferredDrink]
+DROP TABLE IF EXISTS [preferenceType]
 DROP TABLE IF EXISTS [review]
 DROP TABLE IF EXISTS [userDrinks]
 DROP TABLE IF EXISTS [post]
@@ -57,9 +58,16 @@ CREATE TABLE [drinkType] (
 GO
 
 CREATE TABLE [preferredDrink] (
-  [id] int IDENTITY NOT NULL,
+  [id] int PRIMARY KEY IDENTITY NOT NULL,
   [userId] nvarchar(255) NOT NULL,
-  [drinkTypeId] int NOT NULL
+  [drinkTypeId] int NOT NULL,
+  [preferenceTypeId] int NOT NULL
+)
+GO
+
+CREATE TABLE [preferenceType] (
+  [id] int PRIMARY KEY IDENTITY NOT NULL,
+  [preferenceType] nvarchar(255) NOT NULL,
 )
 GO
 
@@ -129,6 +137,9 @@ GO
 ALTER TABLE [preferredDrink] ADD FOREIGN KEY ([drinkTypeId]) REFERENCES [drinkType] ([id])
 GO
 
+ALTER TABLE [preferredDrink] ADD FOREIGN KEY ([preferenceTypeId]) REFERENCES [preferenceType] ([id])
+GO
+
 ALTER TABLE [userDrinks] ADD FOREIGN KEY ([userId]) REFERENCES [user] ([firebaseId])
 GO
 
@@ -185,23 +196,31 @@ SET IDENTITY_INSERT [drink] ON
 INSERT INTO [drink]
 ([id],[name],[drinkTypeId],[picture])
 VALUES
-(1, 'Absolut Elyx', 1, ''),
-(2, 'Belvedere', 1, ''),
-(3, 'Grey Goose',1, ''),
-(4, 'Hangar 1',1, ''),
-(5, 'Chopin',1, ''),
-(6, 'Siete Leguas Reposado',2, ''),
-(7, 'Cimarron Blanco Tequila',2, ''),
-(8, 'La Gritona Reposado Tequila',2, ''),
-(9, 'Volcan De Mi Tierra Cristalino Tequila',2, ''),
-(10, 'Casa Dragones Blanco',2, ''),
-(11, 'Partida Reposado',2, ''),
-(12, 'Elijah Craig Barrel Proof',3, ''),
-(13, 'Old Ezra 7-Year-Old',3, ''),
-(14, 'Widow Jane 10-Year-Old',3, ''),
-(15, 'Four Roses Single Barrel',3, ''),
-(16, 'W.L. Weller 12-Year-Old',3, '')
+(1, 'Absolut Elyx', 1, '../../images/absolut-elyx.png'),
+(2, 'Belvedere', 1, '../../images/belvedere.png'),
+(3, 'Grey Goose',1, '../../images/grey-goose.png'),
+(4, 'Hangar 1',1, '../../images/hangar-1.png'),
+(5, 'Chopin',1, '../../images/chopin.png'),
+(6, 'Siete Leguas Reposado',2, '../../images/siete-leguas.png'),
+(7, 'Cimarron Blanco Tequila',2, '../../images/cimarron.png'),
+(8, 'La Gritona Reposado Tequila',2, '../../images/la-gritona.png'),
+(9, 'Volcan De Mi Tierra Cristalino Tequila',2, '../../images/volcan.png'),
+(10, 'Casa Dragones Blanco',2, '../../images/casa-dragones.png'),
+(11, 'Partida Reposado',2, '../../images/partida.png'),
+(12, 'Elijah Craig Barrel Proof',3, '../../images/elijah-craig.png'),
+(13, 'Old Ezra 7-Year-Old',3, '../../images/old-ezra.png'),
+(14, 'Widow Jane 10-Year-Old',3, '../../images/widow-jane.png'),
+(15, 'Four Roses Single Barrel',3, '../../images/four-roses.png'),
+(16, 'W.L. Weller 12-Year-Old',3, '../../images/w.l.weller.png')
 SET IDENTITY_INSERT [drink] OFF
+
+SET IDENTITY_INSERT [preferenceType] ON
+INSERT INTO [preferenceType]
+([id], [preferenceType])
+VALUES
+(1, 'preferred'),
+(2, 'never again')
+SET IDENTITY_INSERT [preferenceType] OFF
 
 
 

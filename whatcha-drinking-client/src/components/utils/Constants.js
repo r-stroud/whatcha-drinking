@@ -14,6 +14,8 @@ export const Cat2 = require("../../images/whiskey_cat2.png")
 export const Bird1 = require("../../images/whiskey_bird1.png")
 export const Bird2 = require("../../images/whiskey_bird2.png")
 
+export const DrinkImg = require("../../images/four-roses.png")
+
 
 
 

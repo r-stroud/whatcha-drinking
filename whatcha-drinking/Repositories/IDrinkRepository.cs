@@ -11,5 +11,13 @@ namespace whatcha_drinking.Repositories
         void UpdateUserDrinks(UserDrink userdrink);
         public Drink MostRecent(string drinkId);
         public TimesDrank GetTimesTried(string userId, int drinkId);
+        public DrinkPreference AddPreference(DrinkPreference drinkPreference);
+        public List<DrinkPreference> DrinkPreferencesByUserID(string userId);
+        public PreferenceType GetPreferenceTypeById(int id);
+        public DrinkPreference GetDrinkPreferenceById(int id);
+        public void RemoveDrinkPreference(int id);
+        public int? GetDrinkPreferenceId(string userId, int drinkTypeId);
+
+
     }
 }
