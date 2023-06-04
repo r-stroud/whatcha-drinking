@@ -1,4 +1,5 @@
 ﻿using Microsoft.Identity.Client;
+using System.Xml.Serialization;
 using whatcha_drinking.Model;
 using whatcha_drinking.Utils;
 
@@ -240,6 +241,178 @@ ORDER BY UD.[dateTime] DESC";
                 
             }
         }
+
+        public DrinkPreference AddPreference(DrinkPreference drinkPreference)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO [preferredDrink]
+                                        ([userId],
+                                        [drinkTypeId],
+                                        [preferenceTypeId])
+                                        OUTPUT INSERTED.id
+                                        VALUES (@userId, @drinkTypeId, @preferenceTypeId)";
+                    DbUtils.AddParameter(cmd, "@userId", drinkPreference.UserId);
+                    DbUtils.AddParameter(cmd, "@drinkTypeId", drinkPreference.DrinkTypeId);
+                    DbUtils.AddParameter(cmd, "@preferenceTypeId", drinkPreference.PreferenceTypeId);
+                    drinkPreference.Id = (int)cmd.ExecuteScalar();
+                    return drinkPreference;
+                }
+            }
+        }
+
+        public List<DrinkPreference> DrinkPreferencesByUserID(string userId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                        SELECT PD.[id], PD.[userId], PD.[drinkTypeId], PD.[preferenceTypeId], DT.[type]
+                                        FROM [preferredDrink] PD
+                                        LEFT JOIN [drinkType] DT
+                                        ON DT.[id] = PD.[drinkTypeId]
+                                        WHERE [userId] = @userId";
+                    DbUtils.AddParameter(cmd, "@userId", userId);
+                    List<DrinkPreference> drinkPreferences = new List<DrinkPreference>();
+                    DrinkPreference drinkPreference = null;
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        drinkPreference = new DrinkPreference()
+                        {
+                            Id= DbUtils.GetInt(reader, "id"),
+                            UserId = DbUtils.GetString(reader, "userId"),
+                            DrinkTypeId = DbUtils.GetInt(reader,"drinkTypeId"),
+                            PreferenceTypeId = DbUtils.GetInt(reader,"preferenceTypeId"),
+                            Type = DbUtils.GetString(reader, "type")
+                        };
+                        drinkPreferences.Add(drinkPreference);
+                    }
+
+                    reader.Close();
+                    return drinkPreferences;
+                }
+            }
+        }
+
+        public PreferenceType GetPreferenceTypeById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT [id], [preferenceType]
+                                        FROM [preferenceType]
+                                        WHERE [id] = @id";
+                    DbUtils.AddParameter(cmd,"@id", id);
+                    PreferenceType preferenceType = null;
+                    var reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        preferenceType = new PreferenceType()
+                        {
+                            Id = DbUtils.GetInt(reader, "id"),
+                            Preference = DbUtils.GetString(reader,"preferenceType")
+                        };
+                    }
+                    reader.Close();
+                    return preferenceType;
+                }
+            }
+        }
+
+        public DrinkPreference GetDrinkPreferenceById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT PD.[id], PD.[userId], PD.[drinkTypeId], PD.[preferenceTypeId], DT.[type]
+                                        FROM [preferredDrink] PD
+                                        LEFT JOIN [drinkType] DT
+                                        ON DT.[id] = PD.[drinkTypeId]
+                                        WHERE PD.[id] = @id";
+
+                    DbUtils.AddParameter(cmd, "@id", id);
+                    DrinkPreference preference = null;
+                    var reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        preference = new DrinkPreference()
+                        {
+                            Id = DbUtils.GetInt(reader, "id"),
+                            UserId = DbUtils.GetString(reader, "userId"),
+                            DrinkTypeId = DbUtils.GetInt(reader, "drinkTypeId"),
+                            PreferenceTypeId = DbUtils.GetInt(reader, "preferenceTypeId"),
+                            Type = DbUtils.GetString(reader, "type")
+
+                        };
+                    }
+
+                    reader.Close();
+                    return preference;
+
+                }
+            }
+        }
+
+
+        public void RemoveDrinkPreference(int id)
+        {
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                      DELETE FROM [preferredDrink] WHERE [id] = @id";
+
+                    DbUtils.AddParameter(cmd, "@id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public int? GetDrinkPreferenceId(string userId, int drinkTypeId)
+        {
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                        SELECT PD.[id] AS preferredID
+                                        FROM [preferredDrink] PD
+                                        LEFT JOIN [drinkType] DT
+                                        ON DT.[id] = PD.[drinkTypeId]
+                                        WHERE [userId] = @userId
+                                        AND [drinkTypeId] =@drinkTypeId";
+
+                    DbUtils.AddParameter(cmd, "@userId", userId);
+                    DbUtils.AddParameter(cmd, "@drinkTypeId", drinkTypeId);
+
+                    var reader = cmd.ExecuteReader();
+                    int? drinkPreferenceId = null;
+                    if(reader.Read())
+                    {
+                        drinkPreferenceId = DbUtils.GetInt(reader, "preferredID");
+                    }
+                    reader.Close();
+                    return drinkPreferenceId;
+                    
+                }
+            }
+        }
+
+
 
     }
 }
