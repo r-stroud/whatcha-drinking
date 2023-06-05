@@ -8,7 +8,9 @@ export const DrinkFilter = ({
     setFilterVariable,
     setShowAll,
     showAll,
-    filterVariable }) => {
+    filterVariable,
+    setFilterByPreference,
+    filterByPreference }) => {
 
     const [selected, setSelected] = useState(false)
 
@@ -16,8 +18,10 @@ export const DrinkFilter = ({
         () => {
 
             selected
-                ? document.getElementById(`drinkFilterOption${id}`).classList.add("drink-filter-option-selected")
-                : document.getElementById(`drinkFilterOption${id}`).classList.remove("drink-filter-option-selected")
+                ? document.getElementById(`drinkFilterOption${id}`).classList
+                    .add("drink-filter-option-selected")
+                : document.getElementById(`drinkFilterOption${id}`).classList
+                    .remove("drink-filter-option-selected")
 
         }, [selected]
     )
@@ -27,14 +31,22 @@ export const DrinkFilter = ({
     useEffect(
         () => {
             if (showAll === true) {
-                document.getElementById(`drinkFilterOption${id}`).classList.add("drink-filter-option-all-selected")
+                document.getElementById(`drinkFilterOption${id}`).classList
+                    .add("drink-filter-option-all-selected")
                 setSelected(false)
-            } else {
-                document.getElementById(`drinkFilterOption${id}`).classList.remove("drink-filter-option-all-selected")
+            } else if (filterByPreference === true) {
+                document.getElementById(`drinkFilterOption${id}`).classList
+                    .remove("drink-filter-option-all-selected")
+                setSelected(false)
+            }
+
+            else {
+                document.getElementById(`drinkFilterOption${id}`).classList
+                    .remove("drink-filter-option-all-selected")
             }
 
 
-        }, [showAll]
+        }, [showAll, filterByPreference]
     )
 
     return (
@@ -47,6 +59,7 @@ export const DrinkFilter = ({
                 onClick={(
                     (e) => {
                         setShowAll(false)
+                        setFilterByPreference(false)
                         setFilter(!filter)
                         setFilterVariable(type)
                         setSelected(!selected)

@@ -17,7 +17,9 @@ export const SubMenuView = ({
     showAll,
     setSearchValue,
     location,
-    setEditUser }) => {
+    setEditUser,
+    setFilterByPreference,
+    filterByPreference }) => {
 
     //display drink types
 
@@ -98,7 +100,7 @@ export const SubMenuView = ({
 
                 {location === "userProfile"
                     ? <></>
-                    : <section>
+                    : <section className="drink-filter-container">
                         <DrinkFilterContainer
                             drinkTypes={drinkTypes}
                             setFilter={setFilter}
@@ -106,7 +108,9 @@ export const SubMenuView = ({
                             setFilterVariable={setFilterVariable}
                             filterVariable={filterVariable}
                             setShowAll={setShowAll}
-                            showAll={showAll} />
+                            showAll={showAll}
+                            setFilterByPreference={setFilterByPreference}
+                            filterByPreference={filterByPreference} />
                     </section>}
                 {location === "userProfile"
                     ? <></>

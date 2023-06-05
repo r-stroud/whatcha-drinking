@@ -7,23 +7,38 @@ export const DrinkFilterContainer = ({
     setFilterVariable,
     filterVariable,
     setShowAll,
-    showAll
+    showAll,
+    setFilterByPreference,
+    filterByPreference
 }) => {
 
     return (
         <>
             <div className="drink-filter-header">Filter Drinks By Type</div>
             <div className="drink-filter-by-type">
+                <section
+                    style={{ height: "100%" }}>
+                    <div
+                        id="optionAll"
+                        className="drink-filter-option"
+                        onClick={
+                            () => {
+                                setShowAll(true)
+                            }
+                        }>All</div>
 
-                <div
-                    id="optionAll"
-                    className="drink-filter-option"
-                    onClick={
-                        () => {
-                            setShowAll(true)
-                        }
-                    }>All</div>
-
+                    <div
+                        id="optionPreferences"
+                        className="drink-filter-option"
+                        onClick={
+                            () => {
+                                setFilterByPreference(true)
+                                setShowAll(false)
+                            }
+                        }>
+                        Preferences
+                    </div>
+                </section>
                 {drinkTypes.map((drinkType) => (
                     <DrinkFilter
                         key={drinkType.id}
@@ -35,6 +50,8 @@ export const DrinkFilterContainer = ({
                         filterVariable={filterVariable}
                         setShowAll={setShowAll}
                         showAll={showAll}
+                        setFilterByPreference={setFilterByPreference}
+                        filterByPreference={filterByPreference}
 
                     />)
                 )}</div>
