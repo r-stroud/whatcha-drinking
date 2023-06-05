@@ -1,14 +1,11 @@
 import { useState, useEffect } from "react"
 import { Drink } from "./Drink"
-import { DrinkRecentActivities } from "./DrinkRecentActivities"
 import { SubMenuView } from "../subMenu/SubMenuView"
+import { getCurrentUser } from "../../utils/Constants"
 
 export const DrinkView = () => {
 
-    //display drinkTypes
-
-
-
+    const currentUser = getCurrentUser()
 
     // display drinks
     const url2 = "https://localhost:7189/api/Drink/drinks"
@@ -27,6 +24,27 @@ export const DrinkView = () => {
             displayDrinks()
         }, [, updateDom]
     )
+
+    //display preferences
+
+    const url3 = `https://localhost:7189/api/Drink/drink_preferences?userId=${currentUser.uid}`
+
+    const displayDrinkPreferences = async () => {
+        const fetchData = await fetch(`${url3}`)
+        const fetchJson = await fetchData.json()
+        setPreferences(fetchJson)
+    }
+
+    const [preferences, setPreferences] = useState([])
+
+    useEffect(
+        () => {
+            displayDrinkPreferences()
+
+        }, []
+    )
+
+    const [filterByPreference, setFilterByPreference] = useState(false)
 
     //refresh current drink
 
@@ -60,9 +78,9 @@ export const DrinkView = () => {
             } else {
                 copyArray.push(filterVariable)
             }
-            showAll ? setFilterArray([]) : setFilterArray(copyArray)
+            showAll === true || filterByPreference === true ? setFilterArray([]) : setFilterArray(copyArray)
             setFilteredDrinksOn(!filterDrinksOn)
-        }, [filter, showAll]
+        }, [filter, showAll, filterByPreference]
     )
 
     useEffect(
@@ -75,12 +93,19 @@ export const DrinkView = () => {
 
                 setFilteredDrinks(copy)
 
-            } else {
+            } else if (filterByPreference === true) {
+                const filterCopy = copy.filter(x => preferences
+                    .find(y => y.type === x.type && y.preferenceTypeId === 1))
+                setFilteredDrinks(filterCopy)
+            }
+
+            else {
 
                 const newArray = []
 
                 filterArray.map(fa => {
-                    copy.filter(c => c.type.toUpperCase() === fa.toUpperCase()).forEach(e => newArray.push(e))
+                    copy.filter(c => c.type
+                        .toUpperCase() === fa.toUpperCase()).forEach(e => newArray.push(e))
 
                 })
 
@@ -88,7 +113,7 @@ export const DrinkView = () => {
 
             }
 
-        }, [filterDrinksOn, showAll, drinks]
+        }, [filterDrinksOn, showAll, drinks, filterByPreference]
     )
 
     // searched drinks
@@ -116,6 +141,8 @@ export const DrinkView = () => {
                 setShowAll={setShowAll}
                 showAll={showAll}
                 setSearchValue={setSearchValue}
+                setFilterByPreference={setFilterByPreference}
+                filterByPreference={filterByPreference}
             />
             <section className="drink-view">
 
