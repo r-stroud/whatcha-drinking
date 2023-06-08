@@ -12,6 +12,7 @@
     width: 100%;
     padding: 15px 20px 15px 10vw;
     background-color: rgb(252, 252, 252);
+    /* overflow-y: scroll; */
 }
 
 .userprofile-preview img {
@@ -27,7 +28,7 @@
 }
 
 .userprofile-header-container {
-    border-bottom: 2px solid rgb(20, 20, 20);
+    border-bottom: 2px solid rgb(160, 135, 74);
     margin-bottom: 10px;
     position: relative;
     right: 40px;
@@ -140,10 +141,8 @@
 }
 
 .userprofile-edit-form {
-    margin-top: 32vh;
+    /* margin-top: 32vh; */
     position: relative;
-
-
 }
 
 .userprofile-edit-form form {
@@ -216,24 +215,76 @@
     margin-bottom: 5px;
 }
 
+.drink-preference-subheader-n {
+    padding: 5px 0 0px;
+    border-bottom: solid rgb(20, 20, 20) 1px;
+    width: 190px;
+}
+
+.drink-preference-subheader-p {
+    padding: 5px 0 0px;
+    border-bottom: solid rgb(20, 20, 20) 1px;
+    width: 190px;
+    color: rgb(160, 135, 74);
+}
+
+.drink-preference-subheader-na {
+    padding: 5px 0 0px;
+    border-bottom: solid rgb(20, 20, 20) 1px;
+    width: 190px;
+    color: rgb(176, 22, 22);
+}
+
+.drink-preference-subheader-n span,
+.drink-preference-subheader-na span,
+.drink-preference-subheader-p span {
+    display: block;
+    font-size: 15px;
+    margin-top: 2px;
+    color: rgb(54, 54, 54);
+    height: 70px;
+}
+
 .drink-preference-dropbox {
-    width: 150px;
-    height: 200px;
-    border: outset 4px rgb(160, 135, 74);
-    border-radius: 10px;
-    background-color: rgb(20, 20, 20);
-    /* color: rgb(210, 178, 98); */
+    position: relative;
+    right: 5px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    min-width: 150px;
+    width: 190px;
+    max-width: 400px;
+    height: 220px;
+    border-radius: 5px;
+    background-color: rgba(20, 20, 20, 0.2);
     padding: 10px;
-    margin: 0 5px;
+    margin: 5px 1px;
 }
 
 .drink-preference-item {
-    padding: 2px 0;
-    border: 2px outset rgb(210, 178, 98);
+    padding: 1px;
+    border: 3px outset rgb(210, 178, 98);
     border-radius: 20px;
     text-align: center;
-    background-color: rgb(160, 135, 74);
-    color: rgb(20, 20, 20);
+    background-color: rgb(54, 54, 54);
+    color: rgb(252, 252, 252);
     margin: 2px;
     width: 80px;
+    font-size: 16px;
+}
+
+.preferred .drink-preference-item {
+    background-color: rgb(160, 135, 74);
+    color: rgb(20, 20, 20);
+}
+
+.never-again .drink-preference-item {
+    background-color: rgb(107, 14, 14);
+    color: rgb(252, 252, 252);
+}
+
+
+.flex-wrap {
+    display: flex;
+    flex-wrap: wrap;
 }

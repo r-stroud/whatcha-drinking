@@ -14,10 +14,10 @@ export const DrinkFilterContainer = ({
 
     return (
         <>
-            <div className="drink-filter-header">Filter Drinks By Type</div>
+            <div className="drink-filter-header">Filter By Type</div>
             <div className="drink-filter-by-type">
                 <section
-                    style={{ height: "100%" }}>
+                    className="flex-center">
                     <div
                         id="optionAll"
                         className="drink-filter-option"

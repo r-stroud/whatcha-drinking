@@ -39,7 +39,6 @@
     margin: auto;
     border-bottom: 2px solid rgb(210, 178, 98);
     font-size: 20px;
-    /* min-height: 56px; */
     padding-bottom: 5px;
 }
 
@@ -113,8 +112,10 @@
 }
 
 .recent-drink-details {
-    padding-left: 10px;
-    margin-bottom: 50px;
+    margin-top: 24px;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
 }
 
 .recent-drink-details span {
@@ -127,9 +128,42 @@
 .recent-drink-header {
     color: rgb(210, 178, 98);
     font-size: 22px;
-    margin-bottom: 10px;
-    margin-left: -5px;
+    margin-bottom: 6px;
     border-bottom: 1px solid rgb(210, 178, 98);
+    position: relative;
+    z-index: 1;
+    background-color: rgb(10, 10, 10);
+    min-width: 280px;
+}
+
+#RecentDrinkDetails {
+    position: relative;
+    transition: 0.3s;
+    height: 100%;
+    margin-left: 10px;
+}
+
+.recent-drink-bttn {
+    position: absolute;
+    bottom: 55px;
+    color: rgb(252, 252, 252);
+    font-family: 'Cardo', serif;
+    font-size: 14px;
+    background-color: rgb(54, 54, 54);
+    border-radius: 20px;
+    padding: 5px 12px;
+    cursor: pointer;
+    height: fit-content;
+    border: outset 4px rgb(210, 178, 98);
+    text-align: center;
+}
+
+.recent-drink-bttn:hover {
+    background-color: rgb(160, 135, 74);
+}
+
+.drink-frame-container {
+    width: 110px;
 }
 
 .drink-img-small-frame {
@@ -140,6 +174,8 @@
     background-color: rgb(10, 10, 10);
     position: relative;
     overflow: hidden;
+    transition: 0.2s;
+    margin: auto;
 }
 
 .drink-img-small {
@@ -152,7 +188,7 @@
 }
 
 .drink-filter-container {
-    width: 430px;
+    width: 500px;
 }
 
 .drink-filter-header {
@@ -167,11 +203,18 @@
 .drink-filter-by-type {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
     color: rgb(252, 252, 252);
     font-size: 18px;
-    height: 120px;
-    width: fit-content;
+    height: fit-content;
+    width: 100%;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
 .drink-filter-option {
@@ -218,7 +261,7 @@
     font-family: 'Cardo', serif;
     font-size: 18px;
     margin-top: 5px;
-    width: 65%;
+    width: 100%;
     border: 3px outset rgb(210, 178, 98);
 }
 

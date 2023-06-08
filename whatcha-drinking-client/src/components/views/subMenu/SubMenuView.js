@@ -21,6 +21,28 @@ export const SubMenuView = ({
     setFilterByPreference,
     filterByPreference }) => {
 
+
+    //display preferences
+
+    const currentUser = getCurrentUser()
+
+    const url3 = `https://localhost:7189/api/Drink/drink_preferences?userId=${currentUser.uid}`
+
+    const displayDrinkPreferences = async () => {
+        const fetchData = await fetch(`${url3}`)
+        const fetchJson = await fetchData.json()
+        setPreferences(fetchJson)
+    }
+
+    const [preferences, setPreferences] = useState([])
+
+    useEffect(
+        () => {
+            displayDrinkPreferences()
+
+        }, []
+    )
+
     //display drink types
 
     const url2 = "https://localhost:7189/api/DrinkType/drink_types"
@@ -31,11 +53,28 @@ export const SubMenuView = ({
         setDrinkTypes(fetchJson)
     }
     const [drinkTypes, setDrinkTypes] = useState([])
+    const [filteredDrinkTypes, setFilteredDrinkTypes] = useState([])
 
     useEffect(
         () => {
             displayDrinkTypes()
         }, []
+    )
+
+    useEffect(
+        () => {
+            let copy = drinkTypes.map(x => ({ ...x }))
+
+            copy = copy.filter(
+                x => !preferences
+                    .find(y => y.type === x.type && y.preferenceTypeId === 2)
+            )
+
+            copy = copy.sort((a, b) => a.type.localeCompare(b.type))
+
+            setFilteredDrinkTypes(copy)
+
+        }, [drinkTypes]
     )
 
     //get most recent drink
@@ -76,6 +115,18 @@ export const SubMenuView = ({
 
             <section className="drink-recent-activities">
 
+
+
+                <RecentDrink
+                    id={recentDrink.id}
+                    name={recentDrink.name}
+                    type={recentDrink.type}
+                    timesTried={recentDrink.timesTried}
+                    dateTime={recentDrink.dateTime}
+                    image={recentDrink.image}
+                    drinkingNow={drinkingNow}
+                />
+
                 {location === "userProfile"
                     ?
                     <section>
@@ -90,19 +141,11 @@ export const SubMenuView = ({
                     </section>
                     : <></>}
 
-                <RecentDrink
-                    id={recentDrink.id}
-                    name={recentDrink.name}
-                    type={recentDrink.type}
-                    timesTried={recentDrink.timesTried}
-                    dateTime={recentDrink.dateTime}
-                />
-
                 {location === "userProfile"
                     ? <></>
                     : <section className="drink-filter-container">
                         <DrinkFilterContainer
-                            drinkTypes={drinkTypes}
+                            drinkTypes={filteredDrinkTypes}
                             setFilter={setFilter}
                             filter={filter}
                             setFilterVariable={setFilterVariable}

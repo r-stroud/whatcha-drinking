@@ -88,10 +88,17 @@ export const UserProfilePreview = ({
     }
 
     return (
-        <section className="flex">
-            <section>
+        <section className="flex-wrap">
+            <section
+                style={{
+                    marginRight: "10vw",
+                    marginBottom: "4vh"
+                }}>
                 <section className="flex-start userprofile-header-container">
-                    <div className="userprofile-header">   Current User Profile <span>Click to edit</span></div>
+                    <div className="userprofile-header">
+                        Current User Profile
+                        <span>Click to edit</span>
+                    </div>
                     {user.firstName !== initialUserValue.firstName
                         || user.lastName !== initialUserValue.lastName
                         || user.username !== initialUserValue.username

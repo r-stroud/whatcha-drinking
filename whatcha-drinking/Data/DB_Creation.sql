@@ -196,22 +196,22 @@ SET IDENTITY_INSERT [drink] ON
 INSERT INTO [drink]
 ([id],[name],[drinkTypeId],[picture])
 VALUES
-(1, 'Absolut Elyx', 1, '../../images/absolut-elyx.png'),
-(2, 'Belvedere', 1, '../../images/belvedere.png'),
-(3, 'Grey Goose',1, '../../images/grey-goose.png'),
-(4, 'Hangar 1',1, '../../images/hangar-1.png'),
-(5, 'Chopin',1, '../../images/chopin.png'),
-(6, 'Siete Leguas Reposado',2, '../../images/siete-leguas.png'),
-(7, 'Cimarron Blanco Tequila',2, '../../images/cimarron.png'),
-(8, 'La Gritona Reposado Tequila',2, '../../images/la-gritona.png'),
-(9, 'Volcan De Mi Tierra Cristalino Tequila',2, '../../images/volcan.png'),
-(10, 'Casa Dragones Blanco',2, '../../images/casa-dragones.png'),
-(11, 'Partida Reposado',2, '../../images/partida.png'),
-(12, 'Elijah Craig Barrel Proof',3, '../../images/elijah-craig.png'),
-(13, 'Old Ezra 7-Year-Old',3, '../../images/old-ezra.png'),
-(14, 'Widow Jane 10-Year-Old',3, '../../images/widow-jane.png'),
-(15, 'Four Roses Single Barrel',3, '../../images/four-roses.png'),
-(16, 'W.L. Weller 12-Year-Old',3, '../../images/w.l.weller.png')
+(1, 'Absolut Elyx', 1, 'Absolut'),
+(2, 'Belvedere', 1, 'Belvedere'),
+(3, 'Grey Goose',1, 'Grey'),
+(4, 'Hangar 1',1, 'Hangar'),
+(5, 'Chopin',1, 'Chopin'),
+(6, 'Siete Leguas Reposado',2, 'Siete'),
+(7, 'Cimarron Blanco Tequila',2, 'Cimarron'),
+(8, 'La Gritona Reposado Tequila',2, 'Gritona'),
+(9, 'Volcan De Mi Tierra Cristalino Tequila',2, 'Volcan'),
+(10, 'Casa Dragones Blanco',2, 'Casa'),
+(11, 'Partida Reposado',2, 'Patrida'),
+(12, 'Elijah Craig Barrel Proof',3, 'Elijah'),
+(13, 'Old Ezra 7-Year-Old',3, 'Ezra'),
+(14, 'Widow Jane 10-Year-Old',3, 'Widow'),
+(15, 'Four Roses Single Barrel',3, 'Four'),
+(16, 'W.L. Weller 12-Year-Old',3, 'Weller')
 SET IDENTITY_INSERT [drink] OFF
 
 SET IDENTITY_INSERT [preferenceType] ON

@@ -11,6 +11,7 @@ export const UserProfileDrinkPreference = () => {
 
 
     const addPreference = async (id, number) => {
+        console.log(id)
         console.log(number)
         await fetch(`${url}`, {
             method: "PUT",
@@ -24,6 +25,7 @@ export const UserProfileDrinkPreference = () => {
             }
 
         })
+
     }
 
     // delete preference
@@ -34,23 +36,29 @@ export const UserProfileDrinkPreference = () => {
 
     }
 
-    function dropAndDelete(ev) {
+    const dropAndDelete = async (ev) => {
         ev.preventDefault()
         var data = ev.dataTransfer.getData("text")
         var data2 = ev.dataTransfer.getData("text2")
-        deletePreference(data2)
-        ev.target.appendChild(document.getElementById(data))
+        await deletePreference(data2)
+        await ev.target.appendChild(document.getElementById(data))
     }
 
     const dropDeleteUpdate = async (ev, prefNo) => {
         ev.preventDefault()
         var data = ev.dataTransfer.getData("text")
+        console.log("drop data", data)
         var data2 = ev.dataTransfer.getData("text2")
-        await deletePreference(data2)
+        console.log("drop data2", data2)
+        data2 ? await deletePreference(data2) : <></>
         await addPreference(data, prefNo)
-        ev.target.appendChild(document.getElementById(data))
+        await ev.target.appendChild(document.getElementById(data))
     }
 
+    // const test = async (ev, prefNo) => {
+    //     await dropDeleteUpdate(ev, prefNo)
+    //     await displayDrinkPreferences()
+    // }
 
 
     //display drink types and drink preferences
@@ -77,6 +85,10 @@ export const UserProfileDrinkPreference = () => {
 
     const [drinkPreferences, setDrinkPreferences] = useState([])
 
+    const [check, setCheck] = useState("")
+
+    console.log("id check", check)
+
     useEffect(
         () => {
             displayDrinkPreferences()
@@ -85,19 +97,14 @@ export const UserProfileDrinkPreference = () => {
 
     function drag(ev, value = null) {
         ev.dataTransfer.setData("text", ev.target.id)
+        console.log("drag target id", ev.target.id)
         value !== null ? ev.dataTransfer.setData("text2", value) : <></>
+        console.log("drag value", value)
 
     }
 
     function allowDrop(ev) {
         ev.preventDefault()
-    }
-
-    function drop(ev, prefNo) {
-        ev.preventDefault()
-        var data = ev.dataTransfer.getData("text")
-        addPreference(data, prefNo)
-        ev.target.appendChild(document.getElementById(data))
     }
 
     return (
@@ -111,52 +118,16 @@ export const UserProfileDrinkPreference = () => {
                 <div className="drink-preference-header"> Drink Preferences</div>
                 <section className="flex">
 
-                    {/* banned items */}
-
-                    <section>
-                        <div>Banned</div>
-                        <section
-                            className="drink-preference-dropbox banned"
-                            id="test"
-                            onDragOver={
-                                (ev) => {
-                                    allowDrop(ev)
-                                }
-                            }
-                            onDrop={
-                                (ev) => {
-                                    dropDeleteUpdate(ev, 2)
-                                }
-                            }
-                        >
-
-                            {drinkPreferences
-                                .filter(x => x.preferenceTypeId === 2)
-                                .map(x =>
-                                    <div
-                                        className="drink-preference-item"
-                                        key={x.id}
-                                        id={x.drinkTypeId}
-                                        draggable="true"
-                                        onDragStart={
-                                            (ev) => {
-                                                drag(ev, x.id)
-                                            }
-                                        }
-                                    >{x.type}
-                                    </div>)}
-
-
-                        </section>
-
-                    </section>
-
                     <section>
 
                         {/* default items */}
 
-                        <div>TBD</div>
+                        <div
+                            className="drink-preference-subheader-n">None
+                            <span></span>
+                        </div>
                         <section
+                            id="noneDropBox"
                             className="drink-preference-dropbox neutral"
                             onDragOver={
                                 (ev) => {
@@ -177,6 +148,11 @@ export const UserProfileDrinkPreference = () => {
                                         key={x.id}
                                         id={x.id}
                                         draggable="true"
+                                        onClick={
+                                            (ev) => {
+                                                setCheck(ev.target.id)
+                                            }
+                                        }
                                         onDragStart={
                                             (ev) => {
                                                 drag(ev)
@@ -186,14 +162,18 @@ export const UserProfileDrinkPreference = () => {
                                     </div>)}
                         </section>
                     </section>
+
                     <section>
 
                         {/* preferred items */}
 
-                        <div>Preferred</div>
+                        <div
+                            className="drink-preference-subheader-p">Preferred
+                            <span></span>
+                        </div>
                         <section
                             className="drink-preference-dropbox preferred"
-                            id="test"
+                            id="preferredDropBox"
                             onDragOver={
                                 (ev) => {
                                     allowDrop(ev)
@@ -202,6 +182,7 @@ export const UserProfileDrinkPreference = () => {
                             onDrop={
                                 (ev) => {
                                     dropDeleteUpdate(ev, 1)
+                                    // test(ev, 1)
                                 }
                             }
                         >
@@ -214,6 +195,11 @@ export const UserProfileDrinkPreference = () => {
                                         key={x.id}
                                         id={x.drinkTypeId}
                                         draggable="true"
+                                        onClick={
+                                            () => {
+                                                setCheck(x.id)
+                                            }
+                                        }
                                         onDragStart={
                                             (ev) => {
                                                 drag(ev, x.id)
@@ -225,6 +211,57 @@ export const UserProfileDrinkPreference = () => {
                         </section>
 
                     </section>
+
+                    {/* banned items */}
+
+                    <section>
+
+                        <div
+                            className="drink-preference-subheader-na">
+                            Never Again
+                            <span>These items will be removed from all sections of the application.</span>
+                        </div>
+                        <section
+                            className="drink-preference-dropbox never-again"
+                            id="NeverAgainDropBox"
+                            onDragOver={
+                                (ev) => {
+                                    allowDrop(ev)
+                                }
+                            }
+                            onDrop={
+                                (ev) => {
+                                    dropDeleteUpdate(ev, 2)
+                                    // test(ev, 2)
+                                }
+                            }
+                        >
+
+                            {drinkPreferences
+                                .filter(x => x.preferenceTypeId === 2)
+                                .map(x =>
+                                    <div
+                                        className="drink-preference-item"
+                                        key={x.id}
+                                        id={x.drinkTypeId}
+                                        draggable="true"
+                                        onClick={
+                                            () => {
+                                                setCheck(x.id)
+                                            }
+                                        }
+                                        onDragStart={
+                                            (ev) => {
+                                                drag(ev, x.id)
+                                            }
+                                        }
+                                    >{x.type}
+                                    </div>)}
+
+                        </section>
+
+                    </section>
+
                 </section>
             </section>
         </>

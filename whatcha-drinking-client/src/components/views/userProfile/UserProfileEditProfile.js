@@ -109,20 +109,32 @@ export const UserProfileEditProfile = ({
         <>
             <section>
                 <div id="userprofilePreview" className="userprofile-preview flex-start">
-                    <UserProfilePreview
-                        initialUserValue={initialUserValue}
-                        user={user}
-                        setUser={setUser}
-                        updateUser={updateUser}
-                        checkUsernameAndUpdate={checkUsernameAndUpdate}
-                        usernameAvailability={usernameAvailability} />
+                    <section
+                        style={{
+                            position: "relative",
+                            height: "100%"
+                        }}>
+                        <UserProfilePreview
+                            initialUserValue={initialUserValue}
+                            user={user}
+                            setUser={setUser}
+                            updateUser={updateUser}
+                            checkUsernameAndUpdate={checkUsernameAndUpdate}
+                            usernameAvailability={usernameAvailability} />
+                        <div
+                            style={{
+                                position: "absolute",
+                                bottom: "-50px"
+                            }}>
+                            <UserProfileEditForm
+                                updateSelectedIcon={updateSelectedIcon}
+                                hideSelection={hideSelection}
+                                setCancelPic={setCancelPic}
+                                cancelPic={cancelPic} />
+                        </div>
+                    </section>
                 </div>
 
-                <UserProfileEditForm
-                    updateSelectedIcon={updateSelectedIcon}
-                    hideSelection={hideSelection}
-                    setCancelPic={setCancelPic}
-                    cancelPic={cancelPic} />
 
 
             </section>
