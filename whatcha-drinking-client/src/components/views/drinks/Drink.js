@@ -1,16 +1,24 @@
 import { useEffect, useState } from "react"
-import { DrinkImg, getCurrentUser } from "../../utils/Constants"
+import { DrinkImgs, getCurrentUser } from "../../utils/Constants"
 import "./Drinks.css"
 
 export const Drink = ({
     id,
     name,
     type,
+    image,
     setDrinkingNow,
     drinkingNow,
     notFound }) => {
 
+    //drinkSrc
+    let imageSrc = DrinkImgs.find(x => x.name === image)
+
+    // current user
+
     const firebaseId = getCurrentUser().uid
+
+    // add drink
 
     const url = `https://localhost:7189/api/Drink/add_drink`
 
@@ -19,6 +27,7 @@ export const Drink = ({
     // }
 
     const updateDrink = async () => {
+
         await fetch(`${url}`, {
             method: "POST",
             body: JSON.stringify({
@@ -62,12 +71,12 @@ export const Drink = ({
             className="drink"
             onMouseEnter={
                 () => {
-                    document.getElementById(`drinkImg${id}`).style.bottom = "-50px"
+                    notFound ? <></> : document.getElementById(`drinkImg${id}`).style.bottom = "-50px"
                 }
             }
             onMouseLeave={
                 () => {
-                    document.getElementById(`drinkImg${id}`).style.bottom = "-150px"
+                    notFound ? <></> : document.getElementById(`drinkImg${id}`).style.bottom = "-150px"
                 }
             }
 
@@ -93,21 +102,36 @@ export const Drink = ({
 
             {notFound
                 ? <></> :
-                <div
-                    className="drink-bttn"
-                    onClick={(
-                        () => {
-                            updateDrink()
+                <>
+                    <div
+                        className="drink-bttn"
+                        onClick={(
+                            () => {
+                                document.getElementById(`drinkFrame`).style.width = "0"
+                                document.getElementById("RecentDrinkDetails").style.top = "-100px"
+                                setTimeout(
+                                    () => {
+                                        document.getElementById(`drinkFrame`).style.width = "100px"
+                                        document.getElementById("RecentDrinkDetails").style.top = "0px"
+                                    }, 400
+                                )
 
-                        }
+                                setTimeout(
+                                    () => {
 
-                    )}
-                >Drinking Now</div>}
+                                        updateDrink()
+                                    }, 400
+                                )
+                            }
+                        )}
+                    >Drinking Now</div>
 
-            <img
-                id={`drinkImg${id}`}
-                className="drink-img"
-                src={DrinkImg} />
+                    <img
+                        id={`drinkImg${id}`}
+                        className="drink-img"
+                        src={imageSrc === undefined ? "" : imageSrc.src}
+                    />
+                </>}
 
         </section>
     )

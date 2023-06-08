@@ -73,6 +73,7 @@ namespace whatcha_drinking.Controllers
                     Type = "",
                     TimesTried = "",
                     DateTime = "",
+                    Image = ""
                 });
             }
 

@@ -1,5 +1,5 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { PostsView } from "./PostsView";
+import { PostsView } from "./posts/PostsView";
 import { UserProfileView } from "./userProfile/UserProfileView";
 import { DrinkView } from "./drinks/DrinkView";
 

@@ -87,7 +87,12 @@ export const DrinkView = () => {
         () => {
 
 
-            const copy = drinks.map(x => ({ ...x }))
+            let copy = drinks.map(x => ({ ...x }))
+
+            copy = copy.filter(
+                x => !preferences
+                    .find(y => y.type === x.type && y.preferenceTypeId === 2)
+            )
 
             if (showAll === true) {
 
@@ -155,6 +160,7 @@ export const DrinkView = () => {
                             id={drink.id}
                             name={drink.name}
                             type={drink.type}
+                            image={drink.image}
                             setDrinkingNow={setDrinkingNow}
                             drinkingNow={drinkingNow}
                             notFound={false}
