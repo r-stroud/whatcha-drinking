@@ -1,20 +1,50 @@
+.create-post-view {
+    position: fixed;
+    top: 24vh;
+    width: 100%;
+    left: -100vw;
+    transition: 0.3s;
+}
+
+
 .create-post-form {
     font-family: 'Cardo', serif;
     background-color: rgb(252, 252, 252);
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 
 .create-post-title {
     background-color: rgb(54, 54, 54);
     width: 100%;
-    min-height: 75vh;
+    max-width: 40vw;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.create-post-section {
+    display: flex;
 }
 
 .create-post-drink {
     width: 100%;
     min-height: 75vh;
-    padding: 1vh 0 0 4vw;
+    padding: 2.5vh 0 0 1vw;
+    position: relative;
+    right: 0vw;
+    overflow: hidden;
+}
+
+.create-post-message,
+.create-post-image {
+    width: 00%;
+    min-height: 75vh;
+    padding: 2.5vh 0 0 1vw;
+    position: relative;
+    left: 50vw;
+    right: 0vw;
+    transition: 0.3s;
+    overflow: hidden;
 }
 
 .create-post-form label {
@@ -30,14 +60,16 @@
 }
 
 .create-post-number {
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bold;
     border-radius: 100%;
     border: 4px outset rgb(210, 178, 98);
     width: fit-content;
     color: rgb(54, 54, 54);
-    padding: 1px 15px;
-    margin-bottom: 30px;
+    padding: 1px 12px;
+    margin: 20px;
+    position: relative;
+    bottom: 25px;
 }
 
 .create-post-header {
@@ -69,12 +101,11 @@
     font-size: 18px;
     font-weight: 100;
     padding: 10px 15px 5px;
-    width: 500px;
     min-width: fit-content;
     margin: 10px 0px 10px 0;
     position: relative;
-    z-index: 1;
-    overflow: hidden;
+    display: flex;
+    justify-content: start;
 }
 
 .create-post-result:hover {
@@ -88,20 +119,195 @@
 }
 
 .create-post-result-name {
-    width: 90%;
     font-size: 20px;
+    position: relative;
+}
+
+.create-post-result-name img {
+    width: 40px;
+    position: absolute;
+    transform: rotate(90deg);
+    top: -18px;
 }
 
 .create-post-result-number {
-    margin-right: 10px;
-    border-radius: 100%;
-    border: outset rgb(210, 178, 98) 3px;
-    padding: 1px 10px;
+    margin-left: -50px;
+    margin-right: 80px;
+
 }
 
 .create-post-result-largenumber {
+    margin-left: -50px;
     margin-right: 10px;
     border-radius: 100%;
     border: outset rgb(210, 178, 98) 3px;
     padding: 1px 6px;
+}
+
+.create-post-title-drink {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    position: relative;
+    left: 30vw;
+    transition: 0.3s;
+    font-size: 20px;
+    color: rgb(220, 220, 220);
+    width: 50%;
+    margin: 6px auto;
+}
+
+.create-post-title-drink span {
+    font-size: 16px;
+    margin-left: 8px;
+    color: rgb(210, 178, 98);
+}
+
+.create-post-title-section-number {
+    transition: 0.3s;
+    margin-right: 10px;
+    border-radius: 100%;
+    border: outset rgb(20, 20, 20) 4px;
+    padding: 1px 10px;
+    background-color: rgb(210, 178, 98);
+    font-weight: bold;
+    color: rgb(20, 20, 20);
+}
+
+.create-post-confirm-drink-selection {
+    position: relative;
+    background-color: rgb(54, 54, 54);
+    border-radius: 20px;
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    color: rgb(220, 220, 220);
+    margin: 0 2vw;
+}
+
+.create-post-confirm-drink-selection-header {
+    font-size: 24px;
+    margin-right: 10px;
+    color: rgb(210, 178, 98);
+    border-bottom: solid 2px rgb(210, 178, 98);
+    margin-bottom: 5px;
+}
+
+.create-post-confirm-drink-selection span {
+    color: rgb(210, 178, 98);
+    margin-left: 8px;
+    font-size: 16px;
+}
+
+.create-post-confirm-bttn {
+    padding: 5px 10px;
+    border: 3px solid rgb(54, 54, 54);
+    border-radius: 20px;
+    margin: 0 15px;
+}
+
+.create-post-confirm-bttn:hover {
+    transition: 0.4s;
+    border: 3px outset rgb(220, 220, 220);
+    background-color: rgb(252, 252, 252);
+    color: rgb(54, 54, 54);
+    font-weight: bold;
+}
+
+.create-post-textarea {
+    resize: none;
+    padding: 15px 25px;
+    height: 500px;
+    width: 400px;
+    border: 1px solid rgb(54, 54, 54);
+    border-radius: 5px;
+    font-family: 'Cardo', serif;
+    font-size: 16px;
+}
+
+.create-post-message-confirmation-bttn {
+    border: 3px outset rgb(210, 178, 98);
+    background-color: rgb(54, 54, 54);
+    color: rgb(252, 252, 252);
+    width: fit-content;
+    padding: 6px 15px;
+    border-radius: 15px;
+    font-size: 16px;
+}
+
+.create-post-message-confirmation-bttn:hover {
+    background-color: rgb(20, 20, 20);
+
+}
+
+.create-post-message-warning {
+    color: rgb(176, 22, 22);
+}
+
+.create-post-image-preview {
+    margin-top: 4vh;
+}
+
+.create-post-select-image {
+    color: rgb(54, 54, 54);
+}
+
+input::file-selector-button {
+    color: rgb(252, 252, 252);
+    background-color: rgb(54, 54, 54);
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin-top: 5px;
+    margin-right: 10px;
+}
+
+input::file-selector-button:hover {
+    background-color: rgb(20, 20, 20);
+}
+
+.create-post-image-preview img {
+    border-radius: 10px;
+    width: 550px;
+    margin-bottom: 20px;
+}
+
+.create-post-title-bttns {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 4vh;
+}
+
+.create-post-title-confirm {
+    margin-bottom: 15px;
+    border: 3px outset rgb(210, 178, 98);
+    background-color: rgb(54, 54, 54);
+    color: rgb(252, 252, 252);
+    width: fit-content;
+    padding: 6px 15px;
+    border-radius: 15px;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.create-post-title-confirm:hover {
+    background-color: rgb(210, 178, 98);
+}
+
+.create-post-title-cancel {
+    margin-bottom: 15px;
+    border: 3px outset rgb(210, 178, 98);
+    background-color: rgb(54, 54, 54);
+    color: rgb(252, 252, 252);
+    width: fit-content;
+    padding: 6px 15px;
+    border-radius: 15px;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.create-post-title-cancel:hover {
+    background-color: rgb(107, 14, 14);
 }

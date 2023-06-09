@@ -1,13 +1,16 @@
 import { useEffect } from "react"
-import { DrinkImgs } from "../../utils/Constants"
+import { DrinkImgs } from "../../../utils/Constants"
 
 export const CreatePostSearchResult = ({
+    id,
     type,
     name,
     image,
-    setBackground,
     index,
-    setSearchValue
+    setSearchValue,
+    setDrinkSelected,
+    setDrinkValue,
+    drinkSelected
 }) => {
 
     // image src
@@ -23,10 +26,16 @@ export const CreatePostSearchResult = ({
                 className="create-post-result"
                 onClick={
                     () => {
-                        setBackground(
-                            imageSrc === undefined ? "" : imageSrc.src
-                        )
                         setSearchValue(name)
+                        setDrinkSelected(true)
+                        setDrinkValue(
+                            {
+                                id: id,
+                                name: name,
+                                type: type,
+                                image: imageSrc === undefined ? "" : imageSrc.src
+                            }
+                        )
                     }
                 }>
 
@@ -35,7 +44,9 @@ export const CreatePostSearchResult = ({
 
                     <span
                         className={index > 8 ? `create-post-result-largenumber` : `create-post-result-number`}>
-                        {index + 1}
+                        {/* {index + 1} */}
+                        <img
+                            src={imageSrc.src} />
                     </span>
 
                     {name}
@@ -44,7 +55,6 @@ export const CreatePostSearchResult = ({
                         className="create-post-result-type">{type}
                     </span>
                 </div>
-
             </section>
         </>
     )

@@ -7,13 +7,27 @@ export const DrinkView = () => {
 
     const currentUser = getCurrentUser()
 
+    //refresh current drink
+
+    const [drinkingNow, setDrinkingNow] = useState(false)
+
     // display drinks
     const url2 = "https://localhost:7189/api/Drink/drinks"
 
+    const url3 = `https://localhost:7189/api/Drink/drink_preferences?userId=${currentUser.uid}`
+
     const displayDrinks = async () => {
+
+        const fetchData2 = await fetch(`${url3}`)
+        const fetchJson2 = await fetchData2.json()
+        setPreferences(fetchJson2)
+
         const fetchData = await fetch(`${url2}`)
         const fetchJson = await fetchData.json()
         setDrinks(fetchJson)
+
+
+
     }
 
     const [drinks, setDrinks] = useState([])
@@ -22,33 +36,14 @@ export const DrinkView = () => {
     useEffect(
         () => {
             displayDrinks()
-        }, [, updateDom]
+        }, [, updateDom, drinkingNow]
     )
 
     //display preferences
 
-    const url3 = `https://localhost:7189/api/Drink/drink_preferences?userId=${currentUser.uid}`
-
-    const displayDrinkPreferences = async () => {
-        const fetchData = await fetch(`${url3}`)
-        const fetchJson = await fetchData.json()
-        setPreferences(fetchJson)
-    }
-
     const [preferences, setPreferences] = useState([])
 
-    useEffect(
-        () => {
-            displayDrinkPreferences()
-
-        }, []
-    )
-
     const [filterByPreference, setFilterByPreference] = useState(false)
-
-    //refresh current drink
-
-    const [drinkingNow, setDrinkingNow] = useState(false)
 
     // display all drinks by default / filter selection
 
