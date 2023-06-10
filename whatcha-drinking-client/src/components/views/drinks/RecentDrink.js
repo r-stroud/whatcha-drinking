@@ -26,10 +26,13 @@ export const RecentDrink = ({
                         id={`drinkFrame`}
                         className="drink-img-small-frame">
                         {
-                            <img
-                                id={`drinkImg${id}`}
-                                className="drink-img-small"
-                                src={imageSrc === undefined ? "" : imageSrc.src} />
+                            imageSrc === undefined ?
+                                <></>
+                                :
+                                <img
+                                    id={`drinkImg${id}`}
+                                    className="drink-img-small"
+                                    src={imageSrc.src} />
                         }
                     </div>
                 </section>

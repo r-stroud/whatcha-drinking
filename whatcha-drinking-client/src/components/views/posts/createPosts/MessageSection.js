@@ -1,10 +1,11 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export const MessageSection = ({
     setPost,
     post,
     sectionConfirmed,
-    setSectionConfirmed
+    setSectionConfirmed,
+    editDetails
 }) => {
 
     // check message detials
@@ -45,6 +46,13 @@ export const MessageSection = ({
         )
     }
 
+    useEffect(
+        () => {
+
+            document.getElementById("textarea").defaultValue = editDetails.message
+        }, []
+    )
+
     return (
         <fieldset className="create-post-section">
 
@@ -58,6 +66,7 @@ export const MessageSection = ({
             <section>
                 <label>Message</label>
                 <textarea
+                    id={`textarea`}
                     type="text"
                     className="create-post-textarea"
                     onChange={
@@ -67,6 +76,7 @@ export const MessageSection = ({
                         }
                     }
                 >
+
                 </textarea>
 
                 {

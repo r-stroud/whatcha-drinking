@@ -2,15 +2,15 @@ import { useState, useEffect } from "react"
 import { getCurrentUser } from "../../../utils/Constants"
 import { useNavigate } from "react-router-dom"
 import "../Posts.css"
-import { DrinkSection } from "./DrinkSection"
-import { MessageSection } from "./MessageSection"
-import { ImageSection } from "./ImageSection"
+import { DrinkSection } from "../createPosts/DrinkSection"
+import { MessageSection } from "../createPosts/MessageSection"
 
-export const CreatePost = ({
+
+export const EditPost = ({
     setCreatePost,
     searchValue,
     setSearchValue,
-    paramName }) => {
+    editDetails }) => {
 
     const navigate = useNavigate()
 
@@ -73,11 +73,6 @@ export const CreatePost = ({
         }, [drinks]
     )
 
-    useEffect(
-        () => {
-            setSearchValue(paramName)
-        }, []
-    )
 
     // search results
 
@@ -321,18 +316,19 @@ export const CreatePost = ({
                     setPost={setPost}
                     post={post}
                     sectionConfirmed={sectionConfirmed}
-                    setSectionConfirmed={setSectionConfirmed} />
+                    setSectionConfirmed={setSectionConfirmed}
+                    editDetails={editDetails} />
 
             </section>
 
             <section
                 id="createPostImage"
                 className="create-post-image">
-                <ImageSection
+                {/* <ImageSection
                     setPost={setPost}
                     post={post}
                     sectionConfirmed={sectionConfirmed}
-                    setSectionConfirmed={setSectionConfirmed} />
+                    setSectionConfirmed={setSectionConfirmed} /> */}
 
             </section>
         </form>

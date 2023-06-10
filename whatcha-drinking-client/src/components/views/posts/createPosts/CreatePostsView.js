@@ -7,7 +7,8 @@ export const CreatePostsView = () => {
 
     const paramName = useParams().drinkName
 
-    const currentLocation = "postView"
+    // current location
+    const currentLocation = "createPostView"
 
     // cancel / create post
 

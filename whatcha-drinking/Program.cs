@@ -17,6 +17,7 @@ namespace whatcha_drinking
             builder.Services.AddTransient<IUserRepository, UserRepository>();
             builder.Services.AddTransient<IDrinkRepository, DrinkRepository>();
             builder.Services.AddTransient<IDrinkTypeRepository, DrinkTypeRepository>();
+            builder.Services.AddTransient<IPostRepository, PostRepository>();
 
             var app = builder.Build();
 

@@ -42,9 +42,7 @@ export const CreatePostSearchResult = ({
                 <div
                     className="create-post-result-name">
 
-                    <span
-                        className={index > 8 ? `create-post-result-largenumber` : `create-post-result-number`}>
-                        {/* {index + 1} */}
+                    <span>
                         <img
                             src={imageSrc.src} />
                     </span>
