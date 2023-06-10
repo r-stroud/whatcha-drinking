@@ -1,7 +1,17 @@
 import { DrinkImgs } from "../../utils/Constants"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
-export const RecentDrink = ({ id, name, type, image, drinkingNow, timesTried, dateTime }) => {
+export const RecentDrink = ({
+    id,
+    name,
+    type,
+    image,
+    createPost,
+    setSearchValue,
+    drinkingNow, timesTried, dateTime }) => {
+
+    const navigate = useNavigate()
 
     //drinkSrc
     let imageSrc = DrinkImgs.find(x => x.name === image)
@@ -16,10 +26,13 @@ export const RecentDrink = ({ id, name, type, image, drinkingNow, timesTried, da
                         id={`drinkFrame`}
                         className="drink-img-small-frame">
                         {
-                            <img
-                                id={`drinkImg${id}`}
-                                className="drink-img-small"
-                                src={imageSrc === undefined ? "" : imageSrc.src} />
+                            imageSrc === undefined ?
+                                <></>
+                                :
+                                <img
+                                    id={`drinkImg${id}`}
+                                    className="drink-img-small"
+                                    src={imageSrc.src} />
                         }
                     </div>
                 </section>
@@ -31,9 +44,20 @@ export const RecentDrink = ({ id, name, type, image, drinkingNow, timesTried, da
                         id="RecentDrinkDetails"
                     >{`${name}`}<span>{`${type}`}</span>
                         <div>
-                            <div
-                                className="recent-drink-bttn"
-                            >Create Post</div>
+
+                            {createPost
+                                ? <></>
+                                :
+                                <div
+                                    className="recent-drink-bttn"
+                                    onClick={
+                                        () => {
+                                            navigate(`/create-post/${name}`)
+
+                                        }
+                                    }
+                                >Create Post</div>
+                            }
                         </div>
                     </div>
                 </section>

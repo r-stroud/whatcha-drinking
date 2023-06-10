@@ -23,9 +23,7 @@ export const UserProfileDrinkPreference = () => {
             headers: {
                 "Content-Type": "application/json"
             }
-
         })
-
     }
 
     // delete preference
