@@ -346,6 +346,8 @@ input::file-selector-button:hover {
     justify-content: center;
     padding: 8px 0;
     background-color: rgb(54, 54, 54);
+    min-height: 76px;
+    color: rgb(210, 178, 98);
 
 }
 

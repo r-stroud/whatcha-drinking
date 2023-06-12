@@ -59,7 +59,6 @@ fieldset {
 }
 
 .form--login {
-    /* background-position-x: right; */
     position: relative;
     left: 100vw;
     transition: 0.3s;
@@ -77,20 +76,27 @@ fieldset {
 }
 
 .form--register {
-    /* background-position-x: right; */
     z-index: 1;
     min-width: 50vw;
     background-color: hsla(0, 0%, 100%, 0.4);
     background-blend-mode: overlay;
     background-repeat: no-repeat;
     display: inline-block;
-    /* margin: 0 auto; */
     text-align: left;
     padding-top: 10vh;
 }
 
+.form--register label {
+    font-size: 18px;
+    color: rgb(54, 54, 54);
+}
+
 .form--register h4 {
-    margin-top: 40vh;
+    margin-top: 34vh;
+    color: rgb(54, 54, 54);
+    margin-bottom: 2px;
+    font-size: 18px;
+    font-weight: 100;
 }
 
 
@@ -113,6 +119,7 @@ fieldset {
     display: flex;
     justify-content: start;
     flex-wrap: wrap;
+    padding: 0px 10px;
 }
 
 
@@ -136,10 +143,6 @@ fieldset {
     justify-content: center;
 }
 
-.title section button {
-    margin: 10vh 5vw;
-}
-
 .container-img {
     position: relative;
     top: 100vh;
@@ -151,6 +154,8 @@ fieldset {
     height: 100vh;
     transition: 0.3s;
     z-index: 3;
+    border-right: rgb(210, 178, 98) 0px solid;
+    border-left: rgb(210, 178, 98) 3px solid;
 }
 
 #whatcha {
@@ -167,20 +172,28 @@ fieldset {
     left: 100vw;
 }
 
+.welcome-bttns {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 #loginBttn {
     position: relative;
     display: inline-block;
     transition: 0.3s;
-    top: 100vw;
     font-size: 22px;
+    top: 100vw;
+    margin-top: 10px;
 }
 
 #registerBttn {
     position: relative;
     display: inline-block;
     transition: 0.3s;
-    top: 100vw;
     font-size: 22px;
+    top: 100vw;
+    margin-top: 10px;
 }
 
 #loginContainer {
@@ -197,7 +210,7 @@ fieldset {
     display: inline-block;
     transition: 0.3s;
     top: 400vh;
-    left: 54vw;
+    left: 52vw;
     display: none;
     height: 100vh;
     overflow-y: scroll;
@@ -218,12 +231,12 @@ fieldset {
     font-family: 'Cardo', serif;
     font-size: 18px;
     background-color: rgb(54, 54, 54);
-    box-shadow: 0px 0px 4px 2px rgb(160, 135, 74);
+    box-shadow: 1px 1px 4px 2px rgb(54, 54, 54);
     border-radius: 20px;
     padding: 6px 20px;
     cursor: pointer;
     height: fit-content;
-    border: outset 4px rgb(210, 178, 98);
+    border: outset 5px rgb(210, 178, 98);
     margin-right: 15px;
 }
 
@@ -234,7 +247,7 @@ fieldset {
 .welcomeGold {
     background-color: rgb(160, 135, 74);
     color: rgb(20, 20, 20);
-    border-color: rgb(20, 20, 20);
+    box-shadow: 0px 0px 0px 1px rgb(160, 135, 74);
 }
 
 .welcomeGold:hover,
@@ -249,7 +262,7 @@ fieldset {
 }
 
 .user-icon {
-    width: 150px;
+    width: 140px;
     border-radius: 100%;
     position: relative;
     z-index: 1;
@@ -284,16 +297,41 @@ input[type="radio"]:checked+label>img {
 
 .user-creation-preview {
     margin-top: 20px;
-    border-top: 1px solid rgb(20, 20, 20);
-    border-bottom: 1px solid rgb(20, 20, 20);
+    border-top: 5px solid rgb(210, 178, 98);
+    border-bottom: 3px solid rgb(210, 178, 98);
+    background-color: rgb(20, 20, 20);
+    color: rgb(210, 178, 98);
 
 }
 
+.user-creation-preview-title {
+    margin-bottom: 22px;
+    font-size: 26px;
+    position: relative;
+    right: 40px;
+}
+
+.user-creation-preview-username {
+    font-style: italic;
+    font-size: 24px;
+    margin-top: -35px;
+    margin-left: -10px;
+}
+
+.user-creation-preview-fullname {
+    font-size: 20px;
+    margin-top: 10px;
+    color: rgb(252, 252, 252);
+    font-style: italic;
+}
+
 .user-creation-preview img {
-    margin-left: 10px;
+    margin-left: 50px;
     margin-right: 10px;
-    margin-top: -22px;
-    margin-bottom: 2px;
+    margin-top: -50px;
+    margin-bottom: 10px;
+    border: outset 6px rgb(210, 178, 98);
+
 }
 
 .user-creation-preview div>p {
@@ -302,4 +340,10 @@ input[type="radio"]:checked+label>img {
 
 #registerEmail {
     margin-left: 80px;
+}
+
+.register-form-username-availability {
+    margin-left: 15px;
+    color: rgb(176, 22, 22);
+    font-size: 16px;
 }

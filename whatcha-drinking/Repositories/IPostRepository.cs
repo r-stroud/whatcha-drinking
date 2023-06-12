@@ -8,5 +8,6 @@ namespace whatcha_drinking.Repositories
         List<DetailedPost> GetAllPosts();
         void RemovePost(int postId);
         DetailedPost GetById(int postId);
+        void UpdatePost(Post post);
     }
 }

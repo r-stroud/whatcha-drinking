@@ -14,13 +14,6 @@ export const Cat2 = require("../../images/whiskey_cat2.png")
 export const Bird1 = require("../../images/whiskey_bird1.png")
 export const Bird2 = require("../../images/whiskey_bird2.png")
 
-
-export const test = () => {
-    return (
-        <img src={require("../../images/absolut-elyx.png")} />
-    )
-}
-
 //drinks
 export const DrinkImgs = [
     {
@@ -30,12 +23,12 @@ export const DrinkImgs = [
 
     {
         name: "Belvedere",
-        src: require("../../images/belvedere.png")
+        src: require("../../images/belvedere2.png")
     },
 
     {
         name: "Casa",
-        src: require("../../images/casa-dragones.png")
+        src: require("../../images/casa-dragones2.png")
     },
 
     {
@@ -45,7 +38,7 @@ export const DrinkImgs = [
 
     {
         name: "Cimarron",
-        src: require("../../images/cimarron.png")
+        src: require("../../images/cimarron2.png")
     },
 
     {
@@ -60,7 +53,7 @@ export const DrinkImgs = [
 
     {
         name: "Grey",
-        src: require("../../images/grey-goose.png")
+        src: require("../../images/grey-goose2.png")
     },
 
 
@@ -91,7 +84,7 @@ export const DrinkImgs = [
 
     {
         name: "Volcan",
-        src: require("../../images/volcan.png")
+        src: require("../../images/volcan2.png")
     },
 
     {
@@ -102,6 +95,26 @@ export const DrinkImgs = [
     {
         name: "Widow",
         src: require("../../images/widow-jane.png")
+    },
+    {
+        name: "Frapin",
+        src: require("../../images/frapin.png")
+    },
+    {
+        name: "Bache",
+        src: require("../../images/bache.png")
+    },
+    {
+        name: "Bisquit",
+        src: require("../../images/bisquit.png")
+    },
+    {
+        name: "Pierre",
+        src: require("../../images/pierre.png")
+    },
+    {
+        name: "H",
+        src: require("../../images/h.png")
     }
 ]
 

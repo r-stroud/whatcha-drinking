@@ -12,6 +12,8 @@ export const Login = ({ setDisplayRegister, displayRegister }) => {
         password: "",
     });
 
+    // display login form
+
     const [displayLoginForm, setDisplayLoginForm] = useState(0)
 
     useEffect(
@@ -26,13 +28,20 @@ export const Login = ({ setDisplayRegister, displayRegister }) => {
         }, [displayLoginForm]
     )
 
+    //navigate
+
     const navigate = useNavigate();
+
+
+    //update login
 
     const updateLoginEmail = (evt) => {
         const copy = { ...login };
         copy.email = evt.target.value;
         setLogin(copy);
     };
+
+    //update password
 
     const updateLoginPassword = (evt) => {
         const copy = { ...login };
@@ -74,7 +83,8 @@ export const Login = ({ setDisplayRegister, displayRegister }) => {
                             id="welcomeGoogle"
                             className="welcomeBttn"
                             type="button"
-                            onClick={onSubmitLoginGoogle}>Google</button>
+                            onClick={onSubmitLoginGoogle}
+                        >Google</button>
                     </div>
                 </div>
                 <form id="formLogin" className="form--login" onSubmit={onSubmitLoginEmail}>
@@ -124,14 +134,9 @@ export const Login = ({ setDisplayRegister, displayRegister }) => {
                         </div>
                     </fieldset>
                 </form>
-                <img className="login-img" src={require("../../images/tequila.png")} />
+
             </section>
 
-
-            {/* <h2>Login With Google?</h2>
-            <button type="submit" onClick={onSubmitLoginGoogle}>
-                Let's Do It!
-            </button> */}
         </main>
     );
 };

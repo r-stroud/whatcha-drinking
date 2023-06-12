@@ -211,7 +211,12 @@ VALUES
 (13, 'Old Ezra 7-Year-Old',3, 'Ezra'),
 (14, 'Widow Jane 10-Year-Old',3, 'Widow'),
 (15, 'Four Roses Single Barrel',3, 'Four'),
-(16, 'W.L. Weller 12-Year-Old',3, 'Weller')
+(16, 'W.L. Weller 12-Year-Old',3, 'Weller'),
+(17,'Frapin Chateau Fontpinot',6,'Frapin'),
+(18,'Bache-Gabrilesen Tre Kors',6,'Bache'),
+(19,'Bisquit & Dubouche VSOP',6,'Bisquit'),
+(20,'Pierre Ferrand Double Cask Reserve Cognac',6,'Pierre'),
+(21,'H by Hine',6,'H')
 SET IDENTITY_INSERT [drink] OFF
 
 SET IDENTITY_INSERT [preferenceType] ON

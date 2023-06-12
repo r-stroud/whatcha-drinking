@@ -5,6 +5,7 @@ import {
     signOut,
 } from "firebase/auth";
 
+
 // SignIn brings up the google sign in pop up AND works
 // for both signing in AND registering a user
 
@@ -13,10 +14,6 @@ const url = "https://localhost:7189/api/User/new-user?firebaseId=";
 const url2 = "https://localhost:7189/api/User/GetExistingFirebaseId";
 
 export const googleAuth = {
-
-
-
-
 
     // Works to sign in AND register a user
     signInRegister: function (navigate, userObj = null, loginOrRegister) {
@@ -52,6 +49,8 @@ export const googleAuth = {
                         window.scrollTo(0, 0)
 
                         setTimeout(() => {
+                            document.getElementById("loginBttn").classList.remove("welcomeGold")
+                            document.getElementById("registerBttn").classList.add("welcomeGold")
                             document.getElementById("containerImg").style.right = "50vw"
                             document.getElementById("registerContainer").style.display = "block"
                         }, 100)

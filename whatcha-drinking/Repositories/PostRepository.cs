@@ -176,5 +176,31 @@ namespace whatcha_drinking.Repositories
                 }
             }
         }
+
+        public void UpdatePost(Post post)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                        UPDATE [post]
+                                        SET 
+                                        [drinkId] = @drinkId,
+                                        [message] = @message
+                                        WHERE [post].id = @id";
+
+                    DbUtils.AddParameter(cmd, "@drinkId", post.DrinkId);
+                    DbUtils.AddParameter(cmd, "@message", post.Message);
+                    DbUtils.AddParameter(cmd, "@id", post.Id);
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+
+
     }
 }

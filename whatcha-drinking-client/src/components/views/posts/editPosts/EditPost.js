@@ -4,32 +4,46 @@ import { useNavigate } from "react-router-dom"
 import "../Posts.css"
 import { DrinkSection } from "../createPosts/DrinkSection"
 import { MessageSection } from "../createPosts/MessageSection"
+import { ImageSection } from "../createPosts/ImageSection"
+import { useParams } from "react-router-dom"
 
 
 export const EditPost = ({
     setCreatePost,
     searchValue,
-    setSearchValue,
-    editDetails }) => {
+    setSearchValue }) => {
 
     const navigate = useNavigate()
+
+    const paramId = useParams().id
+
+    // update item
+
+    const [editPostInfo, setEditPostInfo] = useState([])
+
+    console.log(editPostInfo)
 
     // display drinks
     const url2 = "https://localhost:7189/api/Drink/drinks"
 
-    const displayDrinks = async () => {
-        const fetchData = await fetch(`${url2}`)
+    const displayDrinks = async (id) => {
+
+        const fetchData = await fetch(`https://localhost:7189/api/Post/get_post_by_id?id=${id}`)
         const fetchJson = await fetchData.json()
-        setDrinks(fetchJson)
+        setEditPostInfo(fetchJson)
+
+        const fetchData2 = await fetch(`${url2}`)
+        const fetchJson2 = await fetchData2.json()
+        setDrinks(fetchJson2)
     }
 
     const [drinks, setDrinks] = useState([])
-    const [updateDom, setUpdateDom] = useState(false)
+    // const [updateDom, setUpdateDom] = useState(false)
 
     useEffect(
         () => {
-            displayDrinks()
-        }, [, updateDom]
+            displayDrinks(paramId)
+        }, []
     )
 
     //display preferences
@@ -69,6 +83,8 @@ export const EditPost = ({
             )
 
             setFilterDrinks(copy)
+
+            setSearchValue(editPostInfo.drinkName)
 
         }, [drinks]
     )
@@ -135,15 +151,16 @@ export const EditPost = ({
 
     const [sectionConfirmed, setSectionConfirmed] = useState(0)
 
-    // create post
+    // update post
 
-    const url = "https://localhost:7189/api/Post/create_post"
+    const url = "https://localhost:7189/api/Post/update_post"
 
-    const createPost = async () => {
+    const updatePost = async () => {
 
         await fetch(`${url}`, {
-            method: "POST",
+            method: "PUT",
             body: JSON.stringify({
+                id: paramId,
                 userId: currentUser.uid,
                 drinkId: post.drinkId,
                 message: post.message
@@ -164,7 +181,7 @@ export const EditPost = ({
 
                 <div
                     className="create-post-header">
-                    Create a New Post
+                    Edit Post
                 </div>
 
                 <section
@@ -272,7 +289,7 @@ export const EditPost = ({
                         ? <div
                             onClick={
                                 () => {
-                                    createPost()
+                                    updatePost()
                                     navigate("/")
                                 }
                             }
@@ -317,18 +334,19 @@ export const EditPost = ({
                     post={post}
                     sectionConfirmed={sectionConfirmed}
                     setSectionConfirmed={setSectionConfirmed}
-                    editDetails={editDetails} />
+                    editPostInfo={editPostInfo}
+                    drinks={drinks} />
 
             </section>
 
             <section
                 id="createPostImage"
                 className="create-post-image">
-                {/* <ImageSection
+                <ImageSection
                     setPost={setPost}
                     post={post}
                     sectionConfirmed={sectionConfirmed}
-                    setSectionConfirmed={setSectionConfirmed} /> */}
+                    setSectionConfirmed={setSectionConfirmed} />
 
             </section>
         </form>

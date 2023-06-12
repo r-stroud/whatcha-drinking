@@ -16,13 +16,13 @@ namespace whatcha_drinking.Controllers
         {
             _postRepository = postRepository;
             _userRepository = userRepository;
-            _drinkRepository= drinkRepository;
+            _drinkRepository = drinkRepository;
         }
 
         [HttpPost("create_post")]
         public IActionResult createPost(Post post)
         {
-            if( _userRepository.GetById(post.UserId) == null || _drinkRepository.GetById(post.DrinkId) == null)
+            if (_userRepository.GetById(post.UserId) == null || _drinkRepository.GetById(post.DrinkId) == null)
             {
                 return BadRequest();
             }
@@ -45,7 +45,7 @@ namespace whatcha_drinking.Controllers
         [HttpDelete("remove_post/{id}")]
         public IActionResult removePost(int id)
         {
-            if(_postRepository.GetById(id)== null)
+            if (_postRepository.GetById(id) == null)
             {
                 return BadRequest();
             }
@@ -55,14 +55,30 @@ namespace whatcha_drinking.Controllers
         }
 
         [HttpGet("get_post_by_id")]
-        public IActionResult getPostById(int id) 
+        public IActionResult getPostById(int id)
         {
-            if(_postRepository.GetById(id) == null)
+            if (_postRepository.GetById(id) == null)
             {
                 return BadRequest();
             }
 
             return Ok(_postRepository.GetById(id));
         }
+        [HttpPut("update_post")]
+        public IActionResult updatePost(Post post)
+        {
+            if ( _drinkRepository.GetById(post.DrinkId) == null)
+            {
+                return BadRequest();
+            }
+
+            _postRepository.UpdatePost(post);
+            return Ok(new
+            {
+                Message = "Updated",
+                Post = post
+            });
+        }
+
     }
 }
