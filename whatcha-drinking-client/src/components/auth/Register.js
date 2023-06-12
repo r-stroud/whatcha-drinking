@@ -123,12 +123,19 @@ export const Register = () => {
                             }>Register with Google</div>
                     </section>
                     <section className="user-creation-preview">
-                        <h3>Preview</h3>
+                        <div
+                            className="user-creation-preview-title">
+                            Preview</div>
                         <div className="flex-start">
                             <img src={user.profilePic} className="user-icon" />
                             <div>
-                                <p>{`${user.firstName} ${user.lastName}`}</p>
-                                <p>{user.username}</p>
+                                <p
+                                    className="user-creation-preview-username">
+                                    {user.username}</p>
+                                <p
+                                    className="user-creation-preview-fullname">
+                                    {`${user.firstName} ${user.lastName}`}</p>
+
                             </div>
                         </div>
                     </section>
@@ -280,7 +287,14 @@ export const Register = () => {
                     />
                 </fieldset>
                 <fieldset>
-                    <label htmlFor="username"> Username </label>
+                    <label htmlFor="username"> Username
+                        <span
+                            className="register-form-username-availability">
+                            {usernameAvailability.username === user.username
+                                ? `This username is not available`
+                                : <></>}
+                        </span>
+                    </label>
                     <input
                         onChange={checkUsernameAndHandleRegister}
                         type="text"
@@ -290,7 +304,6 @@ export const Register = () => {
                         minLength={5}
                         required
                     />
-                    <div>{usernameAvailability.username === user.username ? `This username is not available` : <></>}</div>
                 </fieldset>
 
                 {registerButtonDisplay
@@ -314,7 +327,7 @@ export const Register = () => {
                         <label htmlFor="password"> Password </label>
                         <input
                             onChange={updateUser}
-                            type="text"
+                            type="password"
                             id="password"
                             className="form-control"
                             placeholder="Must Be 6 Characters"

@@ -34,7 +34,6 @@ export const ImageSection = ({
                     type="file"
                     name="selectedImage"
                     onChange={(event) => {
-                        console.log(event.target.files[0]);
                         setSelectedImage(event.target.files[0]);
                         setImage(event.target.files[0])
                     }}

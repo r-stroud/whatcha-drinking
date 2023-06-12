@@ -45,7 +45,7 @@ export const RecentDrink = ({
                     >{`${name}`}<span>{`${type}`}</span>
                         <div>
 
-                            {createPost
+                            {!image
                                 ? <></>
                                 :
                                 <div

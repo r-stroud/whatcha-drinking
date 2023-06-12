@@ -5,7 +5,8 @@ export const MessageSection = ({
     post,
     sectionConfirmed,
     setSectionConfirmed,
-    editDetails
+    editPostInfo,
+    drinks
 }) => {
 
     // check message detials
@@ -46,11 +47,20 @@ export const MessageSection = ({
         )
     }
 
+    console.log(editPostInfo === undefined ? "undefined" : editPostInfo.message)
+
     useEffect(
         () => {
 
-            document.getElementById("textarea").defaultValue = editDetails.message
-        }, []
+            if (editPostInfo !== undefined) {
+                if (editPostInfo.message !== undefined) {
+                    const editableMessage = editPostInfo.message
+                    const editableMessageLength = editableMessage.length
+                    setMessageLength(editableMessageLength)
+                    document.getElementById("textarea").defaultValue = editableMessage
+                }
+            }
+        }, [drinks]
     )
 
     return (

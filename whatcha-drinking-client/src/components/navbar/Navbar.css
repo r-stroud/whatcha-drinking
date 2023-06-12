@@ -22,12 +22,12 @@
 }
 
 .user-icon-small {
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 110px;
     border-radius: 100%;
     z-index: 1;
     cursor: pointer;
-    border: solid 5px rgb(210, 178, 98);
+    border: outset 5px rgb(210, 178, 98);
     margin-left: 20px;
     background-color: rgb(10, 10, 10);
 }

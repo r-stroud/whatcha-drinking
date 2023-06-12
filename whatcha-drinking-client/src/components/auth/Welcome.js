@@ -8,8 +8,10 @@ export const Welcome = () => {
     const [displayLogin, setDisplayLogin] = useState(false)
     const [displayRegister, setDisplayRegister] = useState(false)
 
+
     useEffect(
         () => {
+
 
 
             //display welcome title
@@ -45,6 +47,15 @@ export const Welcome = () => {
                 }, 1300
             )
 
+            setTimeout(() => {
+                document.getElementById("whatcha").style.transition = "0s"
+                document.getElementById("drinking").style.transition = "0s"
+                document.getElementById("containerImg").style.transition = "0s"
+                document.getElementById("loginBttn").style.transition = "0s"
+                document.getElementById("registerBttn").style.transition = "0s"
+
+            }, 1400)
+
         }, []
     )
 
@@ -54,13 +65,21 @@ export const Welcome = () => {
             if (displayLogin) {
                 window.scrollTo(0, 0)
 
+                document.getElementById("containerImg").style.transition = "0.3s"
+
                 setTimeout(() => {
+                    document.getElementById("containerImg").style.borderLeft = "rgb(210, 178, 98) 0px solid"
+                    document.getElementById("containerImg").style.borderRight = "rgb(210, 178, 98) 3px solid"
                     document.getElementById("loginContainer").style.display = "block"
                     document.getElementById("containerImg").style.right = "50vw"
                     document.getElementById("whatchaDrinking").style.color = "rgb(252, 252, 252)"
                     document.getElementById("registerBttn").classList.remove("welcomeGold")
                     document.getElementById("loginBttn").classList.add("welcomeGold")
                 }, 100)
+
+                setTimeout(() => {
+                    document.getElementById("containerImg").style.transition = "0s"
+                }, 200)
 
                 if (document.getElementById("loginContainer") !== null) {
                     setTimeout(() => {
@@ -87,13 +106,22 @@ export const Welcome = () => {
             if (displayRegister) {
                 window.scrollTo(0, 0)
 
+                document.getElementById("containerImg").style.transition = "0.3s"
+
                 setTimeout(() => {
+                    document.getElementById("containerImg").style.borderLeft = "rgb(210, 178, 98) 0px solid"
+                    document.getElementById("containerImg").style.borderRight = "rgb(210, 178, 98) 3px solid"
                     document.getElementById("containerImg").style.right = "50vw"
                     document.getElementById("whatchaDrinking").style.color = "rgb(252, 252, 252)"
                     document.getElementById("loginBttn").classList.remove("welcomeGold")
                     document.getElementById("registerBttn").classList.add("welcomeGold")
                     document.getElementById("registerContainer").style.display = "block"
                 }, 100)
+
+                setTimeout(() => {
+                    document.getElementById("containerImg").style.transition = "0s"
+                }, 200)
+
 
                 if (document.getElementById("loginContainer") !== null) {
                     setTimeout(() => {
@@ -131,7 +159,7 @@ export const Welcome = () => {
 
                 <div className="title">
                     <h1 id="whatchaDrinking"><span id="whatcha">WHATCHA</span> <span id="drinking">DRINKING</span></h1>
-                    <section className="flex">
+                    <section className="welcome-bttns">
                         <button
                             id="loginBttn"
                             className="welcomeBttn"
