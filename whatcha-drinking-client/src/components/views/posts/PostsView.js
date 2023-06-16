@@ -1,15 +1,18 @@
-import { DrinkImgs } from "../../utils/Constants"
+import { DrinkImgs, getCurrentUser } from "../../utils/Constants"
 import { useEffect, useState } from "react"
 import { SubMenuView } from "../subMenu/SubMenuView"
 import { Posts } from "./Posts"
 import { useNavigate } from "react-router-dom"
+import { PostsUserPreview } from "./PostsUserPreview"
 
 export const PostsView = () => {
 
+    //current user
+
+    const currentUser = getCurrentUser()
+
     //match drink image src
     let imageSrc = DrinkImgs[Math.floor(Math.random() * DrinkImgs.length)]
-
-    console.log(DrinkImgs.length)
 
     const navigate = useNavigate()
 
@@ -37,7 +40,11 @@ export const PostsView = () => {
         }, [refresh]
     )
 
+    //set user preview
 
+    const [userPreview, setUserPreview] = useState(false)
+
+    const [userPreviewId, setUserPreivewId] = useState(0)
 
     return (
         <>
@@ -79,32 +86,47 @@ export const PostsView = () => {
 
                                 </section>
                                 <section
-                                    className="post-message">
-                                    Be the first to create a post!
-                                    Check out our drink selection to try something and then post about it!
+                                    className="post-message post-message-default">
+                                    <div>Be the first to create a post!</div>
+                                    <div>Check out our drink selection to try something and then post about it!</div>
+
                                 </section>
 
                             </section>
                         </>
                         : <>
                             {posts.map(x =>
-                                <Posts
-                                    key={x.id}
-                                    id={x.id}
-                                    userId={x.userId}
-                                    username={x.username}
-                                    userFirstName={x.userFirstName}
-                                    userLastName={x.userLastName}
-                                    userPic={x.userPic}
-                                    drinkId={x.drinkId}
-                                    drinkName={x.drinkName}
-                                    drinkPic={x.drinkPic}
-                                    drinkType={x.drinkType}
-                                    dateTime={x.dateTime}
-                                    picture={x.picture}
-                                    message={x.message}
-                                    setRefresh={setRefresh}
-                                    refresh={refresh} />
+                                <>
+
+                                    <Posts
+                                        key={x.id}
+                                        id={x.id}
+                                        userId={x.userId}
+                                        username={x.username}
+                                        userFirstName={x.userFirstName}
+                                        userLastName={x.userLastName}
+                                        userPic={x.userPic}
+                                        drinkId={x.drinkId}
+                                        drinkName={x.drinkName}
+                                        drinkPic={x.drinkPic}
+                                        drinkType={x.drinkType}
+                                        dateTime={x.dateTime}
+                                        picture={x.picture}
+                                        message={x.message}
+                                        setRefresh={setRefresh}
+                                        refresh={refresh}
+                                        setUserPreview={setUserPreview}
+                                        userPreview={userPreview}
+                                        setUserPreivewId={setUserPreivewId} />
+
+                                    {x.userId === currentUser.uid || userPreview === false
+                                        ? <></>
+                                        : <PostsUserPreview
+                                            setUserPreview={setUserPreview}
+                                            userPreview={userPreview}
+                                            userId={userPreviewId} />}
+
+                                </>
                             )}</>}
                 </section>
 

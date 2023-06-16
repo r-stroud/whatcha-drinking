@@ -38,6 +38,7 @@
 
 .nav-user-profile {
     display: flex;
+    justify-content: flex-start;
     width: 33%;
     color: rgb(252, 252, 252);
     font-size: 22px;

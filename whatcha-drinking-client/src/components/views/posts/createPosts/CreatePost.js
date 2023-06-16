@@ -157,6 +157,8 @@ export const CreatePost = ({
                 "Content-Type": "application/json"
             }
         })
+
+        await navigate("/")
     }
 
     return (
@@ -278,7 +280,6 @@ export const CreatePost = ({
                             onClick={
                                 () => {
                                     createPost()
-                                    navigate("/")
                                 }
                             }
                             className="create-post-title-confirm">

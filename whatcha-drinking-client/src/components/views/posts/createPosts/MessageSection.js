@@ -56,6 +56,7 @@ export const MessageSection = ({
                 if (editPostInfo.message !== undefined) {
                     const editableMessage = editPostInfo.message
                     const editableMessageLength = editableMessage.length
+                    setMessage(editableMessage)
                     setMessageLength(editableMessageLength)
                     document.getElementById("textarea").defaultValue = editableMessage
                 }

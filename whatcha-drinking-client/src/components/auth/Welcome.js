@@ -69,7 +69,7 @@ export const Welcome = () => {
 
                 setTimeout(() => {
                     document.getElementById("containerImg").style.borderLeft = "rgb(210, 178, 98) 0px solid"
-                    document.getElementById("containerImg").style.borderRight = "rgb(210, 178, 98) 3px solid"
+                    document.getElementById("containerImg").style.borderRight = "rgb(210, 178, 98) 5px solid"
                     document.getElementById("loginContainer").style.display = "block"
                     document.getElementById("containerImg").style.right = "50vw"
                     document.getElementById("whatchaDrinking").style.color = "rgb(252, 252, 252)"
@@ -110,7 +110,7 @@ export const Welcome = () => {
 
                 setTimeout(() => {
                     document.getElementById("containerImg").style.borderLeft = "rgb(210, 178, 98) 0px solid"
-                    document.getElementById("containerImg").style.borderRight = "rgb(210, 178, 98) 3px solid"
+                    document.getElementById("containerImg").style.borderRight = "rgb(210, 178, 98) 5px solid"
                     document.getElementById("containerImg").style.right = "50vw"
                     document.getElementById("whatchaDrinking").style.color = "rgb(252, 252, 252)"
                     document.getElementById("loginBttn").classList.remove("welcomeGold")

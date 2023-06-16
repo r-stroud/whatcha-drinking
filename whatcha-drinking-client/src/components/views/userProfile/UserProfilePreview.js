@@ -8,7 +8,8 @@ export const UserProfilePreview = ({
     checkUsernameAndUpdate,
     usernameAvailability,
     initialUserValue,
-    setUser }) => {
+    setUser,
+    editUser }) => {
 
     // url
 
@@ -40,11 +41,17 @@ export const UserProfilePreview = ({
 
     //display current userprofile
 
-    const userProfile = document.getElementById("userprofilePreview")
+    useEffect(
+        () => {
+            const userProfile = document.getElementById("userprofilePreview")
 
-    if (userProfile) {
-        document.getElementById("userprofilePreview").style.top = "23.5vh"
-    }
+            editUser
+                ? userProfile.style.top = "23.5vh"
+                : userProfile.style.top = "-50vh"
+
+
+        }, [editUser]
+    )
 
     // edit names
     const [editNames, setEditNames] = useState(false)

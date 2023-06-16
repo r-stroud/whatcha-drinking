@@ -115,7 +115,60 @@ export const DrinkImgs = [
     {
         name: "H",
         src: require("../../images/h.png")
+    },
+    {
+        name: "GlenDronach",
+        src: require("../../images/glendronach.png")
+    },
+    {
+        name: "Aberfeldy",
+        src: require("../../images/aberfeldy.png")
+    },
+    {
+        name: "Bowmore",
+        src: require("../../images/bowmore.png")
+    },
+    {
+        name: "Laphroaig",
+        src: require("../../images/laphroaig.png")
+    },
+    {
+        name: "Talisker",
+        src: require("../../images/talisker.png")
+    },
+    {
+        name: "MountGay",
+        src: require("../../images/mountgay.png")
+    },
+    {
+        name: "10to1",
+        src: require("../../images/10to1.png")
+    },
+    {
+        name: "Barcelo",
+        src: require("../../images/barcelo.png")
+    },
+    {
+        name: "DonQ",
+        src: require("../../images/donq.png")
+    },
+    {
+        name: "SailorJ",
+        src: require("../../images/sailorjerry.png")
+    },
+    {
+        name: "Hakkaisan",
+        src: require("../../images/hakkaisan.png")
+    },
+    {
+        name: "Shichida",
+        src: require("../../images/shichida.png")
+    },
+    {
+        name: "Dewazakura",
+        src: require("../../images/dewazakura.png")
     }
+
 ]
 
 

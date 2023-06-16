@@ -120,7 +120,8 @@ export const UserProfileEditProfile = ({
                             setUser={setUser}
                             updateUser={updateUser}
                             checkUsernameAndUpdate={checkUsernameAndUpdate}
-                            usernameAvailability={usernameAvailability} />
+                            usernameAvailability={usernameAvailability}
+                            editUser={editUser} />
                         <div
                             style={{
                                 position: "absolute",

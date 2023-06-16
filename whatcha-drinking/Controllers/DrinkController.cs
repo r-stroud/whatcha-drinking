@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Reflection.PortableExecutable;
 using whatcha_drinking.Model;
 using whatcha_drinking.Repositories;
+using whatcha_drinking.Utils;
 
 namespace whatcha_drinking.Controllers
 {
@@ -153,6 +155,30 @@ namespace whatcha_drinking.Controllers
 
         }
 
+        [HttpGet("most_tried")]
+        public IActionResult MostTried(string userId)
+        {
+            if(_userRepository.GetById(userId)==null)
+            {
+                return BadRequest();
+            }
+
+            if(_drinkRepository.MostTried(userId) == null)
+            {
+                return Ok(new
+                {
+                    Id = "",
+                    Name = "",
+                    Image = "",
+                    Type = "",
+                    TimesTried = "",
+                    DateTime = ""
+                });
+            }
+
+            return Ok(_drinkRepository.MostTried(userId));
+        }
+
         [HttpDelete("remove_preference/{id}")]
         public IActionResult Remove(int id)
         {
@@ -164,6 +190,16 @@ namespace whatcha_drinking.Controllers
             _drinkRepository.RemoveDrinkPreference(id);
 
             return NoContent();
+        }
+        [HttpGet("user_drinks")]
+        public IActionResult UserDrinks(string userId)
+        {
+            if (_userRepository.GetById(userId) == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(_drinkRepository.UserDrinks(userId));
         }
 
     }

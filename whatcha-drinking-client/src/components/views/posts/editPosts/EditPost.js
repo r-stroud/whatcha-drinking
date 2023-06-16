@@ -169,6 +169,8 @@ export const EditPost = ({
                 "Content-Type": "application/json"
             }
         })
+
+        await navigate("/")
     }
 
     return (
@@ -290,7 +292,6 @@ export const EditPost = ({
                             onClick={
                                 () => {
                                     updatePost()
-                                    navigate("/")
                                 }
                             }
                             className="create-post-title-confirm">

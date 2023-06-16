@@ -55,7 +55,7 @@ export const Navbar = () => {
                         className="user-icon-small"
                         onClick={
                             () => {
-                                navigate("/profile")
+                                navigate(`/profile/${currentUser.uid}`)
                             }
                         }
                     />

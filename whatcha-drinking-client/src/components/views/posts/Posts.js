@@ -2,6 +2,7 @@ import "./Posts.css"
 import { DrinkImgs, getCurrentUser } from "../../utils/Constants"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { PostsUserPreview } from "./PostsUserPreview"
 
 export const Posts = ({
     id,
@@ -18,7 +19,9 @@ export const Posts = ({
     picture,
     message,
     setRefresh,
-    refresh
+    refresh,
+    setUserPreview,
+    setUserPreivewId
 
 }) => {
 
@@ -28,10 +31,6 @@ export const Posts = ({
 
     //match drink image src
     let imageSrc = DrinkImgs.find(x => x.name === drinkPic)
-
-    //display post username
-
-    const [displayName, setDisplayName] = useState(false)
 
     //current user
 
@@ -49,111 +48,117 @@ export const Posts = ({
 
     const [confirmDelete, setConfirmDelete] = useState(false)
 
+    let postDate = new Date(dateTime);
+
+
     return (
-        <section
-            className="post">
-
+        <>
             <section
-                className="post-drink-img">
+                className="post">
 
-                <img
-                    src={imageSrc.src} />
+                <section
+                    className="post-drink-img">
 
-            </section>
+                    <img
+                        src={imageSrc.src} />
 
-            <section
-                className="post-header">
-
-                <img
-                    src={userPic}
-                    onMouseEnter={
-                        () => {
-                            setDisplayName(true)
-                        }
-                    }
-                    onMouseLeave={
-                        () => {
-                            setDisplayName(false)
-                        }
-                    }
-
-                />
-                <section>
-                    <div
-                        className="post-username" >{username}</div>
-                    <div
-                        className="post-fullname">
-                        {`${userFirstName} ${userLastName}`}</div>
                 </section>
 
-            </section>
+                <section
+                    className="post-header">
 
-            {confirmDelete
-                ?
-                <section className="post-delete-confirmation">
-                    <div
-                        className="post-delete-confirmation-header">
-                        Are you sure you want to <span>delete</span>?</div>
+                    <img
+                        src={userPic}
+                        onClick={
+                            () => {
+                                setUserPreview(true)
+                                setUserPreivewId(userId)
+                            }
+                        }
+                    />
                     <section>
                         <div
-                            className="post-delete"
-                            onClick={
-                                () => {
-                                    deletePost(id)
-                                }
-                            }
-                        >Delete</div>
+                            className="post-username" >{username}
+                        </div>
                         <div
-                            className="post-edit"
-                            onClick={
-                                () => {
-                                    setConfirmDelete(false)
-                                }
-                            }>Cancel</div>
+                            className="post-fullname">
+                            {`${userFirstName} ${userLastName}`}
+                        </div>
+                        <div
+                            className="post-datetime">
+                            {`${postDate.toLocaleDateString()} ${postDate.toLocaleTimeString()}`}
+                        </div>
                     </section>
+
                 </section>
 
-                : <>
-                    <section
-                        className="post-drink-info">
-                        <div>
-                            {drinkName}
-                            <span>{drinkType}</span>
-                        </div>
+                {confirmDelete
+                    ?
+                    <section className="post-delete-confirmation">
+                        <div
+                            className="post-delete-confirmation-header">
+                            Are you sure you want to <span>delete</span>?</div>
+                        <section>
+                            <div
+                                className="post-delete"
+                                onClick={
+                                    () => {
+                                        deletePost(id)
+                                    }
+                                }
+                            >Delete</div>
+                            <div
+                                className="post-edit"
+                                onClick={
+                                    () => {
+                                        setConfirmDelete(false)
+                                    }
+                                }>Cancel</div>
+                        </section>
                     </section>
 
-                    <section
-                        className="post-message">
+                    : <>
+                        <section
+                            className="post-drink-info">
+                            <div>
+                                {drinkName}
+                                <span>{drinkType}</span>
+                            </div>
+                        </section>
 
-                        <div>
-                            {message}
-                        </div>
-                    </section>
+                        <section
+                            className="post-message">
 
-                    <section
-                        className="post-edit-delete-bttns">
-                        {currentUser.uid === userId
-                            ? <>
-                                <div
-                                    className="post-edit"
-                                    onClick={
-                                        () => {
-                                            navigate(`/edit-post/${id}`)
-                                        }
-                                    }>Edit</div>
-                                <div
-                                    className="post-delete"
-                                    onClick={
-                                        () => {
-                                            setConfirmDelete(true)
-                                        }
-                                    }>Delete</div>
-                            </>
-                            : <></>}
+                            <div>
+                                {message}
+                            </div>
+                        </section>
 
-                    </section>
-                </>
-            }
-        </section>
+                        <section
+                            className="post-edit-delete-bttns">
+                            {currentUser.uid === userId
+                                ? <>
+                                    <div
+                                        className="post-edit"
+                                        onClick={
+                                            () => {
+                                                navigate(`/edit-post/${id}`)
+                                            }
+                                        }>Edit</div>
+                                    <div
+                                        className="post-delete"
+                                        onClick={
+                                            () => {
+                                                setConfirmDelete(true)
+                                            }
+                                        }>Delete</div>
+                                </>
+                                : <></>}
+
+                        </section>
+                    </>
+                }
+            </section>
+        </>
     )
 }

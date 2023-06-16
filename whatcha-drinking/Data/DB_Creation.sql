@@ -102,7 +102,7 @@ CREATE TABLE [post] (
   [drinkId] int NOT NULL,
   [dateTime] dateTime NOT NULL,
   [picture] nvarchar(255),
-  [message] nvarchar(255) NOT NULL
+  [message] nvarchar(1000) NOT NULL
 )
 GO
 
@@ -216,7 +216,20 @@ VALUES
 (18,'Bache-Gabrilesen Tre Kors',6,'Bache'),
 (19,'Bisquit & Dubouche VSOP',6,'Bisquit'),
 (20,'Pierre Ferrand Double Cask Reserve Cognac',6,'Pierre'),
-(21,'H by Hine',6,'H')
+(21,'H by Hine',6,'H'),
+(22,'GlenDronach 15 Revival Single Malt Whisky',4,'GlenDronach'),
+(23,'Aberfeldy 12 Year Scotch Whisky',4,'Aberfeldy'),
+(24,'Bowmore Islay Single Malt Scotch Whisky 15 Year Darkest',4,'Bowmore'),
+(25,'Laphroaig Single Malt Scotch Whisky 10 Year Cask Strength',4,'Laphroaig'),
+(26,'Talisker Distiller"s Edition',4,'Talisker'),
+(27, 'Mount Gay Black Barrel',5,'MountGay'),
+(28, 'Ten To One Caribbean White Rum',5,'10to1'),
+(29, 'Barcelo Imperial',5,'Barcelo'),
+(30, 'Don Q Cristal',5,'DonQ'),
+(31, 'Sailor Jerry Spiced Rum',5,'SailorJ'),
+(32,'Hakkaisan Tokubetsu Junmai',7,'Hakkaisan'),
+(33,'Shichida Junmai',7,'Shichida'),
+(34,'Dewazakura Cherry Bouquet Oka Ginjo',7,'Dewazakura')
 SET IDENTITY_INSERT [drink] OFF
 
 SET IDENTITY_INSERT [preferenceType] ON

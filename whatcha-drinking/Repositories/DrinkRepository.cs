@@ -416,6 +416,101 @@ namespace whatcha_drinking.Repositories
             }
         }
 
+        public Drink MostTried(string userId)
+        {
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                        SELECT TOP(1)
+                                        D.[id],
+                                        D.[name],
+                                        D.[picture],
+                                        DT.[type],
+                                        UD.[timesTried],
+                                        UD.[dateTime]
+                                        FROM [drink] D
+                                        LEFT JOIN [drinkType] DT
+                                        ON DT.[id] = D.[drinkTypeId]
+                                        LEFT JOIN [userDrinks] UD
+                                        ON UD.[drinkId] = D.[id]
+                                        WHERE UD.[userId] = @userId
+                                        ORDER BY UD.[timesTried] DESC, UD.[dateTime] DESC";
+
+                    DbUtils.AddParameter(cmd, "@userId", userId);
+                    var reader = cmd.ExecuteReader();
+                    Drink drink = null;
+
+                    if(reader.Read())
+                    {
+                        drink = new Drink()
+                        {
+                            Id = DbUtils.GetInt(reader, "id"),
+                            Name = DbUtils.GetString(reader, "name"),
+                            Image = DbUtils.GetString(reader, "picture"),
+                            Type = DbUtils.GetString(reader, "type"),
+                            TimesTried = DbUtils.GetInt(reader,"timesTried"),
+                            DateTime = DbUtils.GetDateTime(reader,"dateTime")
+                        };
+                    }
+                    reader.Close();
+
+                    return drink;
+
+                }
+            }
+        }
+
+        public List<Drink> UserDrinks(string userId)
+        {
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                        SELECT 
+                                        D.[id],
+                                        D.[name],
+                                        D.[picture],
+                                        DT.[type],
+                                        UD.[timesTried],
+                                        UD.[dateTime]
+                                        FROM [drink] D
+                                        LEFT JOIN [drinkType] DT
+                                        ON DT.[id] = D.[drinkTypeId]
+                                        LEFT JOIN [userDrinks] UD
+                                        ON UD.[drinkId] = D.[id]
+                                        WHERE UD.[userId] = @userId";
+
+                    DbUtils.AddParameter(cmd, "@userId", userId);
+                    var reader = cmd.ExecuteReader();
+                    List<Drink> drinks = new List<Drink>();
+                    Drink drink = null;
+
+                    while(reader.Read())
+                    {
+                        drink = new Drink()
+                        {
+                            Id = DbUtils.GetInt(reader, "id"),
+                            Name = DbUtils.GetString(reader, "name"),
+                            Image = DbUtils.GetString(reader, "picture"),
+                            Type = DbUtils.GetString(reader, "type"),
+                            TimesTried = DbUtils.GetInt(reader, "timesTried"),
+                            DateTime = DbUtils.GetDateTime(reader, "dateTime")
+                        };
+                        drinks.Add(drink);
+                    }
+                    reader.Close();
+
+                    return drinks;
+
+                }
+            }
+        }
+
 
 
     }

@@ -17,6 +17,8 @@ namespace whatcha_drinking.Repositories
         public DrinkPreference GetDrinkPreferenceById(int id);
         public void RemoveDrinkPreference(int id);
         public int? GetDrinkPreferenceId(string userId, int drinkTypeId);
+        public Drink MostTried(string userId);
+        public List<Drink> UserDrinks(string userId);
 
 
     }
