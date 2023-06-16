@@ -14,7 +14,7 @@ export const ApplicationViews = () => {
                 <Route path="/" element={<PostsView />} />
                 <Route path="/create-post/:drinkName" element={<CreatePostsView />} />
                 <Route path="/edit-post/:id" element={<EditPostsView />} />
-                <Route path="/profile" element={<UserProfileView />} />
+                <Route path="/profile/:id" element={<UserProfileView />} />
                 <Route path="/drinks" element={<DrinkView />} />
             </Routes>
         </>

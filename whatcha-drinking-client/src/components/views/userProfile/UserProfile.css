@@ -5,7 +5,7 @@
 
 #userprofilePreview {
     position: fixed;
-    top: 0;
+    top: -50vh;
     z-index: 5;
     transition: 0.3s;
     border-bottom: solid 2px rgb(160, 135, 74);
@@ -283,8 +283,130 @@
     color: rgb(252, 252, 252);
 }
 
-
 .flex-wrap {
     display: flex;
     flex-wrap: wrap;
+}
+
+.summary-header {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 3vh;
+}
+
+.summary-header-user-details {
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+    padding-top: 50px;
+}
+
+.summary-header-user-details img {
+    width: 300px;
+    height: 300px;
+    border-radius: 100%;
+    border: 12px outset rgb(210, 178, 98);
+}
+
+.summay-username-fullname {
+    position: absolute;
+    top: 244px;
+    text-align: center;
+    left: 52px;
+    font-size: 24px;
+    color: rgb(54, 54, 54);
+    background-color: rgba(210, 178, 98, 0.5);
+    padding: 2px 5px;
+    border-radius: 20px;
+    width: 210px;
+}
+
+.summary-header-username {
+    font-size: 30px;
+    color: rgb(54, 54, 54);
+    font-weight: bold;
+}
+
+.summary-header-user-fullname {
+    font-size: 22px;
+    color: rgb(252, 252, 252);
+    font-weight: bold;
+}
+
+.summary-recent-drink-container {
+    width: 300px;
+
+}
+
+.summary-recent-drink-title {
+    font-size: 40px;
+    color: rgb(210, 178, 98);
+    border-bottom: solid 2px rgb(210, 178, 98);
+    margin-bottom: 15px;
+}
+
+.summary-recent-drink-title span {
+    font-size: 20px;
+    font-style: italic;
+    color: rgb(160, 135, 74);
+    display: block;
+}
+
+.summary-recent-drink-details {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.summary-recent-drink-details img {
+    margin-right: -100px;
+    margin-left: -150px;
+    width: 300px
+}
+
+.summary-recent-drink-name {
+    font-size: 30px;
+    margin-top: 20px;
+    padding-left: 55px;
+}
+
+.summary-recent-drink-type {
+    font-size: 24px;
+    font-style: italic;
+    color: rgb(160, 135, 74);
+    padding-left: 55px;
+}
+
+.summary-drink-details {
+    width: 225px;
+    border: solid rgb(54, 54, 54) 1px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.pie-container {
+    width: 100%;
+    margin: auto;
+    padding: 10px;
+    position: relative;
+}
+
+.pie-text {
+    position: absolute;
+    top: 38%;
+    left: 38%;
+    font-size: 2.2vw;
+}
+
+.drink-summary-title {
+    margin-top: 8vh;
+    font-size: 30px;
+    border-bottom: solid 4px rgb(54, 54, 54);
+    padding-left: 20px;
+}
+
+.drink-summary-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 20px;
 }

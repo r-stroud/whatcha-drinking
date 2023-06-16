@@ -17,6 +17,7 @@ export const SubMenuView = ({
     showAll,
     setSearchValue,
     location,
+    editUser,
     setEditUser,
     setFilterByPreference,
     filterByPreference }) => {
@@ -28,26 +29,18 @@ export const SubMenuView = ({
 
     const url3 = `https://localhost:7189/api/Drink/drink_preferences?userId=${currentUser.uid}`
 
-    const displayDrinkPreferences = async () => {
-        const fetchData = await fetch(`${url3}`)
-        const fetchJson = await fetchData.json()
-        setPreferences(fetchJson)
-    }
-
     const [preferences, setPreferences] = useState([])
-
-    useEffect(
-        () => {
-            displayDrinkPreferences()
-
-        }, []
-    )
 
     //display drink types
 
     const url2 = "https://localhost:7189/api/DrinkType/drink_types"
 
     const displayDrinkTypes = async () => {
+
+        const fetchData3 = await fetch(`${url3}`)
+        const fetchJson3 = await fetchData3.json()
+        setPreferences(fetchJson3)
+
         const fetchData = await fetch(`${url2}`)
         const fetchJson = await fetchData.json()
         setDrinkTypes(fetchJson)
@@ -101,7 +94,7 @@ export const SubMenuView = ({
 
     useEffect(
         () => {
-            if (location !== "userProfile") {
+            if (location !== "userProfile" && location !== "friendProfile") {
                 showAll
                     ? document.getElementById(`optionAll`).classList.add("drink-filter-option-all-selected")
                     : document.getElementById(`optionAll`).classList.remove("drink-filter-option-all-selected")
@@ -134,14 +127,14 @@ export const SubMenuView = ({
                             className="userprofile-bttn"
                             onClick={
                                 () => {
-                                    setEditUser(true)
+                                    setEditUser(!editUser)
                                 }
                             }
                         >Edit Profile</div>
                     </section>
                     : <></>}
 
-                {location === "userProfile"
+                {location === "userProfile" || location === "friendProfile"
                     ? <></>
                     : <section className="drink-filter-container">
                         <DrinkFilterContainer
@@ -155,7 +148,7 @@ export const SubMenuView = ({
                             setFilterByPreference={setFilterByPreference}
                             filterByPreference={filterByPreference} />
                     </section>}
-                {location === "userProfile"
+                {location === "userProfile" || location === "friendProfile"
                     ? <></>
                     :
                     <section

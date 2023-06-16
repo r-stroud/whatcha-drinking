@@ -10,7 +10,7 @@ h1 {
 
 fieldset {
     min-width: 0;
-    padding: 1rem 0;
+    padding: 1rem 1rem;
     margin: 0;
     border: 0;
 }
@@ -155,7 +155,7 @@ fieldset {
     transition: 0.3s;
     z-index: 3;
     border-right: rgb(210, 178, 98) 0px solid;
-    border-left: rgb(210, 178, 98) 3px solid;
+    border-left: rgb(210, 178, 98) 5px solid;
 }
 
 #whatcha {
@@ -176,6 +176,7 @@ fieldset {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    margin-top: 2vh;
 }
 
 #loginBttn {
@@ -231,13 +232,13 @@ fieldset {
     font-family: 'Cardo', serif;
     font-size: 18px;
     background-color: rgb(54, 54, 54);
-    box-shadow: 1px 1px 4px 2px rgb(54, 54, 54);
+    box-shadow: 0px 1px 5px 1px rgb(54, 54, 54);
     border-radius: 20px;
     padding: 6px 20px;
     cursor: pointer;
     height: fit-content;
-    border: outset 5px rgb(210, 178, 98);
-    margin-right: 15px;
+    border: outset 4px rgb(210, 178, 98);
+    margin-right: 2vw;
 }
 
 .welcomeBttn:hover {

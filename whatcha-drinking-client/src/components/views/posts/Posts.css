@@ -127,7 +127,7 @@
     width: 40px;
     position: absolute;
     transform: rotate(90deg);
-    top: -18px;
+    top: -12px;
     margin-left: -75px;
 }
 
@@ -312,18 +312,19 @@ input::file-selector-button:hover {
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 15px;
+    position: relative;
 }
 
 .post {
-    border: outset 6px rgb(20, 20, 20);
+    border: outset 4px rgb(20, 20, 20);
     margin: 10px;
     font-family: 'Cardo', serif;
     position: relative;
     overflow: hidden;
-    height: 350px;
-    width: 450px;
+    height: 380px;
+    width: 580px;
     background-color: rgb(252, 252, 252);
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 .post:hover {
@@ -333,7 +334,7 @@ input::file-selector-button:hover {
 .post-drink-img img {
     width: 400px;
     position: absolute;
-    right: 240px;
+    right: 370px;
     top: 70px;
 }
 
@@ -341,13 +342,13 @@ input::file-selector-button:hover {
     display: flex;
     position: relative;
     z-index: 1;
-    backdrop-filter: blur(1px);
     font-size: 20px;
-    justify-content: center;
-    padding: 8px 0;
+    padding: 8px 0 8px 10px;
     background-color: rgb(54, 54, 54);
     min-height: 76px;
     color: rgb(210, 178, 98);
+    font-style: italic;
+    font-size: 24px;
 
 }
 
@@ -372,22 +373,31 @@ input::file-selector-button:hover {
     transform: scale(1.02);
 }
 
+.post-datetime {
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    font-size: 16px;
+}
+
 .post-message {
     font-size: 18px;
     margin: auto;
-    padding: 25px 20px 10px;
-    height: 150px;
+    padding: 25px 10px 80px 60px;
+    height: 100%;
     overflow-y: scroll;
-    border: solid 2px rgb(210, 178, 98);
-    background-color: rgba(252, 252, 252, 0.8);
+    overflow-x: auto;
+    background-color: rgba(252, 252, 252, 0.6);
     position: relative;
     z-index: 1;
-    border-top: none;
-    border-left: none;
-    border-right: none;
     bottom: 15px;
-
+    overflow-wrap: break-word;
 }
+
+.post-message-default div {
+    margin: 15px 0;
+}
+
 
 .post-message::-webkit-scrollbar {
     display: none;
@@ -400,6 +410,7 @@ input::file-selector-button:hover {
     color: rgb(252, 252, 252);
     font-size: 16px;
     display: flex;
+    z-index: 1;
 }
 
 .post-edit {
@@ -437,10 +448,9 @@ input::file-selector-button:hover {
 .post-drink-info {
     position: relative;
     z-index: 2;
-    background-color: rgba(54, 54, 54, 0.9);
+    background-color: rgb(160, 135, 74);
     margin: auto;
-    padding: 5px 20px;
-    border: solid rgb(210, 178, 98) 2px;
+    padding: 8px 10px;
     color: rgb(252, 252, 252);
     font-size: 18px;
     border-left: none;
@@ -448,9 +458,10 @@ input::file-selector-button:hover {
 }
 
 .post-drink-info span {
-    color: rgb(210, 178, 98);
-    font-size: 14px;
+    color: rgb(54, 54, 54);
+    font-size: 16px;
     margin-left: 8px;
+    font-style: italic;
 }
 
 .post-delete-confirmation {
@@ -472,4 +483,130 @@ input::file-selector-button:hover {
     font-size: 18px;
     color: rgb(176, 22, 22);
     margin: 10px 0;
+}
+
+.post-user-preview-container {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    z-index: 3;
+    box-sizing: border-box;
+    backdrop-filter: blur(1px);
+    text-align: center;
+    font-size: 50px;
+    color: white;
+    display: flex;
+}
+
+.post-user-preview {
+    position: absolute;
+    display: flex;
+    top: 41vh;
+    left: 20vw;
+    z-index: 3;
+    background-color: rgb(252, 252, 252);
+    text-align: left;
+    padding: 0;
+    border: solid 2px rgb(210, 178, 98);
+}
+
+.post-user-preview .post-user-preview-recent .post-header {
+    background-color: rgb(252, 252, 252);
+    color: rgb(54, 54, 54);
+    font-style: normal;
+    width: 30vw;
+}
+
+.post-user-preview-recent {
+    text-align: left;
+    font-size: 30px;
+    color: rgb(54, 54, 54);
+}
+
+.post-user-preview-recent span {
+    color: rgb(160, 135, 74);
+}
+
+.post-user-preview .post-header {
+    padding-right: 20px;
+    padding-top: 50px;
+    width: 20vw;
+}
+
+.post-user-preview img {
+    width: 150px;
+    height: 150px;
+    margin: 10px;
+    border-width: 10px;
+}
+
+.post-user-preview-recent img {
+    margin-top: -35px;
+    border: 10px outset rgb(20, 20, 20);
+}
+
+.post-user-preview .post-fullname {
+    font-size: 26px;
+    position: relative;
+    left: -5px;
+}
+
+.post-user-preview .post-username {
+    font-size: 34px;
+    position: relative;
+    left: -20px;
+}
+
+.post-user-preview-recent-datetime {
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    font-size: 16px;
+}
+
+.post-user-preview-drink-type {
+    font-style: italic;
+}
+
+.post-user-preview-recent-title {
+    margin-top: 5px;
+    margin-left: 15px;
+    color: rgb(54, 54, 54);
+
+}
+
+.post-user-preview-close-bttn {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    padding: 1px 5px;
+    color: rgb(54, 54, 54);
+    background-color: rgb(210, 178, 98);
+    border-radius: 5px;
+    text-align: center;
+    font-style: normal;
+    font-weight: bold;
+    border: 2px outset rgb(160, 135, 74);
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.post-user-preview-close-bttn:hover {
+    background-color: rgb(107, 14, 14);
+    color: rgb(252, 252, 252);
+}
+
+.post-user-profile-link {
+    position: absolute;
+    top: 60px;
+    padding: 60px 28px 0;
+    left: 19px;
+    backdrop-filter: blur(1px);
+    border-radius: 100%;
+    height: 110px;
+    text-align: center;
+    font-size: 22px;
+    color: rgb(252, 252, 252);
+    font-style: normal;
 }
