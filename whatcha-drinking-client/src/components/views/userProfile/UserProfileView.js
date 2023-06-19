@@ -15,11 +15,21 @@ export const UserProfileView = () => {
 
     //check if user or viewing another user
 
+    let currentLocation = ""
+
+    useEffect(
+        () => {
+            currentUser.uid === params.id
+                ? currentLocation = "userProfile"
+                : currentLocation = "friendProfile"
+        }, []
+    )
+
     const params = useParams()
 
     const currentUser = getCurrentUser()
 
-    let currentLocation = ""
+
 
     currentUser.uid === params.id
         ? currentLocation = "userProfile"
@@ -35,11 +45,6 @@ export const UserProfileView = () => {
                 setEditUser={setEditUser}
                 editUser={editUser} />
             <section className="userprofile-view">
-                {/* {editUser
-                    ? <UserProfileEditProfile />
-                    : <></>} */}
-                <UserProfileEditProfile
-                    editUser={editUser} />
                 <Summary
                     id={params.id} />
 

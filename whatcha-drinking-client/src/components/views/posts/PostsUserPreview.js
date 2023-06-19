@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { DrinkImgs } from "../../utils/Constants"
+import { DrinkImgs, getCurrentUser } from "../../utils/Constants"
 import { useNavigate } from "react-router-dom"
 
 export const PostsUserPreview = ({
@@ -8,10 +8,12 @@ export const PostsUserPreview = ({
     userId }) => {
 
     const navigate = useNavigate()
+    const currentUser = getCurrentUser()
     //get recent drink and user details
 
     const url = `https://localhost:7189/api/Drink/most_recent?userId=${userId}`
     const url2 = `https://localhost:7189/api/User/GetByFirebaseId?firebaseId=${userId}`
+    const url3 = `https://localhost:7189/api/User/friends?userId=${currentUser.uid}`
 
     const getDetails = async () => {
 
@@ -23,10 +25,15 @@ export const PostsUserPreview = ({
         const fetchJson2 = await fetchData2.json()
         setUserDetails(fetchJson2)
 
+        const fetchData3 = await fetch(`${url3}`)
+        const fetchJson3 = await fetchData3.json()
+        setUserFriends(fetchJson3)
+
     }
 
     const [recentDrink, setRecentDrink] = useState({})
     const [userDetails, setUserDetails] = useState({})
+    const [userFriends, setUserFriends] = useState([])
 
     useEffect(
         () => {
@@ -45,6 +52,26 @@ export const PostsUserPreview = ({
     // display userprofile link
 
     const [profileLink, setProfileLink] = useState(false)
+
+    //add friend
+
+    const url4 = 'https://localhost:7189/api/User/add_friend'
+
+    const addFriend = async () => {
+
+        await fetch(`${url4}`, {
+            method: "POST",
+            body: JSON.stringify({
+                userId: currentUser.uid,
+                friendId: userId
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+
+        await setUserPreview(false)
+    }
 
     return (
         <section
@@ -100,12 +127,37 @@ export const PostsUserPreview = ({
                             : <></>}
 
                     </section>
+
                     <section>
                         <div
                             className="post-username">{userDetails.username}</div>
                         <div
-                            className="post-fullname">{`${userDetails.firstName} ${userDetails.lastName}`}</div>
+                            className="post-fullname">{`${userDetails.firstName} ${userDetails.lastName}`}
+                        </div>
+
+                        <section
+                            className="post-add-friend">
+                            {userId === currentUser.uid
+                                ? <></>
+                                : <div
+                                    className="post-add-friend-bttn"
+                                    onClick={
+                                        () => {
+                                            userFriends.find(x => x.id === userId)
+                                                ? <></>
+                                                : addFriend()
+                                        }
+                                    }>
+                                    {
+                                        userFriends.find(x => x.id === userId)
+                                            ? "Remove"
+                                            : "Add Friend"
+                                    }
+                                </div>}
+                        </section>
                     </section>
+
+
                 </section>
 
                 <section

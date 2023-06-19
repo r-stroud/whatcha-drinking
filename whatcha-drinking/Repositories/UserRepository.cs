@@ -231,5 +231,137 @@ namespace whatcha_drinking.Repositories
             }
         }
 
+        public UserFriend AddFriend(UserFriend userFriend)
+        {
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd =conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO [friendJoin]
+                                        ([userId],
+                                        [friendId],
+                                        [isApproved])
+                                        OUTPUT INSERTED.id
+                                        VALUES (@userId, @friendId, @isApproved)";
+
+                    DbUtils.AddParameter(cmd, "@userId", userFriend.UserId);
+                    DbUtils.AddParameter(cmd, "@friendId", userFriend.FriendId);
+                    DbUtils.AddParameter(cmd, "@isApproved", 0);
+                    userFriend.Id = (int)cmd.ExecuteScalar();
+                    return userFriend;
+                }
+            }
+        }
+
+        public List<FriendRequest> GetFriendRequests(string userId)
+        {
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                          SELECT 
+                                          U.[firebaseId] AS userID,
+                                          U.[username] AS userUN,
+                                          U.[firstName] AS userFN,
+                                          U.[lastName] AS userLN,
+                                          U.[profilePic] AS userPic,
+                                          F.[firebaseId] AS friendID,
+                                          F.[username] AS friendUN,
+                                          F.[firstName] AS friendFN,
+                                          F.[lastName] AS friendLN,
+                                          F.[profilePic] AS friendPic,
+                                          FJ.[isApproved]
+                                          FROM [friendJoin] FJ
+                                          LEFT JOIN [user] F
+                                          ON FJ.[friendId] = F.[firebaseId]
+                                          LEFT JOIN [user] U
+                                          ON FJ.userId = U.[firebaseId]
+                                          WHERE F.[firebaseId] = @userId
+                                          AND FJ.[isApproved] = @isApproved";
+
+                    DbUtils.AddParameter(cmd, "@userId", userId);
+                    DbUtils.AddParameter(cmd, "@isApproved", 0);
+
+                    var reader= cmd.ExecuteReader();
+                    List<FriendRequest> list = new List<FriendRequest>();
+                    FriendRequest friend = null;
+                    while (reader.Read())
+                    {
+                        friend = new FriendRequest()
+                        {
+                            FirebaseId = DbUtils.GetString(reader,"userId"),
+                            Username= DbUtils.GetString(reader,"userUN"),
+                            FirstName = DbUtils.GetString(reader,"userFN"),
+                            LastName = DbUtils.GetString(reader,"userLN"),
+                            ProfilePic = DbUtils.GetString(reader,"userPic"),
+                            IsApproved = DbUtils.GetBool(reader,"isApproved")
+
+                        };
+                        list.Add(friend);
+                    }
+                    reader.Close();
+                    return list;
+                }
+            }
+        }
+
+        public List<FriendRequest> GetFriends(string userId)
+        {
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                          SELECT 
+                                          U.[firebaseId] AS userID,
+                                          U.[username] AS userUN,
+                                          U.[firstName] AS userFN,
+                                          U.[lastName] AS userLN,
+                                          U.[profilePic] AS userPic,
+                                          F.[firebaseId] AS friendID,
+                                          F.[username] AS friendUN,
+                                          F.[firstName] AS friendFN,
+                                          F.[lastName] AS friendLN,
+                                          F.[profilePic] AS friendPic,
+                                          FJ.[isApproved]
+                                          FROM [friendJoin] FJ
+                                          LEFT JOIN [user] F
+                                          ON FJ.[friendId] = F.[firebaseId]
+                                          LEFT JOIN [user] U
+                                          ON FJ.userId = U.[firebaseId]
+                                          WHERE F.[firebaseId] = @userId
+                                          AND FJ.[isApproved] = @isApproved";
+
+                    DbUtils.AddParameter(cmd, "@userId", userId);
+                    DbUtils.AddParameter(cmd, "@isApproved", 1);
+
+                    var reader = cmd.ExecuteReader();
+                    List<FriendRequest> list = new List<FriendRequest>();
+                    FriendRequest friend = null;
+                    while (reader.Read())
+                    {
+                        friend = new FriendRequest()
+                        {
+                            FirebaseId = DbUtils.GetString(reader, "userId"),
+                            Username = DbUtils.GetString(reader, "userUN"),
+                            FirstName = DbUtils.GetString(reader, "userFN"),
+                            LastName = DbUtils.GetString(reader, "userLN"),
+                            ProfilePic = DbUtils.GetString(reader, "userPic"),
+                            IsApproved = DbUtils.GetBool(reader, "isApproved")
+
+                        };
+                        list.Add(friend);
+                    }
+                    reader.Close();
+                    return list;
+
+                }
+            }
+        }
+
     }
 }

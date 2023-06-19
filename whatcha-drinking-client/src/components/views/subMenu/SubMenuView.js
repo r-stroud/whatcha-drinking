@@ -6,6 +6,7 @@ import { DrinkFilter } from "../drinks/DrinkFilter"
 import "./SubMenu.css"
 import { DrinkFilterContainer } from "../drinks/DrinkFilterContainer"
 import { DrinkSearchBar } from "../drinks/DrinkSearchBar"
+import { useNavigate } from "react-router-dom"
 
 export const SubMenuView = ({
     drinkingNow,
@@ -17,12 +18,11 @@ export const SubMenuView = ({
     showAll,
     setSearchValue,
     location,
-    editUser,
-    setEditUser,
     setFilterByPreference,
     filterByPreference }) => {
 
 
+    const navigate = useNavigate()
     //display preferences
 
     const currentUser = getCurrentUser()
@@ -94,7 +94,10 @@ export const SubMenuView = ({
 
     useEffect(
         () => {
-            if (location !== "userProfile" && location !== "friendProfile") {
+            if (location !== "userProfile"
+                && location !== "friendProfile"
+                && location !== "editProfile"
+                && location !== "social") {
                 showAll
                     ? document.getElementById(`optionAll`).classList.add("drink-filter-option-all-selected")
                     : document.getElementById(`optionAll`).classList.remove("drink-filter-option-all-selected")
@@ -121,20 +124,33 @@ export const SubMenuView = ({
                 />
 
                 {location === "userProfile"
+                    || location === "editProfile"
+                    || location === "friendProfile"
                     ?
-                    <section>
+                    <>
                         <div
                             className="userprofile-bttn"
                             onClick={
                                 () => {
-                                    setEditUser(!editUser)
+                                    navigate("/profile/edit")
                                 }
                             }
                         >Edit Profile</div>
-                    </section>
+                        <div
+                            className="userprofile-bttn"
+                            onClick={
+                                () => {
+                                    navigate(`/profile/${currentUser.uid}`)
+                                }
+                            }
+                        >Summary</div>
+                    </>
                     : <></>}
 
-                {location === "userProfile" || location === "friendProfile"
+                {location === "userProfile"
+                    || location === "friendProfile"
+                    || location === "editProfile"
+                    || location === "social"
                     ? <></>
                     : <section className="drink-filter-container">
                         <DrinkFilterContainer
@@ -148,13 +164,16 @@ export const SubMenuView = ({
                             setFilterByPreference={setFilterByPreference}
                             filterByPreference={filterByPreference} />
                     </section>}
-                {location === "userProfile" || location === "friendProfile"
+                {location === "userProfile"
+                    || location === "friendProfile"
+                    || location === "editProfile"
                     ? <></>
                     :
                     <section
                         className="drink-searchbar">
                         <DrinkSearchBar
-                            setSearchValue={setSearchValue} />
+                            setSearchValue={setSearchValue}
+                            location={location} />
                     </section>}
 
             </section>

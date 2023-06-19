@@ -26,37 +26,17 @@ export const UserProfileDrinkPreference = () => {
         })
     }
 
-    // delete preference
+    // update preference drop table
 
-    const deletePreference = async (id) => {
-        const fetchData = await fetch(`https://localhost:7189/api/Drink/remove_preference/${id}`,
-            { method: "DELETE" })
-
-    }
-
-    const dropAndDelete = async (ev) => {
+    const dropUpdate = async (ev, prefNo) => {
         ev.preventDefault()
+
         var data = ev.dataTransfer.getData("text")
-        var data2 = ev.dataTransfer.getData("text2")
-        await deletePreference(data2)
+
         await ev.target.appendChild(document.getElementById(data))
-    }
-
-    const dropDeleteUpdate = async (ev, prefNo) => {
-        ev.preventDefault()
-        var data = ev.dataTransfer.getData("text")
-        console.log("drop data", data)
-        var data2 = ev.dataTransfer.getData("text2")
-        console.log("drop data2", data2)
-        data2 ? await deletePreference(data2) : <></>
         await addPreference(data, prefNo)
-        await ev.target.appendChild(document.getElementById(data))
-    }
 
-    // const test = async (ev, prefNo) => {
-    //     await dropDeleteUpdate(ev, prefNo)
-    //     await displayDrinkPreferences()
-    // }
+    }
 
 
     //display drink types and drink preferences
@@ -83,27 +63,41 @@ export const UserProfileDrinkPreference = () => {
 
     const [drinkPreferences, setDrinkPreferences] = useState([])
 
-    const [check, setCheck] = useState("")
-
-    console.log("id check", check)
-
     useEffect(
         () => {
             displayDrinkPreferences()
         }, []
     )
 
-    function drag(ev, value = null) {
+    function drag(ev) {
         ev.dataTransfer.setData("text", ev.target.id)
-        console.log("drag target id", ev.target.id)
-        value !== null ? ev.dataTransfer.setData("text2", value) : <></>
-        console.log("drag value", value)
-
     }
 
     function allowDrop(ev) {
         ev.preventDefault()
     }
+
+    // preference none
+
+    useEffect(
+        () => {
+
+            const array = []
+
+            drinkTypes
+                .filter(x => !drinkPreferences.find(y => y.drinkTypeId === x.id))
+                .forEach(x => array.push(x))
+
+            drinkTypes
+                .filter(x => drinkPreferences.find(y => y.drinkTypeId === x.id && y.preferenceTypeId === 0))
+                .forEach(x => array.push(x))
+
+            setNone(array.sort((a, b) => a.type.localeCompare(b.type)))
+
+        }, [drinkPreferences]
+    )
+
+    const [none, setNone] = useState([])
 
     return (
         <>
@@ -114,7 +108,7 @@ export const UserProfileDrinkPreference = () => {
 
             <section className="drink-preference">
                 <div className="drink-preference-header"> Drink Preferences</div>
-                <section className="flex">
+                <section className="drink-preference-container">
 
                     <section>
 
@@ -134,23 +128,18 @@ export const UserProfileDrinkPreference = () => {
                             }
                             onDrop={
                                 (ev) => {
-                                    dropAndDelete(ev)
+                                    // dropAndDelete(ev)
+                                    dropUpdate(ev, 0)
                                 }
                             }
                         >
-                            {drinkTypes
-                                .filter(x => !drinkPreferences.find(y => y.drinkTypeId === x.id))
+                            {none
                                 .map(x =>
                                     <div
                                         className="drink-preference-item"
                                         key={x.id}
                                         id={x.id}
                                         draggable="true"
-                                        onClick={
-                                            (ev) => {
-                                                setCheck(ev.target.id)
-                                            }
-                                        }
                                         onDragStart={
                                             (ev) => {
                                                 drag(ev)
@@ -179,8 +168,8 @@ export const UserProfileDrinkPreference = () => {
                             }
                             onDrop={
                                 (ev) => {
-                                    dropDeleteUpdate(ev, 1)
-                                    // test(ev, 1)
+                                    dropUpdate(ev, 1)
+
                                 }
                             }
                         >
@@ -193,14 +182,9 @@ export const UserProfileDrinkPreference = () => {
                                         key={x.id}
                                         id={x.drinkTypeId}
                                         draggable="true"
-                                        onClick={
-                                            () => {
-                                                setCheck(x.id)
-                                            }
-                                        }
                                         onDragStart={
                                             (ev) => {
-                                                drag(ev, x.id)
+                                                drag(ev)
                                             }
                                         }
                                     >{x.type}
@@ -229,8 +213,8 @@ export const UserProfileDrinkPreference = () => {
                             }
                             onDrop={
                                 (ev) => {
-                                    dropDeleteUpdate(ev, 2)
-                                    // test(ev, 2)
+                                    dropUpdate(ev, 2)
+
                                 }
                             }
                         >
@@ -243,14 +227,9 @@ export const UserProfileDrinkPreference = () => {
                                         key={x.id}
                                         id={x.drinkTypeId}
                                         draggable="true"
-                                        onClick={
-                                            () => {
-                                                setCheck(x.id)
-                                            }
-                                        }
                                         onDragStart={
                                             (ev) => {
-                                                drag(ev, x.id)
+                                                drag(ev)
                                             }
                                         }
                                     >{x.type}

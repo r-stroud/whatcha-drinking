@@ -316,13 +316,13 @@ input::file-selector-button:hover {
 }
 
 .post {
-    border: outset 4px rgb(20, 20, 20);
+    border: outset 6px rgb(20, 20, 20);
     margin: 10px;
     font-family: 'Cardo', serif;
     position: relative;
     overflow: hidden;
     height: 380px;
-    width: 580px;
+    width: 500px;
     background-color: rgb(252, 252, 252);
     border-radius: 10px;
 }
@@ -332,10 +332,10 @@ input::file-selector-button:hover {
 }
 
 .post-drink-img img {
-    width: 400px;
+    width: 380px;
     position: absolute;
-    right: 370px;
-    top: 70px;
+    right: 250px;
+    top: 50px;
 }
 
 .post-header {
@@ -381,17 +381,20 @@ input::file-selector-button:hover {
 }
 
 .post-message {
+    color: white;
     font-size: 18px;
-    margin: auto;
-    padding: 25px 10px 80px 60px;
+    margin: 0 25% 0;
+    padding: 25px 25px 80px 25px;
     height: 100%;
     overflow-y: scroll;
     overflow-x: auto;
-    background-color: rgba(252, 252, 252, 0.6);
+    background-color: rgba(54, 54, 54, 1);
     position: relative;
     z-index: 1;
     bottom: 15px;
     overflow-wrap: break-word;
+    width: 65%;
+    border-left: rgb(210, 178, 98) 10px solid;
 }
 
 .post-message-default div {
@@ -609,4 +612,25 @@ input::file-selector-button:hover {
     font-size: 22px;
     color: rgb(252, 252, 252);
     font-style: normal;
+}
+
+.post-add-friend {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+}
+
+.post-add-friend-bttn {
+    color: rgb(252, 252, 252);
+    background-color: rgb(20, 20, 20);
+    font-size: 18px;
+    text-align: center;
+    border-radius: 20px;
+    border: 4px outset rgb(210, 178, 98);
+    padding: 2px 20px;
+
+}
+
+.post-add-friend-bttn:hover {
+    background-color: rgb(210, 178, 98);
 }

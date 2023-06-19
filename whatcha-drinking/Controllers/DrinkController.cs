@@ -118,7 +118,12 @@ namespace whatcha_drinking.Controllers
             }
             if(_drinkTypeRepository.CheckPreferredDrinkType(drinkPreference.DrinkTypeId, drinkPreference.UserId) != null)
             {
-                return BadRequest();
+
+               int? joinTableId = _drinkRepository.GetDrinkPreferenceId(drinkPreference.UserId, drinkPreference.DrinkTypeId);
+
+                drinkPreference.Id = joinTableId.Value;
+
+                return Ok(_drinkRepository.UpdatePreference(drinkPreference));
             }
             if(_drinkRepository.GetPreferenceTypeById(drinkPreference.PreferenceTypeId)== null)
             {
@@ -127,6 +132,31 @@ namespace whatcha_drinking.Controllers
 
             return Ok(_drinkRepository.AddPreference(drinkPreference));
         }
+
+        //[HttpPost("drink_preference")]
+        //public IActionResult UpdatePreference(DrinkPreference drinkPreference)
+        //{
+
+        //    if (_userRepository.GetById(drinkPreference.UserId) == null)
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //    if (_drinkTypeRepository.GetDrinkTypeById(drinkPreference.DrinkTypeId) == null)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    if (_drinkTypeRepository.CheckPreferredDrinkType(drinkPreference.DrinkTypeId, drinkPreference.UserId) != null)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    if (_drinkRepository.GetPreferenceTypeById(drinkPreference.PreferenceTypeId) == null)
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //    return Ok(_drinkRepository.AddPreference(drinkPreference));
+        //}
 
         [HttpGet("drink_preferences")]
         public IActionResult DrinkPreferencesByUserId(string userId)

@@ -37,13 +37,9 @@ namespace whatcha_drinking.Utils
             return reader.GetInt32(ordinal);
         }
 
-        public static bool? GetBool(SqlDataReader reader, string column)
+        public static bool GetBool(SqlDataReader reader, string column)
         {
             var ordinal = reader.GetOrdinal(column);
-            if (reader.IsDBNull(ordinal))
-            {
-                return null;
-            }
             return reader.GetBoolean(ordinal);
         }
 

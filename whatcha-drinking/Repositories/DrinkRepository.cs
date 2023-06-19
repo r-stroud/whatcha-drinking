@@ -268,6 +268,30 @@ namespace whatcha_drinking.Repositories
             }
         }
 
+        public DrinkPreference UpdatePreference(DrinkPreference drinkPreference)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE [preferredDrink]
+                                        SET
+                                        [userId] =@userId,
+                                        [drinkTypeId] = @drinkTypeId,
+                                        [preferenceTypeId] = @preferenceTypeId
+                                        WHERE [preferredDrink].id =@id";
+                    DbUtils.AddParameter(cmd, "@userId", drinkPreference.UserId);
+                    DbUtils.AddParameter(cmd, "@drinkTypeId", drinkPreference.DrinkTypeId);
+                    DbUtils.AddParameter(cmd, "@preferenceTypeId", drinkPreference.PreferenceTypeId);
+                    DbUtils.AddParameter(cmd,"@id",drinkPreference.Id);
+
+                    cmd.ExecuteNonQuery();
+                    return drinkPreference;
+                }
+            }
+        }
+
         public List<DrinkPreference> DrinkPreferencesByUserID(string userId)
         {
             using (var conn = Connection)

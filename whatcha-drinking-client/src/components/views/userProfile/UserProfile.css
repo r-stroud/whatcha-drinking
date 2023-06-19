@@ -1,30 +1,40 @@
 .userprofile-view {
-    /* padding: 20px; */
     position: relative;
+    background-color: rgb(160, 135, 74);
 }
 
 #userprofilePreview {
-    position: fixed;
+    position: absolute;
     top: -50vh;
     z-index: 5;
     transition: 0.3s;
-    border-bottom: solid 2px rgb(160, 135, 74);
     width: 100%;
-    padding: 15px 20px 15px 10vw;
-    background-color: rgb(252, 252, 252);
-    /* overflow-y: scroll; */
+    padding: 0px 20px 0px 0vw;
+    background-color: rgb(160, 135, 74);
+}
+
+.userprofile-container {
+    padding-top: 20px;
+    border-right: solid 10px rgb(252, 252, 252);
+    width: 49vw;
+    padding-left: 80px;
+}
+
+.userprofile-preview {
+    display: flex;
+    width: 100%;
 }
 
 .userprofile-preview img {
-    border-color: rgb(160, 135, 74);
+    border-color: rgb(210, 178, 98);
 }
 
 .userprofile-header {
-    font-size: 22px;
+    font-size: 30px;
     font-family: 'Cardo', serif;
     margin-bottom: 10px;
-    width: 20vw;
     text-align: left;
+
 }
 
 .userprofile-header-container {
@@ -37,15 +47,18 @@
 .userprofile-header span {
     font-size: 16px;
     font-family: 'Cardo', serif;
-    color: rgb(160, 135, 74);
+    color: rgb(252, 252, 252);
     display: block;
+    margin-left: 5px;
 }
 
 .userprofile-names {
-    padding: 5px 15px;
+    color: rgb(252, 252, 252);
     cursor: pointer;
-    font-size: 22px;
+    font-size: 26px;
     position: relative;
+    left: 4px;
+
 }
 
 .userprofile-names:hover,
@@ -55,12 +68,11 @@
 
 .userprofile-username {
     position: relative;
-    right: 12px;
-    padding: 5px 15px;
+    right: 14px;
     cursor: pointer;
-    font-size: 26px;
+    font-size: 32px;
     position: relative;
-    color: rgb(160, 135, 74);
+    color: rgb(20, 20, 20);
 }
 
 .userprofile-edit-field {
@@ -69,12 +81,13 @@
     padding: 5px;
     border-radius: 5px;
     margin-left: 10px;
+    width: 120px;
 }
 
 .userprofile-edit-label {
     font-size: 16px;
     display: block;
-    color: rgb(160, 135, 74);
+    color: rgb(252, 252, 252);
     margin-left: 10px;
 }
 
@@ -82,7 +95,7 @@
     position: relative;
     top: 10px;
     left: 8px;
-    border: outset rgb(160, 135, 74) 3px;
+    border: outset rgb(210, 178, 98) 3px;
     padding: 10px;
     border-radius: 100%;
     background-color: rgb(20, 20, 20);
@@ -97,7 +110,7 @@
     position: relative;
     top: 10px;
     left: 15px;
-    border: outset rgb(160, 135, 74) 3px;
+    border: outset rgb(210, 178, 98) 3px;
     padding: 10px;
     border-radius: 20px;
     background-color: rgb(20, 20, 20);
@@ -120,7 +133,7 @@
     z-index: 1;
     margin-left: -10px;
     cursor: pointer;
-    border: solid 5px rgb(252, 252, 252);
+    border: outset 10px rgb(210, 178, 98);
 }
 
 .userprofile-edit-icon:hover {
@@ -130,6 +143,7 @@
 .userprofile-flex {
     display: flex;
     align-items: center;
+    margin-right: 20px;
 }
 
 .userprofile-flex fieldset {
@@ -140,17 +154,35 @@
     background-color: rgb(210, 178, 98);
 }
 
-.userprofile-edit-form {
-    /* margin-top: 32vh; */
-    position: relative;
+.userprofile-edit-form-container {
+    position: absolute;
+    bottom: -24vh;
+    left: 100vw;
+    transition: 0.3s;
+    z-index: 1;
+    padding-left: 50px;
 }
 
-.userprofile-edit-form form {
-    position: absolute;
+#userprofileEditPicForm {
+    background-color: rgb(252, 252, 252);
+}
+
+.test {
+    background-color: rgb(252, 252, 252);
+    min-height: 100vh;
+    position: relative;
+    z-index: 0;
+    overflow-x: hidden;
+    width: 100vw;
+}
+
+/* .userprofile-edit-form form {
     left: 100vw;
     transition: 0.3s;
     padding-left: 50px;
-}
+    width: 100vw;
+    z-index: 1;
+} */
 
 .userprofile-unavailble {
     margin-left: 20px;
@@ -180,7 +212,7 @@
 }
 
 .userprofile-update-bttn {
-    border: outset rgb(160, 135, 74) 3px;
+    border: outset rgb(210, 178, 98) 3px;
     padding: 5px 15px;
     border-radius: 20px;
     background-color: rgb(20, 20, 20);
@@ -189,7 +221,7 @@
     height: fit-content;
     width: fit-content;
     font-size: 18px;
-    margin: 5px;
+    margin: 5px 5px 0 0;
 }
 
 .cancel:hover {
@@ -204,45 +236,60 @@
     display: flex;
 }
 
+.user-profile-drink-preference-container {
+    background-color: rgb(54, 54, 54);
+    padding: 20px;
+    width: 100%;
+}
+
+.drink-preference-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+
 .drink-preference {
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .drink-preference-header {
-    font-size: 22px;
+    font-size: 24px;
     border-bottom: 2px solid rgb(160, 135, 74);
-    color: rgb(160, 135, 74);
+    color: rgb(252, 252, 252);
     margin-bottom: 5px;
 }
 
 .drink-preference-subheader-n {
-    padding: 5px 0 0px;
-    border-bottom: solid rgb(20, 20, 20) 1px;
-    width: 190px;
+    padding: 50px 0 0px;
+    position: relative;
+    width: 250px;
+    color: rgb(252, 252, 252);
 }
 
 .drink-preference-subheader-p {
-    padding: 5px 0 0px;
-    border-bottom: solid rgb(20, 20, 20) 1px;
-    width: 190px;
-    color: rgb(160, 135, 74);
+    padding: 50px 0 0px;
+    position: relative;
+    width: 250px;
+    color: rgb(210, 178, 98);
 }
 
 .drink-preference-subheader-na {
-    padding: 5px 0 0px;
-    border-bottom: solid rgb(20, 20, 20) 1px;
-    width: 190px;
+    padding: 0px 0 50px;
+    position: relative;
+    width: 250px;
     color: rgb(176, 22, 22);
 }
 
 .drink-preference-subheader-n span,
 .drink-preference-subheader-na span,
 .drink-preference-subheader-p span {
+    position: absolute;
     display: block;
-    font-size: 15px;
+    font-size: 16px;
     margin-top: 2px;
-    color: rgb(54, 54, 54);
-    height: 70px;
+    color: rgb(252, 252, 252);
+    height: 50px;
 }
 
 .drink-preference-dropbox {
@@ -252,13 +299,15 @@
     flex-direction: column;
     flex-wrap: wrap;
     min-width: 150px;
-    width: 190px;
+    width: 250px;
     max-width: 400px;
-    height: 220px;
+    height: 240px;
     border-radius: 5px;
-    background-color: rgba(20, 20, 20, 0.2);
+    background-color: rgb(252, 252, 252);
+    border: 5px outset rgb(54, 54, 54);
+    border-radius: 10px;
     padding: 10px;
-    margin: 5px 1px;
+    margin: 5px 4px;
 }
 
 .drink-preference-item {
@@ -298,7 +347,6 @@
     display: flex;
     justify-content: flex-start;
     position: relative;
-    padding-top: 50px;
 }
 
 .summary-header-user-details img {
@@ -310,15 +358,16 @@
 
 .summay-username-fullname {
     position: absolute;
-    top: 244px;
+    bottom: 36px;
     text-align: center;
     left: 52px;
     font-size: 24px;
     color: rgb(54, 54, 54);
-    background-color: rgba(210, 178, 98, 0.5);
+    background-color: rgba(210, 178, 98, 0.8);
     padding: 2px 5px;
     border-radius: 20px;
     width: 210px;
+    border: outset 3px rgb(54, 54, 54);
 }
 
 .summary-header-username {
@@ -334,7 +383,13 @@
 }
 
 .summary-recent-drink-container {
-    width: 300px;
+    width: 420px;
+    height: 260px;
+    background-color: rgb(54, 54, 54);
+    padding: 20px;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 3px outset rgb(252, 252, 252);
 
 }
 
@@ -358,29 +413,32 @@
 }
 
 .summary-recent-drink-details img {
-    margin-right: -100px;
-    margin-left: -150px;
-    width: 300px
+    margin-right: -110px;
+    margin-left: -100px;
+    width: 250px;
+
 }
 
 .summary-recent-drink-name {
-    font-size: 30px;
-    margin-top: 20px;
-    padding-left: 55px;
+    font-size: 28px;
+    padding-left: 60px;
+    color: rgb(252, 252, 252);
 }
 
 .summary-recent-drink-type {
     font-size: 24px;
     font-style: italic;
     color: rgb(160, 135, 74);
-    padding-left: 55px;
+    padding-left: 60px;
 }
 
 .summary-drink-details {
     width: 225px;
-    border: solid rgb(54, 54, 54) 1px;
+    border: outset rgb(54, 54, 54) 5px;
     padding: 10px;
     margin-bottom: 20px;
+    background-color: rgb(252, 252, 252);
+    border-radius: 5px;
 }
 
 .pie-container {
@@ -397,16 +455,46 @@
     font-size: 2.2vw;
 }
 
+.pie-text-100 {
+    position: absolute;
+    top: 38%;
+    left: 32%;
+    font-size: 2.2vw;
+}
+
 .drink-summary-title {
-    margin-top: 8vh;
+    margin-top: 4vh;
     font-size: 30px;
-    border-bottom: solid 4px rgb(54, 54, 54);
+    color: rgb(252, 252, 252);
+    padding-top: 10px;
     padding-left: 20px;
+    background-color: rgb(54, 54, 54);
 }
 
 .drink-summary-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    margin-top: 20px;
+    padding-top: 20px;
+    background-color: rgb(54, 54, 54);
+}
+
+.summary-add-friend {
+    position: absolute;
+    bottom: 2px;
+    right: 96px;
+}
+
+.summary-add-friend-bttn {
+    color: rgb(252, 252, 252);
+    background-color: rgb(20, 20, 20);
+    font-size: 18px;
+    text-align: center;
+    border-radius: 10px;
+    border: 2px outset rgb(210, 178, 98);
+    padding: 2px 20px;
+}
+
+.summary-add-friend-bttn:hover {
+    background-color: rgb(210, 178, 98);
 }

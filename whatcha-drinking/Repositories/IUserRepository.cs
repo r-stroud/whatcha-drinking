@@ -11,5 +11,8 @@ namespace whatcha_drinking.Repositories
         UserUsername GetByUsername(string username);
         UserEmail GetByEmail(string email);
         void UpdateUser(User user);
+        public UserFriend AddFriend(UserFriend userFriend);
+        public List<FriendRequest> GetFriendRequests(string userId);
+        public List<FriendRequest> GetFriends(string userId);
     }
 }

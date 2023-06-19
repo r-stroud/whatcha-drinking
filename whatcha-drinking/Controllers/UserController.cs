@@ -100,5 +100,36 @@ namespace whatcha_drinking.Controllers
                 User = user
             });
         }
+        [HttpPost("add_friend")]
+        public IActionResult AddFriend(UserFriend userFriend)
+        {
+            if(_userRepository.GetById(userFriend.UserId) == null || _userRepository.GetById(userFriend.FriendId)==null)
+            {
+                return BadRequest();
+            }
+            return Ok(_userRepository.AddFriend(userFriend));
+        }
+
+        [HttpGet("friend_requests")]
+        public IActionResult FriendRequests(string userId)
+        {
+            if (_userRepository.GetById(userId) == null)
+            {
+                return BadRequest();
+            }
+
+           return Ok( _userRepository.GetFriendRequests(userId));
+        }
+
+        [HttpGet("friends")]
+        public IActionResult GetFriends(string userId)
+        {
+            if (_userRepository.GetById(userId) == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(_userRepository.GetFriends(userId));
+        }
     }
 }
