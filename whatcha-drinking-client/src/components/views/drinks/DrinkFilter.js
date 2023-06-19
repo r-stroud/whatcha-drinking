@@ -33,15 +33,27 @@ export const DrinkFilter = ({
             if (showAll === true) {
                 document.getElementById(`drinkFilterOption${id}`).classList
                     .add("drink-filter-option-all-selected")
+
+                document.getElementById(`optionPreferences`).classList
+                    .add("drink-filter-option-all-selected")
+
                 setSelected(false)
             } else if (filterByPreference === true) {
+
                 document.getElementById(`drinkFilterOption${id}`).classList
                     .remove("drink-filter-option-all-selected")
+
+                document.getElementById(`optionPreferences`).classList
+                    .add("drink-filter-option-all-selected")
+
                 setSelected(false)
             }
 
             else {
                 document.getElementById(`drinkFilterOption${id}`).classList
+                    .remove("drink-filter-option-all-selected")
+
+                document.getElementById(`optionPreferences`).classList
                     .remove("drink-filter-option-all-selected")
             }
 

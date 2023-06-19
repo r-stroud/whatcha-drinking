@@ -2,6 +2,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    background-color: rgb(160, 135, 74);
+    padding-top: 15px;
 }
 
 .drink {
@@ -97,6 +99,8 @@
     display: flex;
     justify-content: space-evenly;
     height: 140px;
+    border-bottom: rgb(210, 178, 98) 6px solid;
+    box-shadow: 0 1px 0px 1px rgb(20, 20, 20);
 }
 
 .recent-drink {
@@ -263,7 +267,7 @@
     font-family: 'Cardo', serif;
     font-size: 18px;
     margin-top: 5px;
-    width: 100%;
+    width: 120%;
     border: 3px outset rgb(210, 178, 98);
 }
 

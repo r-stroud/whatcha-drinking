@@ -18,15 +18,13 @@ export const DrinkView = () => {
 
     const displayDrinks = async () => {
 
-        const fetchData2 = await fetch(`${url3}`)
+        const fetchData3 = await fetch(`${url3}`)
+        const fetchJson3 = await fetchData3.json()
+        setPreferences(fetchJson3)
+
+        const fetchData2 = await fetch(`${url2}`)
         const fetchJson2 = await fetchData2.json()
-        setPreferences(fetchJson2)
-
-        const fetchData = await fetch(`${url2}`)
-        const fetchJson = await fetchData.json()
-        setDrinks(fetchJson)
-
-
+        setDrinks(fetchJson2)
 
     }
 
@@ -80,7 +78,6 @@ export const DrinkView = () => {
 
     useEffect(
         () => {
-
 
             let copy = drinks.map(x => ({ ...x }))
 

@@ -1,15 +1,19 @@
 import { useState, useEffect } from "react"
-import { DrinkImgs } from "../../utils/Constants"
+import { DrinkImgs, getCurrentUser } from "../../utils/Constants"
 import { useParams } from "react-router-dom"
 import { SummaryDrinkDetails } from "./SummaryDrinkDetails"
+import { useNavigate } from "react-router-dom"
 
 export const Summary = ({ id }) => {
 
+    const navigate = useNavigate()
+    const currentUser = getCurrentUser()
     // get recent drink and user details
 
     const url = `https://localhost:7189/api/Drink/most_recent?userId=${id}`
     const url2 = `https://localhost:7189/api/User/GetByFirebaseId?firebaseId=${id}`
     const url3 = `https://localhost:7189/api/Drink/most_tried?userId=${id}`
+    const url4 = `https://localhost:7189/api/User/friends?userId=${currentUser.uid}`
 
     const getDetails = async () => {
 
@@ -25,11 +29,16 @@ export const Summary = ({ id }) => {
         const fetchJson3 = await fetchData3.json()
         setMostTried(fetchJson3)
 
+        const fetchData4 = await fetch(`${url4}`)
+        const fetchJson4 = await fetchData4.json()
+        setUserFriends(fetchJson4)
+
     }
 
     const [mostTried, setMostTried] = useState({})
     const [recentDrink, setRecentDrink] = useState({})
     const [userDetails, setUserDetails] = useState({})
+    const [userFriends, setUserFriends] = useState([])
 
     useEffect(
         () => {
@@ -56,16 +65,16 @@ export const Summary = ({ id }) => {
                 let hours = minutes / 60
 
                 if (seconds < 59) {
-                    seconds === 1
+                    seconds < 1.5
                         ? setTimeElapsed(Math.round(seconds) + " second ago")
                         : setTimeElapsed(Math.round(seconds) + " seconds ago")
 
                 } else if (minutes < 59) {
-                    minutes === 1
+                    minutes < 1.5
                         ? setTimeElapsed(Math.round(minutes) + " minute ago")
                         : setTimeElapsed(Math.round(minutes) + " minutes ago")
                 } else {
-                    hours === 1
+                    hours < 1.5
                         ? setTimeElapsed(Math.round(hours) + " hour ago")
                         : setTimeElapsed(Math.round(hours) + " hours ago")
                 }
@@ -82,15 +91,33 @@ export const Summary = ({ id }) => {
             if (mostTried.timesTried === "") {
                 setTimesTried("")
             } else {
-                mostTried.timesTried === 1
-                    ? setTimesTried(`drank ${mostTried.timesTried} time`)
-                    : setTimesTried(`drank ${mostTried.timesTried} times`)
+                mostTried.timesTried < 2
+                    ? setTimesTried(`${mostTried.timesTried} time`)
+                    : setTimesTried(`${mostTried.timesTried} times`)
             }
 
         }, [mostTried]
     )
 
+    //add friend
 
+    const url5 = 'https://localhost:7189/api/User/add_friend'
+
+    const addFriend = async () => {
+
+        await fetch(`${url5}`, {
+            method: "POST",
+            body: JSON.stringify({
+                userId: currentUser.uid,
+                friendId: id
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+
+        await navigate("/profile")
+    }
 
     let imageSrc = DrinkImgs.find(x => x.name === recentDrink.image)
     let imageSrc2 = DrinkImgs.find(x => x.name === mostTried.image)
@@ -117,6 +144,29 @@ export const Summary = ({ id }) => {
                                 className="summary-header-user-fullname">
                                 {`${userDetails.firstName} ${userDetails.lastName}`}
                             </div>
+                        </section>
+
+                        {/* new */}
+
+                        <section
+                            className="summary-add-friend">
+                            {id === currentUser.uid
+                                ? <></>
+                                : <div
+                                    className="summary-add-friend-bttn"
+                                    onClick={
+                                        () => {
+                                            userFriends.find(x => x.id === id)
+                                                ? <></>
+                                                : addFriend()
+                                        }
+                                    }>
+                                    {
+                                        userFriends.find(x => x.id === id)
+                                            ? "Remove"
+                                            : "Add Friend"
+                                    }
+                                </div>}
                         </section>
 
                     </section>

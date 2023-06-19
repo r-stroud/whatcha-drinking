@@ -83,6 +83,17 @@ export const Navbar = () => {
                         }>
                         Posts
                     </button>
+
+                    <button
+                        type="submit"
+                        onClick={
+                            () => {
+                                navigate("/social")
+                            }
+                        }>
+                        Social
+                    </button>
+
                     <button
                         type="submit"
                         onClick={
@@ -90,8 +101,9 @@ export const Navbar = () => {
                                 navigate("/drinks")
                             }
                         }>
-                        Drink Selection
+                        Drinks
                     </button>
+
                 </section>
 
                 <section className="nav-logout">

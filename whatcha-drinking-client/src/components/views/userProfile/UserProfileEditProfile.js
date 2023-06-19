@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react";
 import "../../../images/whiskey_dog1.png"
-import { Dog1, Dog2, getCurrentUser } from "../../utils/Constants";
+import { Dog1, getCurrentUser } from "../../utils/Constants";
 import { UserProfilePreview } from "./UserProfilePreview";
 import { UserProfileEditForm } from "./UserProfileEditForm";
+import { SubMenuView } from "../subMenu/SubMenuView";
 
-export const UserProfileEditProfile = ({
-    editUser
-}) => {
+export const UserProfileEditProfile = () => {
 
+    // current location
+
+    const currentLocation = "editProfile"
 
     //hide profile picture selection
 
     const hideSelection = () => {
-        document.getElementById("userprofileEditPicForm").style.left = "100vw"
+        document.getElementById("userprofileEitFormContainer").style.left = "100vw"
     }
 
     // cancel profile picture selection
@@ -49,8 +51,6 @@ export const UserProfileEditProfile = ({
     // update user
     const [initialUserValue, setInitialUserValue] = useState({})
 
-
-
     const [user, setUser] = useState({
         firstName: "",
         lastName: "",
@@ -73,6 +73,26 @@ export const UserProfileEditProfile = ({
         setUser(copy);
     };
 
+    //display edit form
+
+    const [displayForm, setDisplayForm] = useState(false)
+
+    useEffect(
+        () => {
+            setDisplayForm(true)
+
+        }, [initialUserValue]
+    )
+
+    useEffect(
+        () => {
+
+            displayForm
+                ? document.getElementById("userprofilePreview").style.top = "0vh"
+                : document.getElementById("userprofilePreview").style.top = "-50vh"
+
+        }, [displayForm]
+    )
 
 
     // updates fullname
@@ -105,36 +125,39 @@ export const UserProfileEditProfile = ({
 
     const [submitable, setSubmitable] = useState(true)
     const [usernameAvailability, setUsernameAVailability] = useState({ username: "." })
+
+
     return (
         <>
             <section>
-                <div id="userprofilePreview" className="userprofile-preview flex-start">
-                    <section
-                        style={{
-                            position: "relative",
-                            height: "100%"
-                        }}>
-                        <UserProfilePreview
-                            initialUserValue={initialUserValue}
-                            user={user}
-                            setUser={setUser}
-                            updateUser={updateUser}
-                            checkUsernameAndUpdate={checkUsernameAndUpdate}
-                            usernameAvailability={usernameAvailability}
-                            editUser={editUser} />
-                        <div
-                            style={{
-                                position: "absolute",
-                                bottom: "-50px"
-                            }}>
-                            <UserProfileEditForm
-                                updateSelectedIcon={updateSelectedIcon}
-                                hideSelection={hideSelection}
-                                setCancelPic={setCancelPic}
-                                cancelPic={cancelPic} />
-                        </div>
-                    </section>
-                </div>
+                <SubMenuView
+                    location={currentLocation} />
+                <section
+                    className="test">
+                    <div id="userprofilePreview" className="userprofile-preview">
+                        <section>
+                            <UserProfilePreview
+                                initialUserValue={initialUserValue}
+                                user={user}
+                                setUser={setUser}
+                                updateUser={updateUser}
+                                checkUsernameAndUpdate={checkUsernameAndUpdate}
+                                usernameAvailability={usernameAvailability} />
+                            <div
+                                className="userprofile-edit-form-container"
+                                id="userprofileEitFormContainer"
+                            >
+                                <UserProfileEditForm
+                                    updateSelectedIcon={updateSelectedIcon}
+                                    hideSelection={hideSelection}
+                                    setCancelPic={setCancelPic}
+                                    cancelPic={cancelPic} />
+                            </div>
+                        </section>
+                    </div>
+
+
+                </section>
 
 
 

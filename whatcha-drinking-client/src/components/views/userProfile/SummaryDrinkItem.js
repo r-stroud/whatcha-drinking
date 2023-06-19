@@ -81,7 +81,7 @@ export const SummaryDrinkItem = ({
                 colorScale={["rgb(210, 178, 98)", "rgb(54,54,54)"]}
             />
             <div
-                className="pie-text">{`${percentage}%`}
+                className={percentage === 100 ? "pie-text-100" : "pie-text"}>{`${percentage}%`}
             </div>
         </section>
     </>)

@@ -22,11 +22,19 @@ export const PostsView = () => {
 
     const url = "https://localhost:7189/api/Post/get_posts"
 
+    const url2 = `https://localhost:7189/api/Drink/drink_preferences?userId=${currentUser.uid}`
+
     const displayPosts = async () => {
+
+
+        const fetchData2 = await fetch(`${url2}`)
+        const fetchJson2 = await fetchData2.json()
+        setPreferences(fetchJson2)
 
         const fetchData = await fetch(`${url}`)
         const fetchJson = await fetchData.json()
         setPosts(fetchJson)
+
     }
 
     const [posts, setPosts] = useState([])
@@ -40,6 +48,104 @@ export const PostsView = () => {
         }, [refresh]
     )
 
+    //display preferences
+
+    const [preferences, setPreferences] = useState([])
+
+    const [filterByPreference, setFilterByPreference] = useState(false)
+
+    // display all posts related to drinks by default / filter selection
+
+    const [showAll, setShowAll] = useState(true)
+
+    //filtered drinks
+
+    const [filter, setFilter] = useState(false) // checks if filter bttn is clicked
+    const [filterVariable, setFilterVariable] = useState("empty") // name of filter bttn clicked
+    const [filterArray, setFilterArray] = useState([]) // array of selected filter bttns
+    const [filterDrinksOn, setFilteredDrinksOn] = useState(false) // filters drinks
+    const [filteredPosts, setFilteredPosts] = useState([]) // array of filtered drinks
+
+    useEffect(
+        () => {
+            let copyArray = filterArray
+            if (copyArray.includes("empty")) {
+                let index = copyArray.indexOf("empty")
+                index !== -1 ? copyArray.splice(index, 1)
+                    : <></>
+            }
+
+            if (copyArray.includes(filterVariable)) {
+                let index = copyArray.indexOf(filterVariable)
+                index !== -1 ? copyArray.splice(index, 1)
+                    : <></>
+            } else {
+                copyArray.push(filterVariable)
+            }
+            showAll === true || filterByPreference === true ? setFilterArray([]) : setFilterArray(copyArray)
+            setFilteredDrinksOn(!filterDrinksOn)
+        }, [filter, showAll, filterByPreference]
+    )
+
+    useEffect(
+        () => {
+
+            let copy = posts.map(x => ({ ...x }))
+
+            copy = copy.filter(
+                x => !preferences
+                    .find(y => y.type === x.drinkType && y.preferenceTypeId === 2)
+            )
+
+            console.log(copy)
+
+            if (showAll === true) {
+
+                setFilteredPosts(copy)
+
+            } else if (filterByPreference === true) {
+                const filterCopy = copy.filter(x => preferences
+                    .find(y => y.type === x.drinkType && y.preferenceTypeId === 1))
+                setFilteredPosts(filterCopy)
+            }
+
+            else {
+
+                const newArray = []
+
+                filterArray.map(fa => {
+                    copy.filter(c => c.drinkType
+                        .toUpperCase() === fa.toUpperCase()).forEach(e => newArray.push(e))
+
+                })
+
+                setFilteredPosts(newArray)
+
+            }
+
+        }, [filterDrinksOn, showAll, posts, filterByPreference]
+    )
+
+    // searched drinks
+
+    const [searchValue, setSearchValue] = useState("")
+    const [searchReults, setSearchResults] = useState([])
+
+    useEffect(
+        () => {
+            const copy = filteredPosts.map(x => ({ ...x }))
+            const searchResults = copy.filter(x =>
+                x.drinkName.toUpperCase().includes(searchValue.toUpperCase())
+                || x.message.toUpperCase().includes(searchValue.toUpperCase())
+                || x.username.toUpperCase().includes(searchValue.toUpperCase())
+                || x.userFirstName.toUpperCase().includes(searchValue.toUpperCase())
+                || x.userLastName.toUpperCase().includes(searchValue.toUpperCase())
+            )
+
+            setSearchResults(searchResults)
+        }, [searchValue, filteredPosts]
+    )
+
     //set user preview
 
     const [userPreview, setUserPreview] = useState(false)
@@ -50,15 +156,24 @@ export const PostsView = () => {
         <>
             <section
                 style={{
-                    backgroundColor: "rgb(54,54,54)",
+                    backgroundColor: "rgb(160, 135, 74)",
                     minHeight: "100vh"
                 }}>
                 <SubMenuView
-                    location={currentLocation} />
+                    location={currentLocation}
+                    setFilter={setFilter}
+                    filter={filter}
+                    setFilterVariable={setFilterVariable}
+                    filterVariable={filterVariable}
+                    setShowAll={setShowAll}
+                    showAll={showAll}
+                    setFilterByPreference={setFilterByPreference}
+                    filterByPreference={filterByPreference}
+                    setSearchValue={setSearchValue} />
                 <section
                     className="post-container">
 
-                    {posts.length < 1
+                    {searchReults.length < 1
                         ? <>
                             <section
                                 className="post"
@@ -78,11 +193,11 @@ export const PostsView = () => {
 
                                 <section
                                     className="post-header">
-                                    No posts have been made
+                                    No Results Found
                                 </section>
                                 <section
                                     className="post-drink-info">
-                                    Be the first!
+                                    Be The First!
 
                                 </section>
                                 <section
@@ -95,7 +210,7 @@ export const PostsView = () => {
                             </section>
                         </>
                         : <>
-                            {posts.map(x =>
+                            {searchReults.map(x =>
                                 <>
 
                                     <Posts

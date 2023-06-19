@@ -8,8 +8,7 @@ export const UserProfilePreview = ({
     checkUsernameAndUpdate,
     usernameAvailability,
     initialUserValue,
-    setUser,
-    editUser }) => {
+    setUser }) => {
 
     // url
 
@@ -43,14 +42,14 @@ export const UserProfilePreview = ({
 
     useEffect(
         () => {
-            const userProfile = document.getElementById("userprofilePreview")
-
-            editUser
-                ? userProfile.style.top = "23.5vh"
-                : userProfile.style.top = "-50vh"
+            // const userProfile = document.getElementById("userprofilePreview")
 
 
-        }, [editUser]
+            //     ? userProfile.style.top = "23.5vh"
+            //     : userProfile.style.top = "-50vh"
+
+
+        }, []
     )
 
     // edit names
@@ -95,51 +94,53 @@ export const UserProfilePreview = ({
     }
 
     return (
-        <section className="flex-wrap">
+        <section className="userprofile-preview">
             <section
-                style={{
-                    marginRight: "10vw",
-                    marginBottom: "4vh"
-                }}>
+                className="userprofile-container">
                 <section className="flex-start userprofile-header-container">
                     <div className="userprofile-header">
-                        Current User Profile
+                        My Profile
                         <span>Click to edit</span>
                     </div>
-                    {user.firstName !== initialUserValue.firstName
-                        || user.lastName !== initialUserValue.lastName
-                        || user.username !== initialUserValue.username
-                        || user.profilePic !== initialUserValue.profilePic
-                        ? <section className="userprofile-update-container">
-                            <div
-                                className="userprofile-update-bttn ok"
-                                onClick={
-                                    () => {
-                                        updateUserRequest()
-                                    }
-                                }
-                            >Update</div>
-                            <div
-                                className="userprofile-update-bttn cancel"
-                                onClick={
-                                    () => {
-                                        cancelAll()
-                                    }
-                                }
-                            >Cancel</div>
-                        </section>
-                        : <></>}
 
                 </section>
                 <div className="flex-start">
-                    <img
-                        src={user.profilePic}
-                        className="userprofile-edit-icon"
-                        onClick={
-                            () => {
-                                document.getElementById("userprofileEditPicForm").style.left = "0"
-                            }
-                        } />
+                    <section>
+
+                        <img
+                            src={user.profilePic}
+                            className="userprofile-edit-icon"
+                            onClick={
+                                () => {
+                                    document.getElementById("userprofileEitFormContainer").style.left = "0vw"
+                                }
+                            } />
+
+                        {user.firstName !== initialUserValue.firstName
+                            || user.lastName !== initialUserValue.lastName
+                            || user.username !== initialUserValue.username
+                            || user.profilePic !== initialUserValue.profilePic
+                            ? <section className="userprofile-update-container">
+                                <div
+                                    className="userprofile-update-bttn ok"
+                                    onClick={
+                                        () => {
+                                            updateUserRequest()
+                                        }
+                                    }
+                                >Update</div>
+                                <div
+                                    className="userprofile-update-bttn cancel"
+                                    onClick={
+                                        () => {
+                                            cancelAll()
+                                        }
+                                    }
+                                >Cancel</div>
+                            </section>
+                            : <></>}
+
+                    </section>
 
                     <section>
 
@@ -277,7 +278,10 @@ export const UserProfilePreview = ({
                     </section>
                 </div>
             </section>
-            <UserProfileDrinkPreference />
+            <section
+                className="user-profile-drink-preference-container">
+                <UserProfileDrinkPreference />
+            </section>
         </section>
     )
 

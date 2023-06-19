@@ -236,6 +236,7 @@ SET IDENTITY_INSERT [preferenceType] ON
 INSERT INTO [preferenceType]
 ([id], [preferenceType])
 VALUES
+(0, 'none'),
 (1, 'preferred'),
 (2, 'never again')
 SET IDENTITY_INSERT [preferenceType] OFF
