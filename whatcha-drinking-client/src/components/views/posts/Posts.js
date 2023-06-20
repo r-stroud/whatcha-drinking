@@ -2,7 +2,7 @@ import "./Posts.css"
 import { DrinkImgs, getCurrentUser } from "../../utils/Constants"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { PostsUserPreview } from "./PostsUserPreview"
+import { deletePost } from "../../api/Api"
 
 export const Posts = ({
     id,
@@ -11,12 +11,10 @@ export const Posts = ({
     userFirstName,
     userLastName,
     userPic,
-    drinkId,
     drinkName,
     drinkPic,
     drinkType,
     dateTime,
-    picture,
     message,
     setRefresh,
     refresh,
@@ -38,12 +36,9 @@ export const Posts = ({
 
     // delete post
 
-    const deletePost = async (id) => {
-        const fetchData = await fetch(`https://localhost:7189/api/Post/remove_post/${id}`,
-            { method: "DELETE" })
-
+    const deleteThePost = async (postId) => {
+        await deletePost(postId)
         await setRefresh(!refresh)
-
     }
 
     const [confirmDelete, setConfirmDelete] = useState(false)
@@ -103,7 +98,9 @@ export const Posts = ({
                                 className="post-delete"
                                 onClick={
                                     () => {
-                                        deletePost(id)
+
+                                        deleteThePost(id)
+
                                     }
                                 }
                             >Delete</div>

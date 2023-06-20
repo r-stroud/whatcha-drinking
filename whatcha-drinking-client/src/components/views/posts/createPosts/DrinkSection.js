@@ -16,9 +16,9 @@ export const DrinkSection = ({
 }) => {
 
     function updatePostDrinkId() {
-        let copy = post
-        copy.drinkId = drinkValue.id
-        setPost(copy)
+        let postCopy = post
+        postCopy.drinkId = drinkValue.id
+        setPost(postCopy)
     }
 
     // display functions

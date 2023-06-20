@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { getCurrentUser } from "../../utils/Constants"
 import { useNavigate } from "react-router-dom"
 import { UserProfileDrinkPreference } from "./UserProfileDrinkPreference"
+import { updateUserFetchCall } from "../../api/Api"
 export const UserProfilePreview = ({
     user,
     updateUser,
@@ -10,47 +11,14 @@ export const UserProfilePreview = ({
     initialUserValue,
     setUser }) => {
 
-    // url
-
-    const url = "https://localhost:7189/api/User/update_user"
+    // update user
 
     const currentUser = getCurrentUser()
 
-    let navigate = useNavigate()
-
     const updateUserRequest = async () => {
-        await fetch(`${url}`, {
-            method: "PUT",
-            body: JSON.stringify({
-                firebaseId: currentUser.uid,
-                email: "",
-                address: "",
-                firstName: user.firstName,
-                lastName: user.lastName,
-                username: user.username,
-                profilePic: user.profilePic
-            }),
-            headers: {
-                "Content-Type": "application/json"
-            }
-
-        })
+        await updateUserFetchCall(currentUser, user)
         window.location.reload()
     }
-
-    //display current userprofile
-
-    useEffect(
-        () => {
-            // const userProfile = document.getElementById("userprofilePreview")
-
-
-            //     ? userProfile.style.top = "23.5vh"
-            //     : userProfile.style.top = "-50vh"
-
-
-        }, []
-    )
 
     // edit names
     const [editNames, setEditNames] = useState(false)

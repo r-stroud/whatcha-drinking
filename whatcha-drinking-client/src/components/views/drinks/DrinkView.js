@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { Drink } from "./Drink"
 import { SubMenuView } from "../subMenu/SubMenuView"
 import { getCurrentUser } from "../../utils/Constants"
+import { fetchDrinks, fetchPreferences } from "../../api/Api"
 
 export const DrinkView = () => {
 
@@ -12,29 +13,20 @@ export const DrinkView = () => {
     const [drinkingNow, setDrinkingNow] = useState(false)
 
     // display drinks
-    const url2 = "https://localhost:7189/api/Drink/drinks"
 
-    const url3 = `https://localhost:7189/api/Drink/drink_preferences?userId=${currentUser.uid}`
-
-    const displayDrinks = async () => {
-
-        const fetchData3 = await fetch(`${url3}`)
-        const fetchJson3 = await fetchData3.json()
-        setPreferences(fetchJson3)
-
-        const fetchData2 = await fetch(`${url2}`)
-        const fetchJson2 = await fetchData2.json()
-        setDrinks(fetchJson2)
-
+    const fetchDrinksAndPreferences = async () => {
+        let preferences = await fetchPreferences(currentUser)
+        let drinks = await fetchDrinks()
+        await setPreferences(preferences)
+        await setDrinks(drinks)
     }
 
     const [drinks, setDrinks] = useState([])
-    const [updateDom, setUpdateDom] = useState(false)
 
     useEffect(
         () => {
-            displayDrinks()
-        }, [, updateDom, drinkingNow]
+            fetchDrinksAndPreferences()
+        }, [drinkingNow]
     )
 
     //display preferences
@@ -57,21 +49,25 @@ export const DrinkView = () => {
 
     useEffect(
         () => {
-            let copyArray = filterArray
-            if (copyArray.includes("empty")) {
-                let index = copyArray.indexOf("empty")
-                index !== -1 ? copyArray.splice(index, 1)
+            let filterArrayCopy = filterArray
+            if (filterArrayCopy.includes("empty")) {
+                let index = filterArrayCopy.indexOf("empty")
+                index !== -1
+                    ? filterArrayCopy.splice(index, 1)
                     : <></>
             }
 
-            if (copyArray.includes(filterVariable)) {
-                let index = copyArray.indexOf(filterVariable)
-                index !== -1 ? copyArray.splice(index, 1)
+            if (filterArrayCopy.includes(filterVariable)) {
+                let index = filterArrayCopy.indexOf(filterVariable)
+                index !== -1
+                    ? filterArrayCopy.splice(index, 1)
                     : <></>
             } else {
-                copyArray.push(filterVariable)
+                filterArrayCopy.push(filterVariable)
             }
-            showAll === true || filterByPreference === true ? setFilterArray([]) : setFilterArray(copyArray)
+            showAll === true || filterByPreference === true
+                ? setFilterArray([])
+                : setFilterArray(filterArrayCopy)
             setFilteredDrinksOn(!filterDrinksOn)
         }, [filter, showAll, filterByPreference]
     )
@@ -79,35 +75,32 @@ export const DrinkView = () => {
     useEffect(
         () => {
 
-            let copy = drinks.map(x => ({ ...x }))
+            let drinksCopy = drinks.map(x => ({ ...x }))
 
-            copy = copy.filter(
+            drinksCopy = drinksCopy.filter(
                 x => !preferences
                     .find(y => y.type === x.type && y.preferenceTypeId === 2)
             )
 
             if (showAll === true) {
 
-                setFilteredDrinks(copy)
+                setFilteredDrinks(drinksCopy)
 
             } else if (filterByPreference === true) {
-                const filterCopy = copy.filter(x => preferences
+                const drinksCopyFiltered = drinksCopy.filter(x => preferences
                     .find(y => y.type === x.type && y.preferenceTypeId === 1))
-                setFilteredDrinks(filterCopy)
+                setFilteredDrinks(drinksCopyFiltered)
             }
 
             else {
 
                 const newArray = []
 
-                filterArray.map(fa => {
-                    copy.filter(c => c.type
-                        .toUpperCase() === fa.toUpperCase()).forEach(e => newArray.push(e))
-
+                filterArray.map(filterItem => {
+                    drinksCopy.filter(drinksItem => drinksItem.type
+                        .toUpperCase() === filterItem.toUpperCase()).forEach(e => newArray.push(e))
                 })
-
                 setFilteredDrinks(newArray)
-
             }
 
         }, [filterDrinksOn, showAll, drinks, filterByPreference]
@@ -120,8 +113,10 @@ export const DrinkView = () => {
 
     useEffect(
         () => {
-            const copy = filteredDrinks.map(x => ({ ...x }))
-            const searchResults = copy.filter(x => x.name.toUpperCase().includes(searchValue.toUpperCase()))
+            const filteredDrinksCopy = filteredDrinks.map(x => ({ ...x }))
+            const searchResults = filteredDrinksCopy
+                .filter(x => x.name.toUpperCase()
+                    .includes(searchValue.toUpperCase()))
 
             setSearchResults(searchResults)
         }, [searchValue, filteredDrinks]

@@ -7,9 +7,7 @@ export const RecentDrink = ({
     name,
     type,
     image,
-    createPost,
-    setSearchValue,
-    drinkingNow, timesTried, dateTime }) => {
+}) => {
 
     const navigate = useNavigate()
 

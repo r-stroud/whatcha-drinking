@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { DrinkImgs, getCurrentUser } from "../../utils/Constants"
 import "./Drinks.css"
+import { fetchTimesTried, updateDrink } from "../../api/Api"
 
 export const Drink = ({
     id,
@@ -20,37 +21,17 @@ export const Drink = ({
 
     // add drink
 
-    const url = `https://localhost:7189/api/Drink/add_drink`
-
-    // const resetDrinkPosition = () => {
-    //     document.getElementById(`drinkImg${id}`).style.bottom = "-150px";
-    // }
-
-    const updateDrink = async () => {
-
-        await fetch(`${url}`, {
-            method: "POST",
-            body: JSON.stringify({
-                userId: firebaseId,
-                drinkId: id
-            }),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
+    const updateDrinkAndDOM = async () => {
+        await updateDrink(firebaseId, id)
         await setUpdateTimesTried(!updateTimesTried)
         await setDrinkingNow(!drinkingNow)
-        // await resetDrinkPosition()
     }
 
     // get times tried
 
-    const url2 = `https://localhost:7189/api/Drink/times_tried?userId=${firebaseId}&drinkId=${id}`
-
     const displayTimesTried = async () => {
-        const fetchData = await fetch(`${url2}`)
-        const fetchJson = await fetchData.json()
-        setTimesTried(fetchJson)
+        let results = await fetchTimesTried(firebaseId, id)
+        await setTimesTried(results)
     }
 
     const [timesTried, setTimesTried] = useState({
@@ -119,7 +100,7 @@ export const Drink = ({
                                 setTimeout(
                                     () => {
 
-                                        updateDrink()
+                                        updateDrinkAndDOM()
                                     }, 400
                                 )
                             }

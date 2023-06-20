@@ -16,9 +16,9 @@ export const MessageSection = ({
     //update post
 
     function updatePostMessage() {
-        let copy = post
-        copy.message = message
-        setPost(copy)
+        let postCopy = post
+        postCopy.message = message
+        setPost(postCopy)
     }
 
     // display functions
@@ -37,14 +37,14 @@ export const MessageSection = ({
         document.getElementById("createPostMessage")
             .style.width = "0%"
 
-        setTimeout(
-            () => {
-                document.getElementById("createPostImage")
-                    .style.left = "0vw"
-                document.getElementById("createPostImage")
-                    .style.width = "100%"
-            }, 200
-        )
+        // setTimeout(
+        //     () => {
+        //         document.getElementById("createPostImage")
+        //             .style.left = "0vw"
+        //         document.getElementById("createPostImage")
+        //             .style.width = "100%"
+        //     }, 200
+        // )
     }
 
     console.log(editPostInfo === undefined ? "undefined" : editPostInfo.message)

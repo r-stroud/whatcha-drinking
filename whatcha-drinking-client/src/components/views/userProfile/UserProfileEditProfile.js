@@ -4,6 +4,7 @@ import { Dog1, getCurrentUser } from "../../utils/Constants";
 import { UserProfilePreview } from "./UserProfilePreview";
 import { UserProfileEditForm } from "./UserProfileEditForm";
 import { SubMenuView } from "../subMenu/SubMenuView";
+import { fetchUserDetails, fetchUsername } from "../../api/Api";
 
 export const UserProfileEditProfile = () => {
 
@@ -33,13 +34,10 @@ export const UserProfileEditProfile = () => {
     //User Profile Display
     const currentUser = getCurrentUser()
 
-    const url2 = "https://localhost:7189/api/User/GetByFirebaseId?firebaseId="
-
     const collectUserInfo = async () => {
-        const fetchData = await fetch(`${url2}${currentUser.uid}`)
-        const fetchJson = await fetchData.json()
-        setUser(fetchJson)
-        setInitialUserValue(fetchJson)
+        let userDetails = await fetchUserDetails(currentUser.uid)
+        setUser(userDetails)
+        setInitialUserValue(userDetails)
     }
 
     useEffect(
@@ -60,17 +58,17 @@ export const UserProfileEditProfile = () => {
     });
 
     const updateUser = (evt) => {
-        const copy = { ...user };
-        copy[evt.target.id] = evt.target.value;
-        setUser(copy);
+        const userCopy = { ...user };
+        userCopy[evt.target.id] = evt.target.value;
+        setUser(userCopy);
     };
 
     // handles selection of user icon
 
     const updateSelectedIcon = (evt) => {
-        const copy = { ...user };
-        copy.profilePic = evt.target.value;
-        setUser(copy);
+        const userCopy = { ...user };
+        userCopy.profilePic = evt.target.value;
+        setUser(userCopy);
     };
 
     //display edit form
@@ -99,23 +97,20 @@ export const UserProfileEditProfile = () => {
 
     useEffect(
         () => {
-            const copy = { ...user };
-            copy.fullName = `${copy.firstName} ${copy.lastName}`
-            setUser(copy)
+            const userCopy = { ...user };
+            userCopy.fullName = `${userCopy.firstName} ${userCopy.lastName}`
+            setUser(userCopy)
         }, [user.firstName, user.lastName]
     )
 
     // checks if username exists
 
-    const url3 = 'https://localhost:7189/api/User/GetByUsername?username=';
-
     const checkUsername = (evt) => {
-        const fetchUsername = async () => {
-            const fetchData = await fetch(`${url3}${evt.target.value}`)
-            const fetchJson = await fetchData.json()
-            setUsernameAVailability(fetchJson)
+        const usernameFetchCall = async () => {
+            let username = await fetchUsername(evt.target.value)
+            setUsernameAVailability(username)
         }
-        fetchUsername()
+        usernameFetchCall()
     }
 
     const checkUsernameAndUpdate = (evt) => {
@@ -123,7 +118,6 @@ export const UserProfileEditProfile = () => {
         checkUsername(evt)
     }
 
-    const [submitable, setSubmitable] = useState(true)
     const [usernameAvailability, setUsernameAVailability] = useState({ username: "." })
 
 

@@ -12,9 +12,9 @@ export const ImageSection = ({
     const [image, setImage] = useState("")
 
     function updatePostImage() {
-        let copy = post
-        copy.image = image
-        setPost(copy)
+        let postCopy = post
+        postCopy.image = image
+        setPost(postCopy)
     }
 
     return (

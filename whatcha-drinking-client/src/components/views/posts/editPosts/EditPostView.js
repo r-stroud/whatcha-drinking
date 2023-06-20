@@ -1,11 +1,8 @@
-import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { SubMenuView } from "../../subMenu/SubMenuView"
 import { EditPost } from "./EditPost"
 
 export const EditPostsView = () => {
-
-    const paramId = useParams().id
 
     // current location
     const currentLocation = "editPostView"

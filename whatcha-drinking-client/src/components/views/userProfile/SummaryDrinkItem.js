@@ -1,29 +1,20 @@
 import { VictoryPie, VictoryTheme } from "victory"
 import { useState, useEffect } from "react"
 import { getCurrentUser } from "../../utils/Constants"
+import { fetchDrinks, fetchUserDrinks } from "../../api/Api"
 
 export const SummaryDrinkItem = ({
     type,
     id
 }) => {
 
-    // get user drinks
-
-    const url = `https://localhost:7189/api/Drink/user_drinks?userId=${id}`
-
-    // get all drinks
-
-    const url2 = "https://localhost:7189/api/Drink/drinks"
+    // get user drinks and all drinks
 
     const displayDrinks = async () => {
-
-        const fetchData = await fetch(`${url}`)
-        const fetchJson = await fetchData.json()
-        setUserDrinks(fetchJson)
-
-        const fetchData2 = await fetch(`${url2}`)
-        const fetchJson2 = await fetchData2.json()
-        setDrinks(fetchJson2)
+        let userDrinks = await fetchUserDrinks(id)
+        let drinks = await fetchDrinks()
+        await setUserDrinks(userDrinks)
+        await setDrinks(drinks)
 
     }
 
@@ -42,9 +33,9 @@ export const SummaryDrinkItem = ({
 
     useEffect(
         () => {
-            let copy = drinks.map(x => ({ ...x }))
-            let filterCopy = copy.filter(x => x.type === type)
-            setTypeLength(filterCopy.length)
+            let drinksCopy = drinks.map(x => ({ ...x }))
+            let filteredDrinksCopy = drinksCopy.filter(x => x.type === type)
+            setTypeLength(filteredDrinksCopy.length)
 
 
         }, [drinks]
@@ -56,10 +47,9 @@ export const SummaryDrinkItem = ({
 
     useEffect(
         () => {
-            let copy = userDrinks.map(x => ({ ...x }))
-            let filterCopy = copy.filter(x => x.type === type)
-            setUserTypeLength(filterCopy.length)
-
+            let userDrinksCopy = userDrinks.map(x => ({ ...x }))
+            let filteredUserDrinksCopy = userDrinksCopy.filter(x => x.type === type)
+            setUserTypeLength(filteredUserDrinksCopy.length)
 
         }, [userDrinks]
     )

@@ -6,19 +6,14 @@ export const CreatePostSearchResult = ({
     type,
     name,
     image,
-    index,
     setSearchValue,
     setDrinkSelected,
-    setDrinkValue,
-    drinkSelected
+    setDrinkValue
 }) => {
 
     // image src
 
     let imageSrc = DrinkImgs.find(x => x.name === image)
-
-
-
 
     return (
         <>

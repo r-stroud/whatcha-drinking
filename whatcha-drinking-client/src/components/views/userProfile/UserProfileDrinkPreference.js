@@ -1,30 +1,10 @@
 import { useState, useEffect } from "react"
 import { getCurrentUser } from "../../utils/Constants"
+import { addPreferenceRequest, fetchDrinkTypes, fetchPreferences } from "../../api/Api"
 
 export const UserProfileDrinkPreference = () => {
 
     const currentUser = getCurrentUser()
-
-    // update preferences
-
-    const url = "https://localhost:7189/api/Drink/drink_preference"
-
-
-    const addPreference = async (id, number) => {
-        console.log(id)
-        console.log(number)
-        await fetch(`${url}`, {
-            method: "PUT",
-            body: JSON.stringify({
-                userId: currentUser.uid,
-                drinkTypeId: id,
-                preferenceTypeId: number
-            }),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-    }
 
     // update preference drop table
 
@@ -34,31 +14,19 @@ export const UserProfileDrinkPreference = () => {
         var data = ev.dataTransfer.getData("text")
 
         await ev.target.appendChild(document.getElementById(data))
-        await addPreference(data, prefNo)
+        await addPreferenceRequest(currentUser, data, prefNo)
 
     }
-
 
     //display drink types and drink preferences
-    const url2 = `https://localhost:7189/api/Drink/drink_preferences?userId=${currentUser.uid}`
-
-    const url3 = "https://localhost:7189/api/DrinkType/drink_types"
 
     const displayDrinkPreferences = async () => {
-
-        // drink types -- default
-
-        const fetchData = await fetch(`${url3}`)
-        const fetchJson = await fetchData.json()
-        setDrinkTypes(fetchJson)
-
-        // selected preferences
-
-        const fetchData2 = await fetch(`${url2}`)
-        const fetchJson2 = await fetchData2.json()
-        setDrinkPreferences(fetchJson2)
-
+        let drinkTypes = await fetchDrinkTypes()
+        let preferences = await fetchPreferences(currentUser)
+        await setDrinkTypes(drinkTypes)
+        await setDrinkPreferences(preferences)
     }
+
     const [drinkTypes, setDrinkTypes] = useState([])
 
     const [drinkPreferences, setDrinkPreferences] = useState([])

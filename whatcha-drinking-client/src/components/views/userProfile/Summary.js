@@ -1,37 +1,27 @@
 import { useState, useEffect } from "react"
 import { DrinkImgs, getCurrentUser } from "../../utils/Constants"
-import { useParams } from "react-router-dom"
 import { SummaryDrinkDetails } from "./SummaryDrinkDetails"
 import { useNavigate } from "react-router-dom"
+import { addFriendRequest, fetchMostTried, fetchRecentDrink, fetchUserDetails, fetchUserFriends } from "../../api/Api"
 
 export const Summary = ({ id }) => {
 
     const navigate = useNavigate()
     const currentUser = getCurrentUser()
-    // get recent drink and user details
 
-    const url = `https://localhost:7189/api/Drink/most_recent?userId=${id}`
-    const url2 = `https://localhost:7189/api/User/GetByFirebaseId?firebaseId=${id}`
-    const url3 = `https://localhost:7189/api/Drink/most_tried?userId=${id}`
-    const url4 = `https://localhost:7189/api/User/friends?userId=${currentUser.uid}`
+    // get recent drink and user details
 
     const getDetails = async () => {
 
-        const fetchData = await fetch(`${url}`)
-        const fetchJson = await fetchData.json()
-        setRecentDrink(fetchJson)
+        let recentDrink = await fetchRecentDrink(id)
+        let userDetails = await fetchUserDetails(id)
+        let mostTried = await fetchMostTried(id)
+        let userFriends = await fetchUserFriends(currentUser)
 
-        const fetchData2 = await fetch(`${url2}`)
-        const fetchJson2 = await fetchData2.json()
-        setUserDetails(fetchJson2)
-
-        const fetchData3 = await fetch(`${url3}`)
-        const fetchJson3 = await fetchData3.json()
-        setMostTried(fetchJson3)
-
-        const fetchData4 = await fetch(`${url4}`)
-        const fetchJson4 = await fetchData4.json()
-        setUserFriends(fetchJson4)
+        await setRecentDrink(recentDrink)
+        await setUserDetails(userDetails)
+        await setMostTried(mostTried)
+        await setUserFriends(userFriends)
 
     }
 
@@ -101,22 +91,9 @@ export const Summary = ({ id }) => {
 
     //add friend
 
-    const url5 = 'https://localhost:7189/api/User/add_friend'
-
     const addFriend = async () => {
-
-        await fetch(`${url5}`, {
-            method: "POST",
-            body: JSON.stringify({
-                userId: currentUser.uid,
-                friendId: id
-            }),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-
-        await navigate("/profile")
+        await addFriendRequest(currentUser, id)
+        await navigate(`/profile/${id}`)
     }
 
     let imageSrc = DrinkImgs.find(x => x.name === recentDrink.image)
