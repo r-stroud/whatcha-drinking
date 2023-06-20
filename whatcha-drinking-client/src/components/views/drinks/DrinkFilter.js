@@ -8,7 +8,6 @@ export const DrinkFilter = ({
     setFilterVariable,
     setShowAll,
     showAll,
-    filterVariable,
     setFilterByPreference,
     filterByPreference }) => {
 
@@ -69,7 +68,7 @@ export const DrinkFilter = ({
                 id={`drinkFilterOption${id}`}
                 className="drink-filter-option"
                 onClick={(
-                    (e) => {
+                    () => {
                         setShowAll(false)
                         setFilterByPreference(false)
                         setFilter(!filter)

@@ -6,10 +6,10 @@ import { DrinkSection } from "../createPosts/DrinkSection"
 import { MessageSection } from "../createPosts/MessageSection"
 import { ImageSection } from "../createPosts/ImageSection"
 import { useParams } from "react-router-dom"
+import { fetchDrinks, fetchPostById, fetchPreferences, updatePost } from "../../../api/Api"
 
 
 export const EditPost = ({
-    setCreatePost,
     searchValue,
     setSearchValue }) => {
 
@@ -21,50 +21,26 @@ export const EditPost = ({
 
     const [editPostInfo, setEditPostInfo] = useState([])
 
-    console.log(editPostInfo)
-
-    // display drinks
-    const url2 = "https://localhost:7189/api/Drink/drinks"
-
-    const displayDrinks = async (id) => {
-
-        const fetchData = await fetch(`https://localhost:7189/api/Post/get_post_by_id?id=${id}`)
-        const fetchJson = await fetchData.json()
-        setEditPostInfo(fetchJson)
-
-        const fetchData2 = await fetch(`${url2}`)
-        const fetchJson2 = await fetchData2.json()
-        setDrinks(fetchJson2)
-    }
-
-    const [drinks, setDrinks] = useState([])
-    // const [updateDom, setUpdateDom] = useState(false)
-
-    useEffect(
-        () => {
-            displayDrinks(paramId)
-        }, []
-    )
-
-    //display preferences
+    // display drinks and preferences
 
     const currentUser = getCurrentUser()
 
-    const url3 = `https://localhost:7189/api/Drink/drink_preferences?userId=${currentUser.uid}`
-
-    const displayDrinkPreferences = async () => {
-        const fetchData = await fetch(`${url3}`)
-        const fetchJson = await fetchData.json()
-        setPreferences(fetchJson)
+    const displayDrinks = async () => {
+        let drinks = await fetchDrinks()
+        let postById = await fetchPostById(paramId)
+        let preferences = await fetchPreferences(currentUser)
+        await setEditPostInfo(postById)
+        await setPreferences(preferences)
+        await setDrinks(drinks)
     }
 
+    const [drinks, setDrinks] = useState([])
     const [preferences, setPreferences] = useState([])
-
 
     useEffect(
         () => {
-            displayDrinkPreferences()
-
+            displayDrinks()
+            setSectionConfirmed(3)
         }, []
     )
 
@@ -75,14 +51,14 @@ export const EditPost = ({
     useEffect(
         () => {
 
-            let copy = drinks.map(x => ({ ...x }))
+            let drinksCopy = drinks.map(x => ({ ...x }))
 
-            copy = copy.filter(
+            drinksCopy = drinksCopy.filter(
                 x => !preferences
                     .find(y => y.type === x.type && y.preferenceTypeId === 2)
             )
 
-            setFilterDrinks(copy)
+            setFilterDrinks(drinksCopy)
 
             setSearchValue(editPostInfo.drinkName)
 
@@ -96,16 +72,16 @@ export const EditPost = ({
 
     useEffect(
         () => {
-            const copy = filterDrinks.map(x => ({ ...x }))
-            let searchResults = copy.filter(x =>
+            const filterDrinksCopy = filterDrinks.map(x => ({ ...x }))
+            let searchResults = filterDrinksCopy.filter(x =>
                 x.name.toUpperCase().includes(searchValue.toUpperCase())
                 || x.type.toUpperCase().includes(searchValue.toUpperCase()
                 ))
-            let slicedArray = searchResults
+            let slicedSearchResults = searchResults
                 .sort((a, b) => a.name.localeCompare(b.name))
-                .slice(0, 5)
+                .slice(0, 10)
 
-            setResults(slicedArray)
+            setResults(slicedSearchResults)
         }, [filterDrinks, searchValue]
     )
 
@@ -123,12 +99,12 @@ export const EditPost = ({
     // display functions
 
     function hideImageSection() {
-        document.getElementById("createPostImage")
-            .style.left = "100vw"
-        document.getElementById("createPostImage")
-            .style.width = "0%"
-        sectionConfirmed > 2 ? document.getElementById(`createPostTitleImage`)
-            .style.left = "0vw" : <></>
+        // document.getElementById("createPostImage")
+        //     .style.left = "100vw"
+        // document.getElementById("createPostImage")
+        //     .style.width = "0%"
+        // sectionConfirmed > 2 ? document.getElementById(`createPostTitleImage`)
+        //     .style.left = "0vw" : <></>
     }
 
     function hideMessageSection() {
@@ -151,25 +127,22 @@ export const EditPost = ({
 
     const [sectionConfirmed, setSectionConfirmed] = useState(0)
 
+    useEffect(
+        () => {
+
+            sectionConfirmed > 1 ? document.getElementById(`createPostTitleMessage`)
+                .style.left = "0vw" : <></>
+
+            // sectionConfirmed > 2 ? document.getElementById(`createPostTitleImage`)
+            //     .style.left = "0vw" : <></>
+
+        }, [sectionConfirmed]
+    )
+
     // update post
 
-    const url = "https://localhost:7189/api/Post/update_post"
-
-    const updatePost = async () => {
-
-        await fetch(`${url}`, {
-            method: "PUT",
-            body: JSON.stringify({
-                id: paramId,
-                userId: currentUser.uid,
-                drinkId: post.drinkId,
-                message: post.message
-            }),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-
+    const updateThePost = async () => {
+        await updatePost(paramId, currentUser, post)
         await navigate("/")
     }
 
@@ -253,7 +226,7 @@ export const EditPost = ({
                     </div>
                 </section>
 
-                <section
+                {/* <section
                     id="createPostTitleImage"
                     className="create-post-title-drink">
                     <div
@@ -284,14 +257,15 @@ export const EditPost = ({
                         }>
                         Image
                     </div>
-                </section>
+                </section> */}
                 <section
                     className="create-post-title-bttns">
                     {sectionConfirmed > 2
                         ? <div
                             onClick={
                                 () => {
-                                    updatePost()
+
+                                    updateThePost()
                                 }
                             }
                             className="create-post-title-confirm">
@@ -340,7 +314,7 @@ export const EditPost = ({
 
             </section>
 
-            <section
+            {/* <section
                 id="createPostImage"
                 className="create-post-image">
                 <ImageSection
@@ -349,7 +323,7 @@ export const EditPost = ({
                     sectionConfirmed={sectionConfirmed}
                     setSectionConfirmed={setSectionConfirmed} />
 
-            </section>
+            </section> */}
         </form>
     )
 }

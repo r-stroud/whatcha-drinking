@@ -2,11 +2,11 @@ import { useEffect, useState } from "react"
 import { getCurrentUser } from "../../utils/Constants"
 import "../drinks/Drinks.css"
 import { RecentDrink } from "../drinks/RecentDrink"
-import { DrinkFilter } from "../drinks/DrinkFilter"
 import "./SubMenu.css"
 import { DrinkFilterContainer } from "../drinks/DrinkFilterContainer"
 import { DrinkSearchBar } from "../drinks/DrinkSearchBar"
 import { useNavigate } from "react-router-dom"
+import { fetchDrinkTypes, fetchPreferences, fetchRecentDrink } from "../../api/Api"
 
 export const SubMenuView = ({
     drinkingNow,
@@ -27,25 +27,15 @@ export const SubMenuView = ({
 
     const currentUser = getCurrentUser()
 
-    const url3 = `https://localhost:7189/api/Drink/drink_preferences?userId=${currentUser.uid}`
-
-    const [preferences, setPreferences] = useState([])
-
-    //display drink types
-
-    const url2 = "https://localhost:7189/api/DrinkType/drink_types"
-
     const displayDrinkTypes = async () => {
-
-        const fetchData3 = await fetch(`${url3}`)
-        const fetchJson3 = await fetchData3.json()
-        setPreferences(fetchJson3)
-
-        const fetchData = await fetch(`${url2}`)
-        const fetchJson = await fetchData.json()
-        setDrinkTypes(fetchJson)
+        let preferences = await fetchPreferences(currentUser)
+        let drinkTypes = await fetchDrinkTypes()
+        await setPreferences(preferences)
+        await setDrinkTypes(drinkTypes)
     }
+
     const [drinkTypes, setDrinkTypes] = useState([])
+    const [preferences, setPreferences] = useState([])
     const [filteredDrinkTypes, setFilteredDrinkTypes] = useState([])
 
     useEffect(
@@ -56,16 +46,16 @@ export const SubMenuView = ({
 
     useEffect(
         () => {
-            let copy = drinkTypes.map(x => ({ ...x }))
+            let drinkTypesCopy = drinkTypes.map(x => ({ ...x }))
 
-            copy = copy.filter(
+            drinkTypesCopy = drinkTypesCopy.filter(
                 x => !preferences
                     .find(y => y.type === x.type && y.preferenceTypeId === 2)
             )
 
-            copy = copy.sort((a, b) => a.type.localeCompare(b.type))
+            drinkTypesCopy = drinkTypesCopy.sort((a, b) => a.type.localeCompare(b.type))
 
-            setFilteredDrinkTypes(copy)
+            setFilteredDrinkTypes(drinkTypesCopy)
 
         }, [drinkTypes]
     )
@@ -74,12 +64,9 @@ export const SubMenuView = ({
 
     const firebaseId = getCurrentUser().uid
 
-    const url = `https://localhost:7189/api/Drink/most_recent?userId=${firebaseId}`
-
     const displayRecentDrink = async () => {
-        const fetchData = await fetch(`${url}`)
-        const fetchJson = await fetchData.json()
-        setRecentDrink(fetchJson)
+        let recentDrink = await fetchRecentDrink(firebaseId)
+        await setRecentDrink(recentDrink)
     }
 
     const [recentDrink, setRecentDrink] = useState({})
@@ -87,7 +74,7 @@ export const SubMenuView = ({
     useEffect(
         () => {
             displayRecentDrink()
-        }, [, drinkingNow]
+        }, [drinkingNow]
     )
 
     // all button color
@@ -110,8 +97,6 @@ export const SubMenuView = ({
         <section className="sub-menu-view">
 
             <section className="drink-recent-activities">
-
-
 
                 <RecentDrink
                     id={recentDrink.id}

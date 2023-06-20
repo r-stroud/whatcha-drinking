@@ -493,6 +493,7 @@
     border-radius: 10px;
     border: 2px outset rgb(210, 178, 98);
     padding: 2px 20px;
+    cursor: pointer;
 }
 
 .summary-add-friend-bttn:hover {

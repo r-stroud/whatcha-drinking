@@ -43,7 +43,6 @@
     position: relative;
     left: 50vw;
     right: 0vw;
-    transition: 0.3s;
     overflow: hidden;
 }
 
@@ -110,7 +109,10 @@
 
 .create-post-result:hover {
     transform: scale(1.02);
+    background-color: rgb(210, 178, 98);
 }
+
+
 
 .create-post-result-type {
     font-size: 16px;
@@ -121,6 +123,7 @@
 .create-post-result-name {
     font-size: 20px;
     position: relative;
+    cursor: pointer;
 }
 
 .create-post-result-name img {
@@ -139,6 +142,10 @@
     padding: 1px 6px;
 }
 
+.create-post-clickable-title {
+    cursor: pointer;
+}
+
 .create-post-title-drink {
     display: flex;
     align-items: center;
@@ -150,6 +157,7 @@
     color: rgb(220, 220, 220);
     width: 50%;
     margin: 6px auto;
+    cursor: pointer;
 }
 
 .create-post-title-drink span {
@@ -200,6 +208,7 @@
     border: 3px solid rgb(54, 54, 54);
     border-radius: 20px;
     margin: 0 15px;
+    cursor: pointer;
 }
 
 .create-post-confirm-bttn:hover {
@@ -213,12 +222,24 @@
 .create-post-textarea {
     resize: none;
     padding: 15px 25px;
-    height: 500px;
-    width: 400px;
-    border: 1px solid rgb(54, 54, 54);
-    border-radius: 5px;
+    height: 200px;
+    width: 500px;
+    border: 4px outset rgb(20, 20, 20);
+    border-radius: 10px;
     font-family: 'Cardo', serif;
-    font-size: 16px;
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    background-color: rgb(54, 54, 54);
+    color: rgb(252, 252, 252);
+}
+
+.create-post-textarea:hover {
+    border: outset 4px rgb(210, 178, 98);
+}
+
+.create-post-textarea:focus {
+    outline: none;
 }
 
 .create-post-message-confirmation-bttn {
@@ -229,6 +250,7 @@
     padding: 6px 15px;
     border-radius: 15px;
     font-size: 16px;
+    cursor: pointer;
 }
 
 .create-post-message-confirmation-bttn:hover {
@@ -285,6 +307,7 @@ input::file-selector-button:hover {
     border-radius: 15px;
     font-size: 16px;
     transition: 0.3s;
+    cursor: pointer;
 }
 
 .create-post-title-confirm:hover {
@@ -301,6 +324,7 @@ input::file-selector-button:hover {
     border-radius: 15px;
     font-size: 16px;
     transition: 0.3s;
+    cursor: pointer;
 }
 
 .create-post-title-cancel:hover {
@@ -628,6 +652,7 @@ input::file-selector-button:hover {
     border-radius: 20px;
     border: 4px outset rgb(210, 178, 98);
     padding: 2px 20px;
+    cursor: pointer;
 
 }
 

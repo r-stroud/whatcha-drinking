@@ -5,51 +5,34 @@ import "../Posts.css"
 import { DrinkSection } from "./DrinkSection"
 import { MessageSection } from "./MessageSection"
 import { ImageSection } from "./ImageSection"
+import { fetchDrinks, fetchPreferences, createPost } from "../../../api/Api"
 
 export const CreatePost = ({
-    setCreatePost,
     searchValue,
     setSearchValue,
     paramName }) => {
 
     const navigate = useNavigate()
 
-    // display drinks
-    const url2 = "https://localhost:7189/api/Drink/drinks"
 
-    const displayDrinks = async () => {
-        const fetchData = await fetch(`${url2}`)
-        const fetchJson = await fetchData.json()
-        setDrinks(fetchJson)
-    }
-
-    const [drinks, setDrinks] = useState([])
-    const [updateDom, setUpdateDom] = useState(false)
-
-    useEffect(
-        () => {
-            displayDrinks()
-        }, [, updateDom]
-    )
-
-    //display preferences
+    //display preferences and drinks
 
     const currentUser = getCurrentUser()
 
-    const url3 = `https://localhost:7189/api/Drink/drink_preferences?userId=${currentUser.uid}`
-
-    const displayDrinkPreferences = async () => {
-        const fetchData = await fetch(`${url3}`)
-        const fetchJson = await fetchData.json()
-        setPreferences(fetchJson)
+    const fetchDrinksAndPreferences = async () => {
+        let preferences = await fetchPreferences(currentUser)
+        let drinks = await fetchDrinks()
+        await setPreferences(preferences)
+        await setDrinks(drinks)
     }
 
+    const [drinks, setDrinks] = useState([])
     const [preferences, setPreferences] = useState([])
-
 
     useEffect(
         () => {
-            displayDrinkPreferences()
+
+            fetchDrinksAndPreferences()
 
         }, []
     )
@@ -85,16 +68,16 @@ export const CreatePost = ({
 
     useEffect(
         () => {
-            const copy = filterDrinks.map(x => ({ ...x }))
-            let searchResults = copy.filter(x =>
+            const filterDrinksCopy = filterDrinks.map(x => ({ ...x }))
+            let searchResults = filterDrinksCopy.filter(x =>
                 x.name.toUpperCase().includes(searchValue.toUpperCase())
                 || x.type.toUpperCase().includes(searchValue.toUpperCase()
                 ))
-            let slicedArray = searchResults
+            let slicedSearchResults = searchResults
                 .sort((a, b) => a.name.localeCompare(b.name))
-                .slice(0, 5)
+                .slice(0, 10)
 
-            setResults(slicedArray)
+            setResults(slicedSearchResults)
         }, [filterDrinks, searchValue]
     )
 
@@ -112,12 +95,12 @@ export const CreatePost = ({
     // display functions
 
     function hideImageSection() {
-        document.getElementById("createPostImage")
-            .style.left = "100vw"
-        document.getElementById("createPostImage")
-            .style.width = "0%"
-        sectionConfirmed > 2 ? document.getElementById(`createPostTitleImage`)
-            .style.left = "0vw" : <></>
+        // document.getElementById("createPostImage")
+        //     .style.left = "100vw"
+        // document.getElementById("createPostImage")
+        //     .style.width = "0%"
+        // sectionConfirmed > 2 ? document.getElementById(`createPostTitleImage`)
+        //     .style.left = "0vw" : <></>
     }
 
     function hideMessageSection() {
@@ -142,22 +125,8 @@ export const CreatePost = ({
 
     // create post
 
-    const url = "https://localhost:7189/api/Post/create_post"
-
-    const createPost = async () => {
-
-        await fetch(`${url}`, {
-            method: "POST",
-            body: JSON.stringify({
-                userId: currentUser.uid,
-                drinkId: post.drinkId,
-                message: post.message
-            }),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-
+    const addPost = async () => {
+        await createPost(currentUser, post)
         await navigate("/")
     }
 
@@ -182,6 +151,7 @@ export const CreatePost = ({
                         1
                     </div>
                     <div
+                        className="create-post-clickable-title"
                         onClick={
                             () => {
                                 // setSectionConfirmed(2)
@@ -216,6 +186,7 @@ export const CreatePost = ({
                         2
                     </div>
                     <div
+                        className="create-post-clickable-title"
                         onClick={
                             () => {
                                 // setSectionConfirmed(2)
@@ -241,7 +212,7 @@ export const CreatePost = ({
                     </div>
                 </section>
 
-                <section
+                {/* <section
                     id="createPostTitleImage"
                     className="create-post-title-drink">
                     <div
@@ -249,6 +220,7 @@ export const CreatePost = ({
                         3
                     </div>
                     <div
+                        className="create-post-clickable-title"
                         onClick={
                             () => {
                                 // setSectionConfirmed(2)
@@ -272,14 +244,14 @@ export const CreatePost = ({
                         }>
                         Image
                     </div>
-                </section>
+                </section> */}
                 <section
                     className="create-post-title-bttns">
-                    {sectionConfirmed > 2
+                    {sectionConfirmed > 1
                         ? <div
                             onClick={
                                 () => {
-                                    createPost()
+                                    addPost()
                                 }
                             }
                             className="create-post-title-confirm">

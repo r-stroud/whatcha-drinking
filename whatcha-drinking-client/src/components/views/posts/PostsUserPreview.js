@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { DrinkImgs, getCurrentUser } from "../../utils/Constants"
 import { useNavigate } from "react-router-dom"
+import { addFriendRequest, fetchRecentDrink, fetchUserDetails, fetchUserFriends } from "../../api/Api"
 
 export const PostsUserPreview = ({
     setUserPreview,
@@ -9,25 +10,16 @@ export const PostsUserPreview = ({
 
     const navigate = useNavigate()
     const currentUser = getCurrentUser()
+
     //get recent drink and user details
 
-    const url = `https://localhost:7189/api/Drink/most_recent?userId=${userId}`
-    const url2 = `https://localhost:7189/api/User/GetByFirebaseId?firebaseId=${userId}`
-    const url3 = `https://localhost:7189/api/User/friends?userId=${currentUser.uid}`
-
     const getDetails = async () => {
-
-        const fetchData = await fetch(`${url}`)
-        const fetchJson = await fetchData.json()
-        setRecentDrink(fetchJson)
-
-        const fetchData2 = await fetch(`${url2}`)
-        const fetchJson2 = await fetchData2.json()
-        setUserDetails(fetchJson2)
-
-        const fetchData3 = await fetch(`${url3}`)
-        const fetchJson3 = await fetchData3.json()
-        setUserFriends(fetchJson3)
+        let recentDrink = await fetchRecentDrink(userId)
+        let userDetails = await fetchUserDetails(userId)
+        let userFriends = await fetchUserFriends(currentUser)
+        await setRecentDrink(recentDrink)
+        await setUserDetails(userDetails)
+        await setUserFriends(userFriends)
 
     }
 
@@ -55,21 +47,8 @@ export const PostsUserPreview = ({
 
     //add friend
 
-    const url4 = 'https://localhost:7189/api/User/add_friend'
-
     const addFriend = async () => {
-
-        await fetch(`${url4}`, {
-            method: "POST",
-            body: JSON.stringify({
-                userId: currentUser.uid,
-                friendId: userId
-            }),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-
+        await addFriendRequest(currentUser, userId)
         await setUserPreview(false)
     }
 
