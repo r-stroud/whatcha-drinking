@@ -107,7 +107,56 @@ namespace whatcha_drinking.Controllers
             {
                 return BadRequest();
             }
+
+            if(_userRepository.GetByIds(userFriend.UserId, userFriend.FriendId) != null)
+            {
+                return BadRequest();
+            }
+
             return Ok(_userRepository.AddFriend(userFriend));
+        }
+
+        [HttpPut("update_friendship")]
+        public IActionResult updateStatus(UserFriend userFriend)
+        {
+            if (_userRepository.GetById(userFriend.UserId) == null || _userRepository.GetById(userFriend.FriendId) == null)
+            {
+                return BadRequest();
+            }
+
+            
+            UserFriend getByIdsFriend = _userRepository.GetByIds(userFriend.UserId, userFriend.FriendId);
+
+            if (getByIdsFriend == null)
+            {
+                return BadRequest();
+            }
+
+            _userRepository.UpdateFriendship(getByIdsFriend.Id);
+
+            return Ok(new 
+            { 
+                Message = "Updated"
+
+            });
+
+        }
+
+        [HttpGet("friendship_status")]
+        public IActionResult GetByIds(string userId, string friendId)
+        {
+            if(_userRepository.GetById(userId)== null)
+            {
+                return BadRequest();
+            }
+
+            if (_userRepository.GetById(friendId) == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(_userRepository.GetByIds(userId, friendId));
+
         }
 
         [HttpGet("friend_requests")]

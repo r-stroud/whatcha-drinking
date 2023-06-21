@@ -1,11 +1,77 @@
 .friend-request-view-container {
-    background-color: rgb(252, 252, 252);
+    background-color: rgb(160, 135, 74);
     width: 100%;
     min-width: 100vw;
     height: 100%;
     min-height: 100vh;
+    padding-top: 5vh;
+    display: flex;
+    justify-content: space-around;
+}
+
+.friend-request-view-header {
+    font-size: 26px;
+    color: rgb(252, 252, 252);
 }
 
 .friend-request-container {
-    border: 2px outset rgb;
+    display: flex;
+    flex-wrap: wrap;
+    width: 45vw;
+    margin-top: 30px;
+}
+
+.friend-request-container .friend-request-container {
+    margin: 8px 10px;
+    width: fit-content
+}
+
+.friend-request-profile-img {
+    width: 100px;
+    border-radius: 100%;
+    border: 5px outset rgb(210, 178, 98);
+    cursor: pointer;
+}
+
+.friend-request-profile-img:hover {
+    transform: scale(1.03);
+}
+
+.friend-request-profile-details {
+    margin-left: 2px;
+}
+
+.friend-request-profile-username {
+    font-size: 17px;
+    position: relative;
+    right: 10px;
+}
+
+.friend-request-profile-fullname {
+    color: rgb(252, 252, 252);
+}
+
+.friend-reqeust-add-friend-bttn {
+    background-color: rgb(54, 54, 54);
+    color: rgb(210, 178, 98);
+    padding: 2px 10px;
+    margin-top: 20px;
+    margin-left: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: rgb(54, 54, 54) 3px outset;
+}
+
+.friend-reqeust-add-friend-bttn:hover {
+    background-color: rgb(210, 178, 98);
+    color: rgb(54, 54, 54);
+}
+
+.friends-container {
+    width: 45vw;
+}
+
+.friends-header {
+    font-size: 26px;
+    color: rgb(252, 252, 252);
 }

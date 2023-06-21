@@ -148,19 +148,25 @@
     max-width: 320px;
 }
 
-.recent-drink-bttn {
+.recent-rink-bttn-container {
+    display: flex;
+    flex-direction: row;
     position: absolute;
-    bottom: 48px;
+    bottom: 55px;
+}
+
+.recent-drink-bttn {
     color: rgb(252, 252, 252);
     font-family: 'Cardo', serif;
     font-size: 14px;
     background-color: rgb(54, 54, 54);
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 5px 12px;
     cursor: pointer;
     height: fit-content;
     border: outset 4px rgb(210, 178, 98);
     text-align: center;
+    margin-right: 10px;
 }
 
 .recent-drink-bttn:hover {
@@ -190,7 +196,10 @@
     position: absolute;
     top: 5px;
     right: -13px;
+}
 
+.random-img {
+    filter: contrast(0%);
 }
 
 .drink-filter-container {
