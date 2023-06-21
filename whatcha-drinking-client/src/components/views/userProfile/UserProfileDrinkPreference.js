@@ -13,8 +13,12 @@ export const UserProfileDrinkPreference = () => {
 
         var data = ev.dataTransfer.getData("text")
 
-        await ev.target.appendChild(document.getElementById(data))
-        await addPreferenceRequest(currentUser, data, prefNo)
+        if (ev.target.id !== document.getElementById(data).id) {
+
+            await ev.target.appendChild(document.getElementById(data))
+            await addPreferenceRequest(currentUser, data, prefNo)
+
+        }
 
     }
 

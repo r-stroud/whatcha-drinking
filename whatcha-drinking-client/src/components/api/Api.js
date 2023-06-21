@@ -222,6 +222,44 @@ export const updateUserFetchCall = async (currentUser, user) => {
     })
 }
 
+// fetch friend requests
+export const fetchRequests = async (currentUser) => {
+
+    const requestsURL = `https://localhost:7189/api/User/friend_requests?userId=${currentUser.uid}`
+
+    const fetchFriendRequests = await fetch(`${requestsURL}`)
+    const friendRequestsJson = await fetchFriendRequests.json()
+    return friendRequestsJson
+
+}
+
+//approve friend request
+export const approveFriendRequest = async (currentUser, friendFirebaseId) => {
+
+    const approveFriendURL = "https://localhost:7189/api/User/update_friendship"
+
+    await fetch(`${approveFriendURL}`, {
+        method: "PUT",
+        body: JSON.stringify({
+            id: 0,
+            userId: currentUser.uid,
+            friendId: friendFirebaseId,
+            isApproved: true
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+}
+
+//fetch current friends
+export const fetchFriends = async (currentUser) => {
+    const friendURL = `https://localhost:7189/api/User/friends?userId=${currentUser.uid}`
+
+    const fetchFriends = await fetch(`${friendURL}`)
+    const friendsJson = await fetchFriends.json()
+    return friendsJson
+}
 
 
 

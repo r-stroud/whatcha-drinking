@@ -254,6 +254,67 @@ namespace whatcha_drinking.Repositories
             }
         }
 
+        public void UpdateFriendship(int id)
+        {
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                        UPDATE [friendJoin]
+                                        SET
+                                        [isApproved] = @isApproved
+                                        WHERE [id] = @id";
+
+                    DbUtils.AddParameter(cmd, "@isApproved", 1);
+                    DbUtils.AddParameter(cmd, "@id", id);
+
+                    cmd.ExecuteNonQuery();
+                        
+                }
+            }
+        }
+
+        public UserFriend GetByIds(string userId, string friendId)
+        {
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                        SELECT 
+                                        [id],
+                                        [userId],
+                                        [friendId],
+                                        [isApproved]
+                                        FROM [friendJoin]
+                                        WHERE [userId] = @userId
+                                        AND [friendId] = @friendId";
+
+                    DbUtils.AddParameter(cmd, "@userId", friendId);
+                    DbUtils.AddParameter(cmd, "@friendId", userId);
+
+                    var reader = cmd.ExecuteReader();
+                    UserFriend userFriend = null;
+                    if(reader.Read())
+                    {
+                        userFriend = new UserFriend() 
+                        {
+                            Id = DbUtils.GetInt(reader, "id"),
+                            UserId = DbUtils.GetString(reader, "userId"),
+                            FriendId = DbUtils.GetString(reader,"friendId"),
+                            IsApproved = DbUtils.GetBool(reader,"isApproved")
+                        };
+
+                    }
+                    reader.Close();
+                    return userFriend;
+                }
+            }
+        }
+
         public List<FriendRequest> GetFriendRequests(string userId)
         {
             using(var conn = Connection)

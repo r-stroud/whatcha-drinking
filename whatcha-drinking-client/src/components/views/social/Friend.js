@@ -1,25 +1,13 @@
 import { useNavigate } from "react-router-dom"
-import { getCurrentUser } from "../../utils/Constants"
-import { approveFriendRequest } from "../../api/Api"
 
-export const FriendRequest = ({
+export const Friend = ({
     friendfid,
     username,
     firstName,
     lastName,
-    profilePic,
-    setRefreshDom,
-    refreshDom
-
+    profilePic
 }) => {
-
     const navigate = useNavigate()
-    const currentUser = getCurrentUser()
-
-    const confirmFriendship = async () => {
-        await approveFriendRequest(currentUser, friendfid)
-        await setRefreshDom(!refreshDom)
-    }
 
     return (<>
         <section
@@ -46,10 +34,10 @@ export const FriendRequest = ({
                     className="friend-reqeust-add-friend-bttn"
                     onClick={
                         () => {
-                            confirmFriendship()
+
                         }
                     }
-                >Add Friend</div>
+                >Remove Friend</div>
 
             </section>
 

@@ -47,8 +47,6 @@ export const MessageSection = ({
         // )
     }
 
-    console.log(editPostInfo === undefined ? "undefined" : editPostInfo.message)
-
     useEffect(
         () => {
 
