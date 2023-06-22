@@ -118,7 +118,16 @@ export const DrinkView = () => {
                 .filter(x => x.name.toUpperCase()
                     .includes(searchValue.toUpperCase()))
 
-            setSearchResults(searchResults)
+            const searchResultsSorted = searchResults
+                .sort((a, b) => {
+                    if (a.type === b.type) {
+                        return a.name.localeCompare(b.name)
+                    }
+                    return a.type.localeCompare(b.type)
+                }
+                )
+
+            setSearchResults(searchResultsSorted)
         }, [searchValue, filteredDrinks]
     )
 

@@ -155,7 +155,28 @@ namespace whatcha_drinking.Controllers
                 return BadRequest();
             }
 
-            return Ok(_userRepository.GetByIds(userId, friendId));
+            if(_userRepository.GetByIds(userId, friendId) != null)
+            {
+
+                return Ok(_userRepository.GetByIds(userId, friendId));
+
+            }
+
+            if (_userRepository.GetByIds(friendId, userId) == null)
+            {
+
+                return Ok(new
+                {
+                    Id = "",
+                    UserId = "",
+                    FriendId ="",
+                    IsApproved = ""
+                });
+
+            }
+
+
+            return Ok(_userRepository.GetByIds(friendId, userId));
 
         }
 
@@ -179,6 +200,54 @@ namespace whatcha_drinking.Controllers
             }
 
             return Ok(_userRepository.GetFriends(userId));
+        }
+
+        [HttpDelete("delete_friend")]
+        public IActionResult DeleteFriend(string userId, string friendId) {
+
+
+            if (_userRepository.GetById(userId) == null || _userRepository.GetById(friendId) == null)
+            {
+                return BadRequest(
+                    new
+                    {
+                        Message = "ids not valid"
+                    }
+                    
+                    );
+            }
+
+
+            UserFriend getByIdsFriend = _userRepository.GetByIds(userId, friendId);
+
+            if (getByIdsFriend != null)
+            {
+               _userRepository.DeleteFriendship(getByIdsFriend.Id);
+
+            return Ok(new
+            {
+                Message = "Deleted"
+
+            });
+
+            }
+
+            UserFriend userFriend = _userRepository.GetByIds(friendId, userId);
+
+            if(userFriend != null)
+            {
+                _userRepository.DeleteFriendship(userFriend.Id);
+
+                return Ok(new
+                {
+                    Message = "Deleted"
+
+                });
+            }
+
+          return NoContent();
+
+
         }
     }
 }

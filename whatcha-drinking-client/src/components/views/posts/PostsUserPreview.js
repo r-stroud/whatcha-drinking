@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { DrinkImgs, getCurrentUser } from "../../utils/Constants"
 import { useNavigate } from "react-router-dom"
-import { addFriendRequest, fetchRecentDrink, fetchUserDetails, fetchUserFriends } from "../../api/Api"
+import { addFriendRequest, deleteFriend, fetchFriendshipStatus, fetchRecentDrink, fetchUserDetails, fetchUserFriends } from "../../api/Api"
 
 export const PostsUserPreview = ({
     setUserPreview,
@@ -49,6 +49,13 @@ export const PostsUserPreview = ({
 
     const addFriend = async () => {
         await addFriendRequest(currentUser, userId)
+        await setUserPreview(false)
+    }
+
+    //delete friend
+
+    const deleteFriendship = async () => {
+        await deleteFriend(currentUser, userId)
         await setUserPreview(false)
     }
 
@@ -122,13 +129,13 @@ export const PostsUserPreview = ({
                                     className="post-add-friend-bttn"
                                     onClick={
                                         () => {
-                                            userFriends.find(x => x.id === userId)
-                                                ? <></>
+                                            userFriends.find(x => x.firebaseId === userId)
+                                                ? deleteFriendship()
                                                 : addFriend()
                                         }
                                     }>
                                     {
-                                        userFriends.find(x => x.id === userId)
+                                        userFriends.find(x => x.firebaseId === userId)
                                             ? "Remove"
                                             : "Add Friend"
                                     }

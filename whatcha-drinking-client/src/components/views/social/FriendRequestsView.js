@@ -77,6 +77,8 @@ export const FriendRequestView = () => {
                             firstName={x.firstName}
                             lastName={x.lastName}
                             profilePic={x.profilePic}
+                            setRefreshDom={setRefreshDom}
+                            refreshDom={refreshDom}
                         />
 
                     )}

@@ -40,7 +40,7 @@ export const EditPost = ({
     useEffect(
         () => {
             displayDrinks()
-            setSectionConfirmed(3)
+            // setSectionConfirmed(3)
         }, []
     )
 
@@ -260,7 +260,7 @@ export const EditPost = ({
                 </section> */}
                 <section
                     className="create-post-title-bttns">
-                    {sectionConfirmed > 2
+                    {sectionConfirmed > 1
                         ? <div
                             onClick={
                                 () => {

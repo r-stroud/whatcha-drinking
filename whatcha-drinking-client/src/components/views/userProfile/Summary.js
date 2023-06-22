@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { DrinkImgs, getCurrentUser } from "../../utils/Constants"
 import { SummaryDrinkDetails } from "./SummaryDrinkDetails"
 import { useNavigate } from "react-router-dom"
-import { addFriendRequest, fetchMostTried, fetchRecentDrink, fetchUserDetails, fetchUserFriends } from "../../api/Api"
+import { addFriendRequest, deleteFriend, fetchMostTried, fetchRecentDrink, fetchUserDetails, fetchUserFriends } from "../../api/Api"
 
 export const Summary = ({ id }) => {
 
@@ -29,14 +29,16 @@ export const Summary = ({ id }) => {
     const [recentDrink, setRecentDrink] = useState({})
     const [userDetails, setUserDetails] = useState({})
     const [userFriends, setUserFriends] = useState([])
-
+    const [refresh, setRefresh] = useState(false)
     useEffect(
         () => {
 
             getDetails()
 
-        }, [id]
+        }, [id, refresh]
     )
+
+
 
     //get time elasped on recent drink
 
@@ -93,7 +95,14 @@ export const Summary = ({ id }) => {
 
     const addFriend = async () => {
         await addFriendRequest(currentUser, id)
-        await navigate(`/profile/${id}`)
+        await setRefresh(!refresh)
+    }
+
+    //delete friend
+
+    const deleteFriendship = async () => {
+        await deleteFriend(currentUser, id)
+        await setRefresh(!refresh)
     }
 
     let imageSrc = DrinkImgs.find(x => x.name === recentDrink.image)
@@ -133,13 +142,13 @@ export const Summary = ({ id }) => {
                                     className="summary-add-friend-bttn"
                                     onClick={
                                         () => {
-                                            userFriends.find(x => x.id === id)
-                                                ? <></>
+                                            userFriends.find(x => x.firebaseId === id)
+                                                ? deleteFriendship()
                                                 : addFriend()
                                         }
                                     }>
                                     {
-                                        userFriends.find(x => x.id === id)
+                                        userFriends.find(x => x.firebaseId === id)
                                             ? "Remove"
                                             : "Add Friend"
                                     }
