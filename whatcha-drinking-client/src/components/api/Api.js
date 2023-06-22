@@ -261,6 +261,26 @@ export const fetchFriends = async (currentUser) => {
     return friendsJson
 }
 
+// fetch friendship status
+export const fetchFriendshipStatus = async (currentUser, friendId) => {
+    const friendshipStatusURL = `https://localhost:7189/api/User/friendship_status?userId=${currentUser.uid}&friendId=${friendId}`
+
+    const fetchFriendshipStatus = await fetch(`${friendshipStatusURL}`)
+    const friendshipStatusJson = await fetchFriendshipStatus.json()
+    return friendshipStatusJson
+}
+
+//remove friend
+export const deleteFriend = async (currentUser, friendId) => {
+    const deleteFriendURL = `https://localhost:7189/api/User/delete_friend?userId=${currentUser.uid}&friendId=${friendId}`
+
+    const fetchData = await fetch(deleteFriendURL,
+        { method: "DELETE" })
+}
+
+
+
+
 
 
 

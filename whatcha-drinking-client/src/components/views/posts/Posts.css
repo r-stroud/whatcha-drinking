@@ -391,6 +391,7 @@ input::file-selector-button:hover {
     border-radius: 100%;
     width: 70px;
     border: outset 3px rgb(210, 178, 98);
+    cursor: pointer;
 }
 
 .post-header img:hover {
@@ -636,6 +637,7 @@ input::file-selector-button:hover {
     font-size: 22px;
     color: rgb(252, 252, 252);
     font-style: normal;
+    cursor: pointer;
 }
 
 .post-add-friend {

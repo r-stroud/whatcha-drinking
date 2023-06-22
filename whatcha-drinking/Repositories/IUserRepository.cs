@@ -16,5 +16,6 @@ namespace whatcha_drinking.Repositories
         public UserFriend GetByIds(string userId, string friendId);
         public List<FriendRequest> GetFriendRequests(string userId);
         public List<FriendRequest> GetFriends(string userId);
+        public void DeleteFriendship(int id);
     }
 }

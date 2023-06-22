@@ -1,13 +1,23 @@
 import { useNavigate } from "react-router-dom"
+import { deleteFriend } from "../../api/Api"
+import { getCurrentUser } from "../../utils/Constants"
 
 export const Friend = ({
     friendfid,
     username,
     firstName,
     lastName,
-    profilePic
+    profilePic,
+    setRefreshDom,
+    refreshDom
 }) => {
     const navigate = useNavigate()
+    const currentUser = getCurrentUser()
+
+    const deleteFriendship = async () => {
+        await deleteFriend(currentUser, friendfid)
+        await setRefreshDom(!refreshDom)
+    }
 
     return (<>
         <section
@@ -34,7 +44,7 @@ export const Friend = ({
                     className="friend-reqeust-add-friend-bttn"
                     onClick={
                         () => {
-
+                            deleteFriendship()
                         }
                     }
                 >Remove Friend</div>

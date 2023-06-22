@@ -395,16 +395,20 @@ namespace whatcha_drinking.Repositories
                                           LEFT JOIN [user] U
                                           ON FJ.userId = U.[firebaseId]
                                           WHERE F.[firebaseId] = @userId
+                                          AND FJ.[isApproved] = @isApproved
+                                          OR U.[firebaseId] = @userId
                                           AND FJ.[isApproved] = @isApproved";
 
                     DbUtils.AddParameter(cmd, "@userId", userId);
                     DbUtils.AddParameter(cmd, "@isApproved", 1);
 
                     var reader = cmd.ExecuteReader();
+
                     List<FriendRequest> list = new List<FriendRequest>();
                     FriendRequest friend = null;
                     while (reader.Read())
                     {
+                        if(DbUtils.GetString(reader,"friendId") == userId) { 
                         friend = new FriendRequest()
                         {
                             FirebaseId = DbUtils.GetString(reader, "userId"),
@@ -416,10 +420,42 @@ namespace whatcha_drinking.Repositories
 
                         };
                         list.Add(friend);
+                        }
+
+                        if (DbUtils.GetString(reader, "userId") == userId)
+                        {
+                            friend = new FriendRequest()
+                            {
+                                FirebaseId = DbUtils.GetString(reader, "friendId"),
+                                Username = DbUtils.GetString(reader, "friendUN"),
+                                FirstName = DbUtils.GetString(reader, "friendFN"),
+                                LastName = DbUtils.GetString(reader, "friendLN"),
+                                ProfilePic = DbUtils.GetString(reader, "friendPic"),
+                                IsApproved = DbUtils.GetBool(reader, "isApproved")
+
+                            };
+                            list.Add(friend);
+                        }
                     }
                     reader.Close();
                     return list;
 
+                }
+            }
+        }
+
+        public void DeleteFriendship(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand()) 
+                {
+                    cmd.CommandText = @"
+                                        DELETE FROM [friendJoin] WHERE [id] = @id";
+                    DbUtils.AddParameter(cmd, "@id", id);
+
+                    cmd.ExecuteNonQuery();
                 }
             }
         }

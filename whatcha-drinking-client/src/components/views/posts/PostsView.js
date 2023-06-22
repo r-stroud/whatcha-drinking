@@ -130,7 +130,10 @@ export const PostsView = () => {
                 || x.userLastName.toUpperCase().includes(searchValue.toUpperCase())
             )
 
-            setSearchResults(searchResults)
+            const searchResulstByDate = searchResults
+                .sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime))
+
+            setSearchResults(searchResulstByDate)
         }, [searchValue, filteredPosts]
     )
 
