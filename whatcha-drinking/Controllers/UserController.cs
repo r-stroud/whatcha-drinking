@@ -113,6 +113,11 @@ namespace whatcha_drinking.Controllers
                 return BadRequest();
             }
 
+            if(_userRepository.GetByIds(userFriend.FriendId, userFriend.UserId) != null)
+            {
+                return BadRequest();
+            }
+
             return Ok(_userRepository.AddFriend(userFriend));
         }
 
