@@ -152,6 +152,7 @@ export const SubMenuView = ({
                 {location === "userProfile"
                     || location === "friendProfile"
                     || location === "editProfile"
+                    || location === "social"
                     ? <></>
                     :
                     <section

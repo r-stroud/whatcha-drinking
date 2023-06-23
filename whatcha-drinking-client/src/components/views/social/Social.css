@@ -6,14 +6,56 @@
     min-height: 100vh;
     display: flex;
     justify-content: space-between;
+    background-image: url("../../../images/liquor_collection.png");
+    background-position: left;
 }
 
-.friend-request-view-header,
-.friends-header {
-    padding-top: 5vh;
-    margin-left: 2vw;
-    font-size: 26px;
-    color: rgb(252, 252, 252);
+.friend-request-container-container {
+    background-color: rgba(54, 54, 54, 0.8);
+    border-right: solid rgb(210, 178, 98) 1px;
+    box-sizing: border-box;
+}
+
+.friend-request-container-container .friend-request-view-header {
+    padding-top: 4vh;
+    font-size: 28px;
+    color: rgb(210, 178, 98);
+    background-color: rgb(20, 20, 20);
+}
+
+.friend-request-container-container .friend-request-view-header div {
+    padding: 0 0 10px 20px;
+}
+
+.friend-request-container-container .friend-request-view-header div span {
+    display: block;
+    font-size: 24px;
+    color: rgb(160, 135, 74);
+}
+
+.friend-request-container-container .friend-request-profile-username {
+    color: rgb(210, 178, 98);
+}
+
+.friends-container {
+    background-color: rgba(160, 135, 74, 0.8);
+}
+
+.friends-container .friends-header {
+    padding-top: 4vh;
+    font-size: 28px;
+    color: rgb(210, 178, 98);
+    background-color: rgb(20, 20, 20);
+}
+
+.friends-container .friends-header div {
+    padding: 0 0 10px 20px;
+}
+
+.friends-container .friends-header div span {
+    display: block;
+    font-size: 24px;
+    color: rgb(160, 135, 74);
 }
 
 .friend-request-container {
@@ -29,6 +71,10 @@
     margin: 8px 10px;
     width: fit-content;
     padding-left: 0;
+}
+
+.friends-container .friend-request-profile-img {
+    border: 5px outset rgb(20, 20, 20);
 }
 
 .friend-request-profile-img {
@@ -70,4 +116,9 @@
 .friend-reqeust-add-friend-bttn:hover {
     background-color: rgb(210, 178, 98);
     color: rgb(54, 54, 54);
+}
+
+.friends-container .friend-reqeust-add-friend-bttn:hover {
+    background-color: rgb(107, 14, 14);
+    color: rgb(252, 252, 252);
 }

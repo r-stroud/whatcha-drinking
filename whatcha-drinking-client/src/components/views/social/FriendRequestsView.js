@@ -31,12 +31,16 @@ export const FriendRequestView = () => {
         <section
             className="friend-request-view-container">
 
-            <section>
+            <section
+                className="friend-request-container-container">
                 <div
                     className="friend-request-view-header">
-
-                    Pending Friend Requests
-
+                    <div>
+                        Friend Requests
+                        <span>
+                            {requests.length}
+                        </span>
+                    </div>
                 </div>
                 <section
                     className="friend-request-container">
@@ -62,9 +66,12 @@ export const FriendRequestView = () => {
 
                 <div
                     className="friends-header">
-
-                    Friends
-
+                    <div>
+                        Friends
+                        <span>
+                            {friends.length}
+                        </span>
+                    </div>
                 </div>
                 <section
                     className="friend-request-container">
