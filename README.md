@@ -29,8 +29,13 @@ I always love a good recommendation, especially when that recommendation is a dr
 
 ## Technologies Used
 
-[<img src="https://user-images.githubusercontent.com/106875994/224574830-4c7b3853-fc08-412a-b8cd-c2a40c462864.png" width="60">](https://reactjs.org/)
-[<img src="https://user-images.githubusercontent.com/106875994/224577096-8aa74819-440c-4dac-ade6-043b3efafaf4.png" width="60">](https://reactrouter.com/en/main) [<img src="https://user-images.githubusercontent.com/106875994/224575102-80fa8326-c6de-4297-8309-aab0c495c9c8.png" width=60>](https://developer.mozilla.org/en-US/docs/Web/JavaScript) [<img src="https://user-images.githubusercontent.com/106875994/224575292-710f917a-623b-4b6f-80c8-21280b0538b0.png" width="60">](https://developer.mozilla.org/en-US/docs/Web/CSS)
+- .NET
+- C#
+- CSS
+- React
+- React-Router NPM
+- SQL
+- Victory NPM
 
 ## Project Goals
 
