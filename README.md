@@ -8,7 +8,7 @@
 
 
 
-Whatcha Drinking is a CRUD web application to allow users to show off what new drink they have discovered and find new drinks through posts from other uses or by searching the available colleciton. Users can update and keep track of their current drink and how the number of times they have tried each drink, post about drinks they have tried, edit preferences to alter what drinks are displayed, preview other users profiles and send friend reqeusts, and more!
+Whatcha Drinking is a CRUD web application to allow users to show off what new drink they have discovered and find new drinks through posts from other uses or by searching the available collection. Users can update and keep track of their current drink and how the number of times they have tried each drink, post about drinks they have tried, edit preferences to alter what drinks are displayed, preview other users profiles and send friend requests, and more!
 
 This project was created as a Final Capstone project while attending Nashville Software School's Full Stack Web Development Bootcamp. 
 
