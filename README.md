@@ -39,7 +39,7 @@ I always love a good recommendation, especially when that recommendation is a dr
 
 ## Project Goals
 
-This capstone project focus was to include all of the skills I had learned over the front end and back end portions at NSS. I also wanted to implement firebase as I had yet to work that into a project myself and inlcude as much interactive features to keep the user engaged, such as the drag and drop features on the edit profile view.
+This capstone project's focus was to include all of the skills I had learned over the front end and back end portions at NSS. I also wanted to implement firebase as I had yet to work that into a project myself and inlcude as much interactive features to keep the user engaged, such as the drag and drop features on the edit profile view.
 
 ## Project Challenges
 
