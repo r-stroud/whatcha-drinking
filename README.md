@@ -70,12 +70,14 @@ Here a just a few of the features I would still like to implement:
 8. Copy the firebaseConfig details from the Firebase Web Project creation and past into the ApiKeys.js file in Visual Studios Code
 9. Back in Visual Studios, right click whatch-drinking in the Solution Explorer and select Manage User Secrets
 10. Enter in the below connection string. Project ID will be found in the project settings of your newly created Firebase Web Project :
- ```{
+ ```
+{
   "ConnectionStrings": {
     "DefaultConnection": "server=localhost\\SQLExpress;database=WhatchaDrinking;integrated security=true;Trust Server Certificate=true"
   },
   "FirebaseProjectId": "Project ID"
-}```
+}
+```
 11. Back in your terminal, navigate to the whatcha-drinking-client folder and type npm start to run the app.
 12. The project should be running in Visual Studios as well for it to fully funciton.
 
