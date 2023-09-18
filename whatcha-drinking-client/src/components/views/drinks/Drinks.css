@@ -238,11 +238,11 @@
     cursor: pointer;
     background-color: rgb(54, 54, 54);
     border-radius: 20px;
-    padding: 2px 8px;
+    padding: 3px 8px;
     text-align: center;
     border: outset 4px rgb(210, 178, 98);
     margin: 2px;
-    width: 80px;
+    width: 92px;
 }
 
 .drink-filter-option:hover {

@@ -1,6 +1,8 @@
 body {
     background-color: rgb(252, 252, 252);
-    font-family: 'Cardo', serif;
+    /* font-family: 'Cardo', serif; */
+    font-family: 'Montserrat', sans-serif;
+
 }
 
 .h1,
@@ -48,8 +50,11 @@ fieldset {
     margin-bottom: 25px;
     color: rgb(20, 20, 20);
     position: relative;
-    font-size: 2vw;
+    font-size: 1.8vw;
+    font-weight: 600;
     text-align: left;
+    width: 80%;
+
 }
 
 .form--register h2,
@@ -134,10 +139,10 @@ fieldset {
 }
 
 .title h1 {
-    font-size: 9vw;
+    font-size: 8.2vw;
     margin: 0;
-    font-family: 'Alfa Slab One, cursive';
-    color: rgb(20, 20, 20);
+    font-family: 'Montserrat', sans-serif;
+    color: rgb(15, 15, 15);
 }
 
 .title section {
